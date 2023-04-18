@@ -18,5 +18,4 @@
     }
     
     mysqli_close($con);
-    ?>
 ?>
