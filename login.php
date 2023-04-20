@@ -66,7 +66,7 @@
                     </div>
                     
                     <div class="col-md-6 mt-2 mx-auto text-center">
-                        <button class="btn btn-primary" name="login" style="width: 120px; height: 40px;">
+                        <button class="btn btn-primary w-50" name="login">
                             <div <?php if ($message == "Success") echo 'hidden'; ?>>
                                 LOGIN
                             </div>
