@@ -1,3 +1,4 @@
+<?php include("template.html"); ?>
 <!DOCTYPE html>
 <html>
     <head>
