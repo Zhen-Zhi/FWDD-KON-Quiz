@@ -30,11 +30,12 @@
                     $_SESSION['email'] = $data['email'];
                     $_SESSION['id'] = $data['id'];
                     $_SESSION['username'] = $data['username'];
-                    echo "<script>setTimeout(function(){window.location.href='dummy.php';}, 2000);</script>";
+                    // echo "<script>setTimeout(function(){window.location.href='dummy.php';}, 2000);</script>";
                     // header("location:dummy.php");
                 }
                 else {
-                    echo "<script>alert('Username or password incorrect!')</script>";
+                    $message = "Error";
+                    // echo "<script>alert('Username or password incorrect!')</script>";
                 }
 
                 mysqli_close($con);
@@ -106,5 +107,17 @@
 
     .sign{
         font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+        .card{
+            width: 100% !important;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1400px) {
+        .card {
+            width: 50% !important;
+        }
     }
 </style>
