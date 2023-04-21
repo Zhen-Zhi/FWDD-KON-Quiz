@@ -1,5 +1,4 @@
 <?php 
-    include("template.html");
     include("navigation.php");
 ?>
 <!DOCTYPE html>
@@ -11,20 +10,6 @@
     </head>
     
     <body>
-        <!-- <nav class="navbar fixed-top bg-dark" data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> 
-                    TITLE
-                </a>
-
-                <form class="form-inline">
-                    <button class="btn btn-light" type="button">LOG IN</button>
-                    <button class="btn btn-secondary" type="button">SIGN UP</button>
-                </form>
-            </div>
-            
-        </nav> -->
         <div class="container shadow">
             <div class="row">
                 <div class="col-md-6 text-center bg-light px-0 rounded">

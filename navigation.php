@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>KON Quiz - Login</title>
-        <meta name="description" content="Login Page">
     </head>
     
     <body>
@@ -57,7 +55,7 @@
                             
                             <div class="col-md-6 mt-2 mx-auto text-center">
                                 <input type="hidden" name="login" value="1">
-                                <button class="btn login-btn w-50" type="submit" id="login-btn" name="login">
+                                <button class="btn btn-light w-50" type="submit" id="login-btn" name="login">
                                     <div id="login-text">
                                         LOGIN
                                     </div>
@@ -148,7 +146,7 @@
                             </div>
                             <div class="col-md-6 mt-2 mx-auto text-center">
                                 <input type="hidden" name="signup" value="1">
-                                <button class="btn login-btn w-50" id="signup-btn" name="signup">
+                                <button class="btn signup-btn w-50" id="signup-btn" name="signup">
                                     <div id="login-text">
                                         SIGNUP
                                     </div>
@@ -297,22 +295,16 @@
         color: white;
     }
 
-    .login-btn{
-        background-color: #6E2BF2;
-        color: white;
-        border-bottom: 5px solid #4406bd;
-    }
-
     .modal-img{
         width: 25vh;
     }
 
     .signup-btn{
-        background-color: #6E2BF2;
-        color: white;
+        background-color: #6E2BF2 !important;
+        color: white !important;
     }
 
-    .login-btn:hover, .signup-btn:hover{
+    .signup-btn:hover{
         background-color: #5600FF;
         color: white;
     }
