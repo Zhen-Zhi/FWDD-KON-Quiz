@@ -1,5 +1,14 @@
 <?php 
-    include("navigation.php");
+    session_start();
+    if(isset($_SESSION['email'])) {
+        include("navigation_member.php");
+    }
+    else {
+        include("navigation_guest.php");
+    }
+    
+    
+    
 ?>
 <!DOCTYPE html>
 <html>

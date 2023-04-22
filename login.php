@@ -1,4 +1,6 @@
-<?php include("template.html"); ?>
+<?php 
+    include("template.html"); 
+?>
 <!DOCTYPE html>
 <html>
     <head>
