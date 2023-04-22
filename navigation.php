@@ -327,6 +327,8 @@
 <style>
     .navbar{
         background-color: #1c0052 !important;
+        position: fixed;
+        width: 100%;
     }
 
     .modal-header{
