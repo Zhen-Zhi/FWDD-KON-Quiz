@@ -15,7 +15,7 @@
                     <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#login">
                         LOGIN
                     </button>
-                    <button class="btn signup-btn" type="button" data-bs-toggle="modal" data-bs-target="#signup">SIGN UP</button>
+                    <button class="btn nav-btn" type="button" data-bs-toggle="modal" data-bs-target="#signup">SIGN UP</button>
                 </form>
             </div>
             
@@ -55,7 +55,7 @@
                             
                             <div class="col-md-6 mt-2 mx-auto text-center">
                                 <input type="hidden" name="login" value="1">
-                                <button class="btn btn-light w-50" type="submit" id="login-btn" name="login">
+                                <button class="btn signup-btn w-50" type="submit" id="login-btn" name="login">
                                     <div id="login-text">
                                         LOGIN
                                     </div>
@@ -90,30 +90,30 @@
                         </div>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="POST" novalidate id="signup-form" onsubmit='Validate()'>
+                        <form action="" method="POST" novalidate id="signup-form">
                             <div class="row">
                                 <div class="col-md-5 mx-auto">
                                     <label for="" class="form-label">Username</label>
-                                    <input id="username" class="form-control" type="text" name="username">
+                                    <input id="username" class="form-control" type="text" name="username" oninput="validateName()">
                                     <div class="invalid-feedback">
                                     </div>
                                 </div>
                                 <div class="col-md-7 mx-auto">
                                     <label for="" class="form-label">Email</label>
-                                    <input id="email" class="form-control" type="text" name="email" required>
+                                    <input id="email" class="form-control" type="text" name="email" required oninput="validateEmail()">
                                     <div class="invalid-feedback">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md mx-auto">
                                 <label for="" class="form-label">Password</label>
-                                <input id="pass1" class="form-control" type="password" name="password_1" placeholder="">
+                                <input id="pass1" class="form-control" type="password" name="password_1" oninput="validatePw()">
                                 <div class="invalid-feedback">
                                 </div>
                             </div>
                             <div class="col-md mx-auto">
                                 <label for="" class="form-label">Confirm Password</label>
-                                <input id="pass2" class="form-control" type="password" name="password_2">
+                                <input id="pass2" class="form-control" type="password" name="password_2" oninput="validateCPw()">
                                 <div class="invalid-feedback">
                                     Passwords are not the same.
                                 </div>
@@ -206,7 +206,6 @@
                             url: 'auth.php',
                             data: formData,
                             success: function(response) {
-                                console.log(123,response)
                                 var data = JSON.parse(response);
                                 if (data.response == 'Success') {
                                     $('#alert1').removeClass('text-bg-danger').addClass('text-bg-success');
@@ -223,17 +222,29 @@
                             }
                         });
                 });
-
-                $('#login').on('shown.bs.modal', function() {
-                    $('#modal-image').show();
-                });
             });
 
-            function Validate(){
-                var username = document.getElementById('username');
-                var email = document.getElementById('email');
+            function validateCPw(){
                 var pw1 = document.getElementById('pass1');
                 var pw2 = document.getElementById('pass2');
+
+                if(pw1.value != ""){
+                    if(pw2.value != ""){
+                        if(pw2.value != pw1.value){
+                            $('#pass2').siblings('.invalid-feedback').text('Passwords do not match');
+                            $('#pass2').removeClass('is-valid').addClass('is-invalid');
+                        }else{
+                            $('#pass2').removeClass('is-invalid');
+                        }
+                    }else{
+                        $('#pass2').siblings('.invalid-feedback').text('This field is required');
+                        $('#pass2').addClass('is-invalid');
+                    }
+                }
+            }
+
+            function validateName(){
+                var username = document.getElementById('username');
 
                 if(username.value == "") {
                     $('#username').siblings('.invalid-feedback').text('This field is required');
@@ -244,22 +255,13 @@
                         $('#username').siblings('.invalid-feedback').html('*Only alphanumeric<br>*Less than 25 alphabet');
                         $('#username').removeClass('is-valid').addClass('is-invalid');
                     }else{
-                        $('#username').removeClass('is-invalid').addClass('is-valid');
+                        $('#username').removeClass('is-invalid');
                     }
                 }
+            }
 
-                if(email.value == ""){
-                    $('#email').siblings('.invalid-feedback').text('This field is required');
-                    $('#email').removeClass('is-valid').addClass('is-invalid');
-                }else{
-                    var emailRegex = /^\S+@\S+\.\S+$/;
-                    if (!emailRegex.test(email.value)) {
-                        $('#email').siblings('.invalid-feedback').text('Enter the correct email');
-                        $('#email').removeClass('is-valid').addClass('is-invalid');
-                    }else{
-                        $('#email').removeClass('is-invalid').addClass('is-valid');
-                    }
-                }
+            function validatePw(){
+                var pw1 = document.getElementById('pass1');
 
                 if(pw1.value == ""){
                     $('#pass1').siblings('.invalid-feedback').text('This field is required');
@@ -270,16 +272,25 @@
                         $('#pass1').siblings('.invalid-feedback').html('*At least one number, one letter, underscore, "@" symbol, or hyphen<br>*At least 6 characters long');
                         $('#pass1').removeClass('is-valid').addClass('is-invalid');
                     }else{
-                        $('#pass1').removeClass('is-invalid').addClass('is-valid');
+                        $('#pass1').removeClass('is-invalid');
                     }
                 }
+            }
 
-                if(pw2.value != pw1.value){
-                    $('#pass2').siblings('.invalid-feedback').text('Passwords do not match');
-                    $('#pass2').removeClass('is-valid').addClass('is-invalid');
+            function validateEmail(){
+                var email = document.getElementById('email');
+
+                if(email.value == ""){
+                    $('#email').siblings('.invalid-feedback').text('This field is required');
+                    $('#email').removeClass('is-valid').addClass('is-invalid');
                 }else{
-                    if(pw2.value != "" && pw1.value != "")
-                        $('#pass2').removeClass('is-invalid').addClass('is-valid');
+                    var emailRegex = /^\S+@\S+\.\S+$/;
+                    if (!emailRegex.test(email.value)) {
+                        $('#email').siblings('.invalid-feedback').text('Enter the correct email format');
+                        $('#email').removeClass('is-valid').addClass('is-invalid');
+                    }else{
+                        $('#email').removeClass('is-invalid');
+                    }
                 }
             }
         </script>
@@ -301,11 +312,18 @@
 
     .signup-btn{
         background-color: #6E2BF2 !important;
+        border-bottom: 5px solid #1c0052;
+        color: white !important;
+    }
+
+    .nav-btn{
+        background-color: #6E2BF2 !important;
         color: white !important;
     }
 
     .signup-btn:hover{
-        background-color: #5600FF;
+        background-color: #7e42f5 !important;
+        border-bottom: 5px solid #1c0052;
         color: white;
     }
 
@@ -329,5 +347,9 @@
         margin-bottom: 0.5rem;
     }
     
+    .form-control, .form-select{
+        background-color: rgb(239, 237, 242) !important;
+
+    }
 
 </style>
