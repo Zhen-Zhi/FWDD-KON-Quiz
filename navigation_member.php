@@ -11,13 +11,10 @@
                     KON-QUIZ
                 </a>
 
-                <form class="form-inline">
+                <form class="form-inline" action="logout.php">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <button class="nav-link" id="login-btn" type="button" data-bs-toggle="modal" data-bs-target="#login">LOGIN</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link" id="signup-btn" type="button" data-bs-toggle="modal" data-bs-target="#signup">SIGN UP</button>
+                            <button class="nav-link" id="login-btn" type="submit">LOG OUT</button>
                         </li>
                     </ul>
                     <!-- <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#login">

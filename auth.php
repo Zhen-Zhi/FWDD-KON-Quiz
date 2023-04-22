@@ -13,14 +13,20 @@
             $result = mysqli_query($con, $query);
             $data = $result->fetch_assoc();
 
-            if($password == $data['password']) {
-                $response = "Success";
-                $_SESSION['email'] = $data['email'];
-                $_SESSION['id'] = $data['id'];
-                $_SESSION['username'] = $data['username'];
-            }else{
+            if (mysqli_num_rows($result) == 0) {
                 $response = "Error";
                 $message = "Account error";
+            } else {
+                if($password == $data['password']) {
+                    $response = "Success";
+                    $_SESSION['email'] = $data['email'];
+                    $_SESSION['id'] = $data['id'];
+                    $_SESSION['username'] = $data['username'];
+                }
+                else {
+                    $response = "Error";
+                    $message = "Account error";
+                }
             }
         }
         else {
@@ -31,7 +37,6 @@
         $response = array('response' => $response,'message' => $message);
         $json_response = json_encode($response);
         echo $json_response;
-
     }
     else if(isset($_POST['signup'])){
         $username = mysqli_real_escape_string($con, $_POST['username']);

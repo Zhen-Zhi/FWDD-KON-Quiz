@@ -1,4 +1,6 @@
-<?php include("template.html"); ?>
+<?php 
+    include("template.html"); 
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -319,6 +321,14 @@
                         $('#email').removeClass('is-invalid');
                     }
                 }
+            }
+
+            //delay form submit
+            document.getElementById('login-form').addEventListener('submit', delaySubmit);
+            function delaySubmit() {
+                timer = setTimeout(() => {
+                    this.submit();
+                }, 2000);
             }
         </script>
     </body>

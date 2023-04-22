@@ -19,3 +19,8 @@ html template:
         Content goes here.
     </body>
 </html>
+
+
+
+Issue 1: When username or email is wrong, credential validation is not working.  ---> fixed
+Issue 2: When login credential is not correct, it will not stay at the login page.
