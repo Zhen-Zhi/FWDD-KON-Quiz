@@ -5,17 +5,25 @@
     </head>
     
     <body>
-        <nav class="navbar bg-dark" data-bs-theme="dark">
+        <nav class="navbar" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    TITLE
+                    KON-QUIZ
                 </a>
 
                 <form class="form-inline">
-                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#login">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <button class="nav-link" id="login-btn" type="button" data-bs-toggle="modal" data-bs-target="#login">LOGIN</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="signup-btn" type="button" data-bs-toggle="modal" data-bs-target="#signup">SIGN UP</button>
+                        </li>
+                    </ul>
+                    <!-- <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#login">
                         LOGIN
                     </button>
-                    <button class="btn nav-btn" type="button" data-bs-toggle="modal" data-bs-target="#signup">SIGN UP</button>
+                    <button class="btn nav-btn" type="button" data-bs-toggle="modal" data-bs-target="#signup">SIGN UP</button> -->
                 </form>
             </div>
             
@@ -55,7 +63,7 @@
                             
                             <div class="col-md-6 mt-2 mx-auto text-center">
                                 <input type="hidden" name="login" value="1">
-                                <button class="btn signup-btn w-50" type="submit" id="login-btn" name="login">
+                                <button class="btn modal-btn w-50" type="submit" name="login">
                                     <div id="login-text">
                                         LOGIN
                                     </div>
@@ -146,7 +154,7 @@
                             </div>
                             <div class="col-md-6 mt-2 mx-auto text-center">
                                 <input type="hidden" name="signup" value="1">
-                                <button class="btn signup-btn w-50" id="signup-btn" name="signup">
+                                <button class="btn modal-btn w-50" id="modal-btn" name="signup">
                                     <div id="login-text">
                                         SIGNUP
                                     </div>
@@ -222,7 +230,26 @@
                             }
                         });
                 });
+
+                $('#signup-btn').on('click', function() {
+                    $(this).addClass('active');
+                });
+
+                $('#login-btn').on('click', function() {
+                    $(this).addClass('active');
+                });
             });
+
+            function toggleActiveClass(modal,btn){
+                let selectedModal = document.getElementById(modal);
+                let selectedBtn = document.getElementById(btn);
+
+                selectedModal.addEventListener('hidden.bs.modal', function () {
+                    selectedBtn.classList.remove('active');
+                });
+            }
+            toggleActiveClass('signup','signup-btn');
+            toggleActiveClass('login','login-btn');
 
             function validateCPw(){
                 var pw1 = document.getElementById('pass1');
@@ -298,6 +325,9 @@
 </html>
 
 <style>
+    .navbar{
+        background-color: #1c0052 !important;
+    }
 
     .modal-header{
         font-weight: bold;
@@ -310,7 +340,7 @@
         width: 25vh;
     }
 
-    .signup-btn{
+    .modal-btn{
         background-color: #6E2BF2 !important;
         border-bottom: 5px solid #1c0052;
         color: white !important;
@@ -321,7 +351,16 @@
         color: white !important;
     }
 
-    .signup-btn:hover{
+    .nav-link.active{
+        background-color: #6E2BF2 !important;
+        color: white !important;
+    }
+
+    .btn{
+        color: white;
+    }
+
+    .modal-btn:hover{
         background-color: #7e42f5 !important;
         border-bottom: 5px solid #1c0052;
         color: white;
