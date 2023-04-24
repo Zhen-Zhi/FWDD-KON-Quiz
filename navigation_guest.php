@@ -334,7 +334,6 @@
     }
 
     .btn{
-        color: white;
         background-color: #6E2BF2 !important;
         border-bottom: 5px solid #1c0052 !important;
         color: white !important;
