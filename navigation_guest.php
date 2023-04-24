@@ -172,6 +172,10 @@
                         $('#password').removeClass('is-invalid');
                         $('#login-text').css('display', 'none');
                         $('#spinner').show();
+
+                        setTimeout(function() {
+                            window.location.href = 'dummy.php';
+                        }, 2000);
                     } else {
                         $('#alert').addClass('text-bg-danger');
                         $('#alert').find('.toast-body').html(data.message);
