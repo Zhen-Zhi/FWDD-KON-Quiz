@@ -30,17 +30,16 @@
                     </div>
                 </div>
 
-                <div class="card-body" style="display: <?php if (isset($_SESSION['id'])) echo 'block' ?>">
+                <div class="card-body" style="display: <?php if (isset($_SESSION['id'])) echo 'block'; else echo'none';?>">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <img src="img/nerd.png" class="img-thumbnail thumbnail" alt="...">
                         </div>
                         <div class="col-md-6">
-                            <h4><?php if (isset($_SESSION['id'])) echo $_SESSION['username'] ?></h4>
+                            <h4><?php if (isset($_SESSION['id'])) echo $_SESSION['username']; ?></h4>
                             <button class="btn home-btn">Edit Profile</button>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
