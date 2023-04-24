@@ -32,17 +32,15 @@
 
                 <div class="card-body" style="display: <?php if (isset($_SESSION['id'])) echo 'block' ?>">
                     <div class="row">
-                        <div class="col-md-12 justify-content-center d-flex flex-row">
-                            <button class="btn home-btn">Login</button>
-                            <div class="vl h-auto mx-2"></div>
-                            <button class="btn home-btn">Sign-up</button>
+                        <div class="col-md-3">
+                            <img src="img/nerd.png" class="img-thumbnail thumbnail" alt="...">
+                        </div>
+                        <div class="col-md-6">
+                            <h4><?php if (isset($_SESSION['id'])) echo $_SESSION['username'] ?></h4>
+                            <button class="btn home-btn">Edit Profile</button>
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-md-12 text-center">
-                            123
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -248,5 +246,9 @@
         background-color: #7e42f5 !important;
         border-bottom: 5px solid #1c0052;
         color: white;
+    }
+
+    .thumbnail{
+        border-radius: 100% !important;
     }
 </style>
