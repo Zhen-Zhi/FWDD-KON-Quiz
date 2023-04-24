@@ -3,23 +3,44 @@
 </head>
 
 <?php 
-    include("navigation_guest.php");
+    include("session.php");
+    // if(isset($_SESSION['id'])){
+    //     echo "<script>alert(1);</script>";
+    // }else{
+    //     // include("navigation_guest.php");
+    //     echo "<script>alert(123);</script>";
+    // }
 ?>
 <div class="container-fluid pt-5 px-5">
     <div class="row">
         <div class="col-md-6 mt-3">
             <div class="card h-100 border-0 shadow">
-                <div class="card-body">
+                <div class="card-body" style="display: <?php if (isset($_SESSION['id'])) echo 'none' ?>">
                     <div class="row">
                         <div class="col-md-12 justify-content-center d-flex flex-row">
-                            <button class="btn">Login</button>
+                            <button class="btn home-btn">Login</button>
                             <div class="vl h-auto mx-2"></div>
-                            <button class="btn">Sign-up</button>
+                            <button class="btn home-btn">Sign-up</button>
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-12 text-center">
                             Login to View Profile
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body" style="display: <?php if (isset($_SESSION['id'])) echo 'block' ?>">
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center d-flex flex-row">
+                            <button class="btn home-btn">Login</button>
+                            <div class="vl h-auto mx-2"></div>
+                            <button class="btn home-btn">Sign-up</button>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12 text-center">
+                            123
                         </div>
                     </div>
                 </div>
@@ -36,7 +57,7 @@
                                     <input type="text" class="form-control">
                                 </div>
                                 <div class="col-md-3">
-                                    <button class="btn" type="submit" name="login">
+                                    <button class="btn home-btn" type="submit" name="login">
                                         Enter
                                     </button>
                                 </div>
@@ -131,7 +152,9 @@
     </div>
 </div>
 
-<?php include("footer.php"); ?>
+<?php 
+    include("footer.php"); 
+?>
 
 <script>
 </script>
@@ -213,5 +236,17 @@
     .vl {
         border-left: 1px solid gray;
         height: 1rem;
+    }
+
+    .home-btn{
+        background-color: #6E2BF2 !important;
+        border-bottom: 5px solid #1c0052 !important;
+        color: white !important;
+    }
+
+    .home-btn:hover{
+        background-color: #7e42f5 !important;
+        border-bottom: 5px solid #1c0052;
+        color: white;
     }
 </style>

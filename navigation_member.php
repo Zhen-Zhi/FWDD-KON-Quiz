@@ -15,7 +15,7 @@
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-start">
                 <li><a class="dropdown-item" href="#">Dashboard</a></li>
                 <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-                <li><a class="dropdown-item" href="#">Log Out</a></li>
+                <li><a class="dropdown-item" href="logout.php">Log Out</a></li>
             </ul>
         </div>
     </div>

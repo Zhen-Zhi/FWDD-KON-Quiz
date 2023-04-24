@@ -174,7 +174,7 @@
                         $('#spinner').show();
 
                         setTimeout(function() {
-                            window.location.href = 'dummy.php';
+                            window.location.href = 'homepage.php';
                         }, 2000);
                     } else {
                         $('#alert').addClass('text-bg-danger');
