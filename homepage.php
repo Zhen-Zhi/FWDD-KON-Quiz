@@ -3,7 +3,7 @@
 </head>
 
 <?php 
-    include("navigation.php");
+    include("navigation_guest.php");
 ?>
 <div class="container-fluid pt-5 px-5">
     <div class="row">
