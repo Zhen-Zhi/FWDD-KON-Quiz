@@ -4,7 +4,7 @@
         <a class="navbar-brand" href="#">
             KON-QUIZ
         </a>
-        <form class="d-flex" role="search">
+        <form class="d-flex m-0" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-light" type="submit">Search</button>
         </form>
@@ -20,7 +20,6 @@
         </div>
     </div>
 </nav>
-
 
 <style>
     .navbar{
