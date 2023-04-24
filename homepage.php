@@ -5,16 +5,23 @@
 <?php 
     include("navigation.php");
 ?>
-<div class="container-fluid px-5">
+<div class="container-fluid pt-5 px-5">
     <div class="row">
         <div class="col-md-6 mt-3">
             <div class="card h-100 border-0 shadow">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center d-flex flex-row">
+                            <button class="btn">Login</button>
+                            <div class="vl h-auto mx-2"></div>
+                            <button class="btn">Sign-up</button>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12 text-center">
+                            Login to View Profile
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -183,7 +190,7 @@
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
     }
-    
+
     .title{
         padding-top: 1em;
         padding-bottom: 1em;
@@ -203,8 +210,8 @@
         height: 50vh !important;
     }
 
-    .form-control, .form-select{
-        background-color: rgb(239, 237, 242) !important;
-
+    .vl {
+        border-left: 1px solid gray;
+        height: 1rem;
     }
 </style>

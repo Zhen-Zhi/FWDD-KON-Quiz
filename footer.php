@@ -3,7 +3,7 @@
 <br>
 <br>
 
-<footer class="container-fluid footer px-5">
+<footer class="container-fluid footer pt-2 px-5">
     <div class="row">
         <div class="col-md-4">
             <h5>KON Quiz</h5>
