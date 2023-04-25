@@ -36,7 +36,12 @@
                 </div>
                 <div class="col-md mx-auto">
                     <label for="" class="form-label">Password</label>
-                    <input id="pass1" class="form-control" type="password" name="password_1" oninput="validatePw()">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <input class="form-check-input mt-2 mx-2" type="checkbox" id="passCheck" onclick="enablePassword(this.checked)">
+                        </div>
+                        <input id="pass1" class="form-control" type="password" name="password_1" disabled oninput="validatePw()">
+                    </div>
                     <div class="invalid-feedback">
                     </div>
                 </div>
@@ -90,6 +95,11 @@
     <?php include("footer.php")?>
 
     <script>
+    function enablePassword(check) {
+        check = !check;
+        document.pass1.disable = check;
+    }
+
     function validateCPw(){
         var pw1 = document.getElementById('pass1');
         var pw2 = document.getElementById('pass2');

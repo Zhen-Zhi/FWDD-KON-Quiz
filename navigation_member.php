@@ -93,7 +93,7 @@
         background-color: #fff;
         border-color: #8C44FC;
         outline: 0;
-        box-shadow: 0 0 0 .2rem rgba(201, 255, 255, .25);
+        box-shadow: 0 0 0 .2rem rgba(140, 68, 252, .25);
     }
 
     @media screen and (max-width: 570px) {
