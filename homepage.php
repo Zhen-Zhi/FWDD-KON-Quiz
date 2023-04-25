@@ -18,9 +18,9 @@
                 <div class="card-body" style="display: <?php if (isset($_SESSION['id'])) echo 'none' ?>">
                     <div class="row">
                         <div class="col-md-12 justify-content-center d-flex flex-row">
-                            <button class="btn home-btn">Login</button>
+                            <button class="btn home-btn" data-bs-toggle="modal" data-bs-target="#login">Login</button>
                             <div class="vl h-auto mx-2"></div>
-                            <button class="btn home-btn">Sign-up</button>
+                            <button class="btn home-btn" data-bs-toggle="modal" data-bs-target="#signup">Sign-up</button>
                         </div>
                     </div>
                     <div class="row mt-2">
