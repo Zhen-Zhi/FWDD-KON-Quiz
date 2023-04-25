@@ -38,7 +38,7 @@
                     <label for="" class="form-label">Password</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <input class="form-check-input mt-2 mx-2" type="checkbox" id="passCheck" onclick="enablePassword(this.checked)">
+                            <input class="form-check-input mt-2 mx-2" type="checkbox" id="passCheck" onclick="enablePassword()">
                         </div>
                         <input id="pass1" class="form-control" type="password" name="password_1" disabled oninput="validatePw()">
                     </div>
@@ -95,9 +95,19 @@
     <?php include("footer.php")?>
 
     <script>
-    function enablePassword(check) {
-        check = !check;
-        document.pass1.disable = check;
+    function enablePassword() {
+        var checkbox = document.getElementById('passCheck');
+        var passInput1 = document.getElementById('pass1');
+        var passInput2 = document.getElementById('pass2');
+
+        if(checkbox.checked) {
+            passInput1.disabled = false;
+            passInput2.disabled = false;
+        }
+        else {
+            passInput1.disabled = true;
+            passInput2.disabled = true;
+        }
     }
 
     function validateCPw(){
