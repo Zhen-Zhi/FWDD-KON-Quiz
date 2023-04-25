@@ -22,5 +22,4 @@ html template:
 
 
 
-Issue 1: When username or email is wrong, credential validation is not working.  ---> fixed
-Issue 2: Spinner loading.
+ALTER TABLE `user` ADD `Gender` VARCHAR(50) NOT NULL AFTER `Tel`;

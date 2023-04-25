@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-6 mt-2 mx-auto text-center">
+                    <div class="col-md-6 mt-2 mx-auto text-center pt-1">
                         <input type="hidden" name="login" value="1">
                         <button class="btn w-50" type="submit" name="login">
                             <div id="login-text">
@@ -139,7 +139,7 @@
                         <div class="invalid-feedback">
                         </div>
                     </div>
-                    <div class="col-md-6 mt-2 mx-auto text-center">
+                    <div class="col-md-6 mt-2 mx-auto text-center pt-1">
                         <input type="hidden" name="signup" value="1">
                         <button class="btn w-50" name="signup">
                             SIGNUP

@@ -5,7 +5,7 @@
             KON-QUIZ
         </a>
         <form class="d-flex m-0" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-bar">
+            <input class="me-2" type="search" placeholder="Search" aria-label="Search" id="search-bar">
             <button class="btn btn-outline-light" type="submit" id="search-btn">Search</button>
         </form>
         <div class="btn-group">
@@ -40,12 +40,12 @@
                     </div>
                     <form action="logout.php" method="post">
                     <div class="col-md-6 mt-2 mx-auto text-center">
-                        <button class="w-100 m-1" type="submit" name="" id="modal-btn">
+                        <button class="btn w-100 m-1" type="submit" name="" id="modal-btn">
                             <div id="login-text">
                                 Yes
                             </div>
                         </button>
-                        <button class="w-100 m-1" type="button" name="" data-bs-dismiss="modal" id="modal-btn">
+                        <button class="btn w-100 m-1" type="button" name="" data-bs-dismiss="modal" id="modal-btn">
                             <div id="login-text">
                                 No
                             </div>
@@ -71,6 +71,29 @@
         border-radius: 10% !important;
         outline: none;
         background-color: #6E2BF2 !important;
+    }
+
+    #search-bar {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+    #search-bar:focus {
+        color: #212529;
+        background-color: #fff;
+        border-color: #8C44FC;
+        outline: 0;
+        box-shadow: 0 0 0 .2rem rgba(201, 255, 255, .25);
     }
 
     @media screen and (max-width: 570px) {
