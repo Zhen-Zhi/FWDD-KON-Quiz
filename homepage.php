@@ -100,7 +100,29 @@
     <h3>Category</h3>
     <div class="overflow-auto scrollbar-x card-container">
         <div class="row mb-1 row-cols-1 row-cols-md-3 g-4 flex-nowrap">
-            <div class="col">
+
+            <?php
+                include("conn.php");
+                $sqlcategory = "SELECT * FROM category";
+                $result = mysqli_query($con, $sqlcategory);
+                $color = array('#04AF70','#fe2c54', '#F6BE00', '#008B8B');
+                $x=0;
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $x++;
+                    $class = $color[$x%4];
+            ?>
+                
+                <div class="col">
+                    <button class="btn mt-3 mb-3 pt-5 pb-5 w-100 " type="submit" name= "<?php $row['ID'] ?>" style= "height: 25vh; font-weight: bold; font-size: 3vh; background-color: <?php echo $class ?> !important">
+                        <?php echo $row['Category'] ?>
+                    </button>
+                </div>
+
+            <?php
+                }
+            ?>
+
+            <!-- <div class="col">
                 <div class="card">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
@@ -108,17 +130,8 @@
                     <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                </div>
-            </div>
-            <div class="col">
+            </div> -->
+            <!-- <div class="col">
                 <div class="card">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
@@ -144,7 +157,7 @@
                     <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
