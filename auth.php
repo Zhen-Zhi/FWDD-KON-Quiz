@@ -42,6 +42,7 @@
         $username = mysqli_real_escape_string($con, $_POST['username']);
         $email = mysqli_real_escape_string($con, $_POST['email']);
         $password = mysqli_real_escape_string($con, $_POST['password_1']);
+        $password2 = mysqli_real_escape_string($con, $_POST['password_2']);
         $DOB = mysqli_real_escape_string($con, $_POST['DOB']);
         $Tel = mysqli_real_escape_string($con, $_POST['mobile_number']);
         $Gender = mysqli_real_escape_string($con, $_POST['gender']);
@@ -63,13 +64,20 @@
                 $message = "Email already exists";
             }
         } else {
-            // Insert new user
-            $query = "INSERT INTO user (Username, Email, Password, DOB, Tel, Gender) VALUES ('$username', '$email', '$password', '$DOB', '$Tel', '$Gender')";
-            if (mysqli_query($con, $query)) {
-                $response = "Success";
-                $message = "Account has been created successfully";
-            } else {
-                echo "Error: " . mysqli_error($con);
+            if ($password == $password2) {
+                // Insert new user
+                $query = "INSERT INTO user (Username, Email, Password, DOB, Tel, Gender) VALUES ('$username', '$email', '$password', '$DOB', '$Tel', '$Gender')";
+                if (mysqli_query($con, $query)) {
+                    $response = "Success";
+                    $message = "Account has been created successfully";
+                } else {
+                    echo "Error: " . mysqli_error($con);
+                }
+            }
+            else {
+                $response = "Error";
+                $message = "Password and Confirm Password not same";
+                $type = "2";
             }
         }
 

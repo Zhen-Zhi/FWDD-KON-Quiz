@@ -102,7 +102,7 @@
                     </div>
                     <div class="col-md mx-auto">
                         <label for="" class="form-label">Password</label>
-                        <input id="pass1" class="form-control" type="password" name="password_1" oninput="validatePw()">
+                        <input id="pass1" class="form-control" type="password" name="password_1" oninput="validatePw();validateCPw()">
                         <div class="invalid-feedback">
                         </div>
                     </div>
@@ -212,6 +212,8 @@
                                 $('#username').removeClass('is-valid').addClass('is-invalid');
                             }else if(data.type == 1){
                                 $('#email').removeClass('is-valid').addClass('is-invalid');
+                            }else if(data.type == 2){
+                                $('#pass1').removeClass('is-valid').addClass('is-invalid');
                             }
                         }
                         $('#alert1').find('.toast-body').html(data.message);
