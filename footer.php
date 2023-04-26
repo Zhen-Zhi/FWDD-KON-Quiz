@@ -6,9 +6,9 @@
         </div>
         <div class="col-md-4 d-flex flex-column">
             <h5>Support</h5>
-            <h7><a href="">About Us</a></h7>
-            <h7><a href="">Feedback</a></h7>
-            <h7><a href="">Frequent Asked Question (FAQ)</a></h7><br>
+            <h7><a href="about_us.php">About Us</a></h7>
+            <h7><a href="about_us.php">Feedback</a></h7>
+            <h7><a href="about_us.php">Frequent Asked Question (FAQ)</a></h7><br>
         </div>
         <div class="col-md-4">
             <h5>Social</h5>
