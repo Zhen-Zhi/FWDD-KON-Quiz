@@ -48,7 +48,9 @@
                         <div class="input-group-prepend">
                             <input class="form-check-input mt-2 mx-2" type="checkbox" id="passCheck" name="old_password" onclick="enablePassword()">
                         </div>
-                        <input id="pass" class="form-control" type="password" name="password" disabled oninput="validatePw()">
+                        <input id="pass" class="form-control" type="password" name="password" disabled>
+                        <div class="invalid-feedback">
+                        </div>
                     </div>
                     <div class="pb-3"><lable class="">To change password, check the checkbox.</lable></div>
                     <div class="invalid-feedback">
@@ -56,7 +58,7 @@
                 </div>
                 <div class="col-md mx-auto">
                     <label for="" class="form-label">New Password</label>
-                        <input id="pass1" class="form-control" type="password" name="password_1" disabled oninput="validateCPw()">
+                        <input id="pass1" class="form-control" type="password" name="password_1" disabled oninput="validatePw();validateCPw()">
                     <div class="invalid-feedback">
                     </div>
                 </div>
@@ -125,11 +127,30 @@
                             $('#alert1').removeClass('text-bg-danger').addClass('text-bg-success');
                         } else {
                             $('#alert1').removeClass('text-bg-success').addClass('text-bg-danger');
-                            if(data.type == 0){
-                                $('#username').removeClass('is-valid').addClass('is-invalid');
-                            }else if(data.type == 1){
-                                $('#email').removeClass('is-valid').addClass('is-invalid');
+                            switch(data.type) {
+                                case 0:
+                                    $('#username').removeClass('is-valid').addClass('is-invalid');
+                                    break;
+                                case 1:
+                                    $('#email').removeClass('is-valid').addClass('is-invalid');
+                                    break;
+                                case 2:
+                                    $('#pass').removeClass('is-valid').addClass('is-invalid');
+                                    break;
+                                default:
+                                    break;
                             }
+                            
+                            // if(data.type == 0){
+                            //     $('#username').removeClass('is-valid').addClass('is-invalid');
+                            // }else if(data.type == 1){
+                            //     $('#email').removeClass('is-valid').addClass('is-invalid');
+                            // }else if(data.type == 2){
+                            //     $('#pass').removeClass('is-valid').addClass('is-invalid');
+                            // }
+                            // else if(data.type == 3){
+                            //     $('#pass').removeClass('is-valid').addClass('is-invalid');
+                            // }
                         }
                         $('#alert1').find('.toast-body').html(data.message);
                         bootstrap.Toast.getOrCreateInstance(document.getElementById('alert1')).show();
