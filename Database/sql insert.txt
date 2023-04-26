@@ -1,0 +1,10 @@
+CREATE TABLE `category` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `Category` text NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `category` (Category) VALUES ('Bahasa Melayu', 'English', 'Maths', 'Physics');
+
+
+
