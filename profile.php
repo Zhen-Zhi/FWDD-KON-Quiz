@@ -1,5 +1,5 @@
 <head>
-    <title>KON Quiz - Profile</title>
+    <title>KON Quiz - Profile Page</title>
 </head>
 
 <?php 
@@ -11,7 +11,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="homepage.php">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">About Us</li>
+                <li class="breadcrumb-item active" aria-current="page">Profile Page</li>
         </nav>
     </div>
 </div>
