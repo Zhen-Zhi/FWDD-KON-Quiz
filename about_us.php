@@ -1,5 +1,5 @@
 <head>
-    <title>KON Quiz - Aboutus</title>
+    <title>KON Quiz - About_us</title>
 </head>
 
 <?php 
