@@ -1,7 +1,7 @@
 <?php include("template.html"); ?>
 <nav class="navbar fixed-top" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="./homepage.php">
             KON-QUIZ
         </a>
         <ul class="nav nav-pills">
