@@ -13,8 +13,8 @@
                 <span class="navbar-toggler-icon"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-start">
-                <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="profile.php">Dashboard</a></li>
+                <li><a class="dropdown-item" href="edit_profile2.php">Edit Profile</a></li>
                 <li>
                     <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#logout">Log Out</button>
                 </li>
