@@ -25,7 +25,7 @@
 
 
 <!-- Modal -->
-<div class="modal" id="logout" tabindex="-1" role="dialog">
+<div class="modal fade" id="logout" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-dialog" role="document">
             <img class="modal-img" src="img/wiz.png" alt="">

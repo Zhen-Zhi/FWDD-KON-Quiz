@@ -1,13 +1,17 @@
+<!DOCTYPE html>
+<html>
 <head>
     <title>KON Quiz - Profile Page</title>
 </head>
 
 <?php 
     include("session.php");
+    include("sidebar.php");
 ?>
+<body>
 <div class="container-fluid pt-5 mt-2 px-5">
-    <div class="row mt-4">
-        <button type="button" data-bs-toggle="modal" data-bs-target="#sidebar">Sidebar</button>
+    <div class="mt-4">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#sidebar" class="sd-bar">Sidebar</button>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="homepage.php">Home</a></li>
@@ -30,7 +34,7 @@
                         MATHS QUIZ
                     </button>
 
-                    <button class="btn my-4 mx-2 px-5 py-5" type="submit" name= "" style= "width: 40vh; height: 20vh; font-weight: bold; font-size: 3vh; color: red !important;">
+                    <button data-bs-toggle="modal" data-bs-target="#create-quiz" class="btn my-4 mx-2 px-5 py-5" type="submit" name= "" style= "width: 40vh; height: 20vh; font-weight: bold; font-size: 3vh; color: red !important;">
                         + ADD QUIZ
                     </button>
                 </div>
@@ -40,43 +44,56 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal" id="sidebar" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+<!--  Modal  -->
+<div class="modal fade" id="create-quiz" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog flex-column modal-dialog-centered">
+        <img class="modal-img" src="img/wiz.png" alt="">
         <div class="modal-content">
             <div class="modal-header shadow">
-                <table>
-                    <tr>
-                        <td><img src="img/nerd.png" class="img-thumbnail thumbnail mx-5" alt="..."><td>
-                    </tr>
-                    <tr>
-                        <td><h4 class="username p-3"><?php if (isset($_SESSION['id'])) echo $_SESSION['username']; ?></h4></td>
-                    </tr>
-                </table>
-            </div> 
-            <div class="modal-body">
-                <div class="sidebar">
-                    <a href="#">Home</a>
-                    <a href="#">Home1</a>
-                    <a href="#">Home2</a>
-                    <a href="#">Home3</a>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Create new quiz</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="toast align-items-center mx-auto border-0" id="alert" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" action="" method="POST" novalidate id="login-form">
+                    <div class="mx-auto my-3">
+                        <label for="" class="form-label">Quiz Title</label>
+                        <input id="quiz-title" class="form-control" type="text" name="credential">
+                    </div>
+                    <div class="mx-auto">
+                        <label for="" class="form-label">Quiz Description</label>
+                        <textarea class="form-control" id="quiz-desc"></textarea>
+                    </div>
+                    <div class="col-md-6 mt-2 mx-auto text-center pt-1">
+                        <button class="btn w-50" name="create_quiz">
+                            Create Quiz
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
+</body>
+</html>
 <?php 
-    include("footer.php"); 
+    include("footer.php");
 ?>
 
 <style>
-    .username {
-        text-align: center;
+    .sd-bar {
+        float: left;
+        margin-right: 10px;
     }
 
-    .fixed{
-        width: 100px;
+    .username {
+        text-align: center;
     }
 
     .navi{
@@ -87,42 +104,11 @@
         justify-content: center;
     }
 
-    .sidebar {
-        height: 100%;
-        width: 100%;
+    #quiz-desc {
+        height: 25vh;
     }
 
-    .sidebar a {
-        display: block;
-        width: 100%;
-        padding: 20px;
+    #exampleModalLable {
         text-align: center;
-    }
-
-    .thumbnail{
-        border-radius: 100% !important;
-        width: 150px;
-        height: 150px;
-    }
-
-    #modal-btn{
-        background-color: #6E2BF2 !important;
-        color: white !important;
-        border-radius: 5px;
-    }
-
-    .modal-dialog {
-        position: fixed;
-        margin: auto;
-        height: 100%;
-    }
-
-    .modal-content {
-        height: 100%;
-        border-radius: 0px;
-    }
-
-    .modal-header {
-        border-radius: 0px;
     }
 </style>
