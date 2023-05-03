@@ -67,6 +67,7 @@
             </div>
             <div class="modal-body">
                 <form class="needs-validation" action="" method="POST" novalidate id="quiz-form">
+                    <input type="hidden" value="<?php echo $_SESSION['id'];?>" name="id">
                     <div class="mx-auto my-3">
                         <label for="quiz-title" class="form-label">Quiz Title</label>
                         <input id="quiz-title" class="form-control" type="text" name="qz_title">
@@ -76,7 +77,7 @@
                         <textarea class="form-control" id="quiz-desc" name="qz_desc"></textarea>
                     </div>
                     <div class="col-md-6 mt-2 mx-auto text-center pt-1">
-                        <button class="btn w-50" name="create_quiz" type="submit">
+                        <button class="btn btn-primary w-50" name="create_quiz" type="submit" id="modal-btn">
                             Create Quiz
                         </button>
                     </div>
@@ -117,6 +118,12 @@
 </script>
 
 <style>
+    #modal-btn{
+        background-color: #6E2BF2 !important;
+        border-bottom: 5px solid #1c0052 !important;
+        color: white !important;
+    }
+
     .sd-bar {
         float: left;
         margin-right: 10px;
@@ -136,6 +143,7 @@
 
     #quiz-desc {
         height: 25vh;
+        resize: none;
     }
 
     #exampleModalLable {
