@@ -50,11 +50,11 @@
                     
                     <div class="col-md-6 mt-2 mx-auto text-center pt-1">
                         <input type="hidden" name="login" value="1">
-                        <button class="btn w-50" type="submit" name="login">
+                        <button class="btn w-50 h-50" type="submit" name="login">
                             <div id="login-text">
                                 LOGIN
                             </div>
-                            <div class="spinner-border spinner-border-sm text-light" id="spinner" role="status" style="display:none;">
+                            <div class="spinner-border spinner-border-sm text-light my-1" id="spinner" role="status" style="display:none;" disabled>
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </button>
