@@ -13,7 +13,7 @@
 ?>
 <div class="container-fluid pt-5 px-5">
     <div class="row">
-        <div class="col-md-6 mt-3">
+        <div class="col-md-5 mt-3">
             <div class="card h-100 border-0 shadow">
                 <div class="card-body my-5" style="display: <?php if (isset($_SESSION['id'])) echo 'none' ?>">
                     <div class="row">
@@ -30,12 +30,12 @@
                     </div>
                 </div>
 
-                <div class="card-body" style="display: <?php if (isset($_SESSION['id'])) echo 'block'; else echo'none';?>">
+                <div class="card-body p-0" style="display: <?php if (isset($_SESSION['id'])) echo 'block'; else echo'none';?>">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 text-center py-2 profile">
                             <img src="img/nerd.png" class="img-thumbnail thumbnail" alt="...">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 my-auto text-center mx-auto py-3">
                             <h4><?php if (isset($_SESSION['id'])) echo $_SESSION['username']; ?></h4>
                             <button class="btn home-btn" onclick="window.location.href='edit_profile2.php'">Edit Profile</button>
                         </div>
@@ -43,14 +43,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 mt-3">
+        <div class="col-md-7 mt-3">
             <div class="card h-100 border-0 shadow">
                 <div class="card-body">
                     <h4 class="card-title">Enter Code to Join</h4>
                     <div class="card-text">
                         <form action="">
-                            <div class="row">
-                                <div class="col-md-9">
+                            <div class="d-flex">
+                                <div class="col-md-9 me-3">
                                     <input type="text" class="form-control">
                                 </div>
                                 <div class="col-md-3">
@@ -262,11 +262,17 @@
 
     .thumbnail{
         border-radius: 100% !important;
+        width: 150px;
+        height: 150px;
     }
 
     .category .btn{
         background-color: #6E2BF2 !important;
         border-bottom: 5px solid #1c0052 !important;
         color: white !important;
+    }
+
+    .profile{
+        background-color:#6E2BF2;
     }
 </style>
