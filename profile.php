@@ -6,16 +6,14 @@
 
 <?php 
     include("session.php");
-    include("sidebar.php");
 ?>
 <body>
 <div class="container-fluid pt-5 mt-2 px-5">
     <div class="mt-4">
-        <button type="button" data-bs-toggle="modal" data-bs-target="#sidebar" class="sd-bar">Sidebar</button>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="homepage.php">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Profile Page</li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
         </nav>
     </div>
 </div>
@@ -82,9 +80,6 @@
 </div>
 </body>
 </html>
-<?php 
-    include("footer.php");
-?>
 
 <style>
     .sd-bar {

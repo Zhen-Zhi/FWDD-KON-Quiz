@@ -112,8 +112,6 @@
     </div>
 </div>
 
-<?php include("footer.php")?>
-
 <script>
     $(document).ready(function() {
         $('#edit-form').submit(function(e) {

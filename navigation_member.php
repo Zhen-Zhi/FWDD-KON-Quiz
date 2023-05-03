@@ -1,4 +1,7 @@
-<?php include("template.html"); ?>
+<?php 
+    include("template.html"); 
+    include("sidebar.php");
+?>
 <nav class="navbar fixed-top" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="./homepage.php">
@@ -8,7 +11,11 @@
             <input class="me-2" type="search" placeholder="Search" aria-label="Search" id="search-bar">
             <button class="btn btn-outline-light" type="submit" id="search-btn">Search</button>
         </form>
-        <div class="btn-group">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- <button type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" class="btn hamburger"><span class="navbar-toggler-icon"></span></button> -->
+        <!-- <div class="btn-group">
             <a href="#" role="button" class="btn hamburger" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
             </a>
@@ -19,23 +26,13 @@
                     <a class="dropdown-item" href="logout.php">Log Out</a>
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </nav>
 
 <style>
     .navbar{
         background-color: #1c0052 !important;
-    }
-
-    .hamburger{
-        border-radius: 10% !important;
-    }
-
-    .hamburger:focus{
-        border-radius: 10% !important;
-        outline: none;
-        background-color: #6E2BF2 !important;
     }
 
     #search-bar {
