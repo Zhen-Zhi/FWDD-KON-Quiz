@@ -4,29 +4,16 @@
 ?>
 <nav class="navbar fixed-top" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="./homepage.php">
-            KON-QUIZ
-        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <form class="d-flex m-0" role="search">
             <input class="me-2" type="search" placeholder="Search" aria-label="Search" id="search-bar">
             <button class="btn btn-outline-light" type="submit" id="search-btn">Search</button>
         </form>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- <button type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" class="btn hamburger"><span class="navbar-toggler-icon"></span></button> -->
-        <!-- <div class="btn-group">
-            <a href="#" role="button" class="btn hamburger" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-start">
-                <li><a class="dropdown-item" href="profile.php">Dashboard</a></li>
-                <li><a class="dropdown-item" href="edit_profile2.php">Edit Profile</a></li>
-                <li>
-                    <a class="dropdown-item" href="logout.php">Log Out</a>
-                </li>
-            </ul>
-        </div> -->
+        <a class="navbar-brand" href="./homepage.php">
+            KON-QUIZ
+        </a>
     </div>
 </nav>
 
