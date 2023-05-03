@@ -6,7 +6,13 @@
 
 <?php 
     include("session.php");
+    include("conn.php");
+    $id = $_SESSION['id'];
+
+    $query = "SELECT * FROM quiz where User_ID = $id";
+    $result = mysqli_query($con, $query);
 ?>
+
 <body>
 <div class="container-fluid pt-5 mt-2 px-5">
     <div class="mt-4">
@@ -21,24 +27,38 @@
 <div class="container-fluid px-5">
     <div class="row">
         <div class="col mt-4">
-            <div class="card border-0 shadow-lg" style="height: 80vh;">
+            <div class="border-0 shadow-lg" style="height: 80vh;">
                 <div class="col px-3">
 
                 <h2 class="card-title fs-1 pb-1 pt-4 mb-3 px-3" style="font-weight: bold; color: black !important">Your Current Quizzes</h2>
 
                     <!-- HELLOOOOOOOOOOOOOOOOOOOOOOOOO need put loop here from database -->
-                    
-                    <button class="btn my-4 mx-2 px-5 py-5" type="submit" name= "" style= "width: 40vh; height: 20vh; font-weight: bold; font-size: 3vh; color: white !important; background-color: #fe2c54 !important">
-                        MATHS QUIZ
-                    </button>
+                    <div class="row mx-5">
+                        <button data-bs-toggle="modal" data-bs-target="#create-quiz" class="col btn my-4 mx-2 px-5 py-5" type="submit" name= "" style= "font-weight: bold; font-size: 3vh; color: white !important; background-color: #fe2c54;">
+                            + ADD QUIZ
+                        </button>
+                        <?php 
+                            while($row=mysqli_fetch_array($result)) {
+                                $quiz_block = '
+                                    <div class="col-md-3">
+                                        <div class="card" style="">
+                                            <div class="card-body">
+                                                <h5 class="card-title">'. $row['Title'] .'</h5>
+                                                <p class="card-text">'. $row['Description'] .'</p>
+                                                <a href="" class="btn btn-primary">View Question</a>
+                                                <a href="" class="btn btn-primary">Delete Quiz</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ';
 
-                    <button data-bs-toggle="modal" data-bs-target="#create-quiz" class="btn my-4 mx-2 px-5 py-5" type="submit" name= "" style= "width: 40vh; height: 20vh; font-weight: bold; font-size: 3vh; color: red !important;">
-                        + ADD QUIZ
-                    </button>
+                                echo $quiz_block;
+                            }
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row"></div>
     </div>
 </div>
 
@@ -149,4 +169,11 @@
     #exampleModalLable {
         text-align: center;
     }
+
+    .card{
+        height: 25vh;
+        width: 40vh;
+    }
+
+    .card-text
 </style>
