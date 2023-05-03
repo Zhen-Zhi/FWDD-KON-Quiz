@@ -16,47 +16,12 @@
                 <li><a class="dropdown-item" href="profile.php">Dashboard</a></li>
                 <li><a class="dropdown-item" href="edit_profile2.php">Edit Profile</a></li>
                 <li>
-                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#logout">Log Out</button>
+                    <a class="dropdown-item" href="logout.php">Log Out</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
-
-<!-- Modal -->
-<div class="modal fade" id="logout" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-dialog" role="document">
-            <img class="modal-img" src="img/wiz.png" alt="">
-            <div class="modal-content">
-                <div class="modal-header shadow">
-                    <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">LOGIN</h1> -->
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div> 
-                <div class="modal-body">
-                    <div class="col-lg mx-auto">
-                        <label for="" class="form-label">Are you sure you want to logout?</label>
-                    </div>
-                    <form action="logout.php" method="post">
-                    <div class="col-md-6 mt-2 mx-auto text-center">
-                        <button class="btn w-100 m-1" type="submit" name="" id="modal-btn">
-                            <div id="login-text">
-                                Yes
-                            </div>
-                        </button>
-                        <button class="btn w-100 m-1" type="button" name="" data-bs-dismiss="modal" id="modal-btn">
-                            <div id="login-text">
-                                No
-                            </div>
-                        </button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <style>
     .navbar{

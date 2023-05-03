@@ -15,12 +15,12 @@
     <div class="row">
         <div class="col-md-6 mt-3">
             <div class="card h-100 border-0 shadow">
-                <div class="card-body" style="display: <?php if (isset($_SESSION['id'])) echo 'none' ?>">
+                <div class="card-body my-5" style="display: <?php if (isset($_SESSION['id'])) echo 'none' ?>">
                     <div class="row">
                         <div class="col-md-12 justify-content-center d-flex flex-row">
-                            <button class="btn home-btn" data-bs-toggle="modal" data-bs-target="#login">Login</button>
+                            <button class="btn home-btn btn-lg" data-bs-toggle="modal" data-bs-target="#login">Login</button>
                             <div class="vl h-auto mx-2"></div>
-                            <button class="btn home-btn" data-bs-toggle="modal" data-bs-target="#signup">Sign-up</button>
+                            <button class="btn home-btn btn-lg" data-bs-toggle="modal" data-bs-target="#signup">Sign-up</button>
                         </div>
                     </div>
                     <div class="row mt-2">
