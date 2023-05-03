@@ -263,4 +263,10 @@
     .thumbnail{
         border-radius: 100% !important;
     }
+
+    .category .btn{
+        background-color: #6E2BF2 !important;
+        border-bottom: 5px solid #1c0052 !important;
+        color: white !important;
+    }
 </style>
