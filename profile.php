@@ -58,18 +58,25 @@
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
+            <div class="toast align-items-center mx-auto border-0" id="alert1" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
             <div class="modal-body">
-                <form class="needs-validation" action="" method="POST" novalidate id="login-form">
+                <form class="needs-validation" action="" method="POST" novalidate id="quiz-form">
                     <div class="mx-auto my-3">
-                        <label for="" class="form-label">Quiz Title</label>
-                        <input id="quiz-title" class="form-control" type="text" name="credential">
+                        <label for="quiz-title" class="form-label">Quiz Title</label>
+                        <input id="quiz-title" class="form-control" type="text" name="qz_title">
                     </div>
                     <div class="mx-auto">
-                        <label for="" class="form-label">Quiz Description</label>
-                        <textarea class="form-control" id="quiz-desc"></textarea>
+                        <label for="quiz-desc" class="form-label">Quiz Description</label>
+                        <textarea class="form-control" id="quiz-desc" name="qz_desc"></textarea>
                     </div>
                     <div class="col-md-6 mt-2 mx-auto text-center pt-1">
-                        <button class="btn w-50" name="create_quiz">
+                        <button class="btn w-50" name="create_quiz" type="submit">
                             Create Quiz
                         </button>
                     </div>
@@ -80,6 +87,34 @@
 </div>
 </body>
 </html>
+
+<script>
+    $(document).ready(function() {
+        $('#quiz-form').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'create_quiz.php',
+                data:  $(this).serialize(),
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    console.log("below data parse");
+                    if (data.response == 'Success') {
+                        $('#alert').removeClass('text-bg-danger').addClass('text-bg-success');
+                        
+                        setTimeout(function() {
+                            window.location.href = 'question_page.php';
+                        }, 2000);
+                    } else {
+                        $('#alert').removeClass('text-bg-success').addClass('text-bg-danger');
+                    }
+                    $('#alert').find('.toast-body').html(data.message);
+                    bootstrap.Toast.getOrCreateInstance(document.getElementById('alert')).show();
+                }
+            });
+        });
+    });
+</script>
 
 <style>
     .sd-bar {

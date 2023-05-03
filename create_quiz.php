@@ -1,32 +1,36 @@
-<!DOCTYPE html>
-<?php
-    include("template.html");
-    include("session.php");
-?>
+<?php 
+    include("conn.php");
+    $response = "before";
+    $message = "beofore";
 
-<html>
-    <head>
-        <title>KON Quiz - Create Quiz</title>
-        <meta name="description" content="Our first page">
-        <meta name="keywords" content="html tutorial template">
-    </head>
-    
-    <body>
-    <br><br>
-    <div class="container pt-5 px-5 mx-auto">
-        <div class="shadow p-5">
-            <div class="d-flex justify-content-between align-items-center mb-3"> 
-                <h4 class="text-right">Create new quiz</h4> 
-            </div> 
-            <form action="" method="POST" class="" id="edit-form">
-                <div class="col-md-5 mx-auto">
-                    <label for="quiz-title" class="form-label">Quiz Title</label>
-                    <input id="username" class="form-control" type="text" name="username" value="">
-                    <div class="invalid-feedback">
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    </body>
-</html>
+    $qz_title = mysqli_real_escape_string($con,$_POST['qz_title']);
+    $qz_desc = mysqli_real_escape_string($con,$_POST['qz_desc']);
+
+    // check duplicate quiz title
+    $query = "SELECT qz_id, Title FROM quiz WHERE Title = '$qz_title'";
+    $duplicate_title = mysqli_query($con, $query);
+
+    if (mysqli_num_rows($duplicate_title) == 0 && $qz_title != "" && $qz_desc != "") {
+        $query_create_quiz = "INSERT INTO quiz (Title, Description) VALUES ('$qz_title', '$qz_desc')";
+        if (mysqli_query($con, $query_create_quiz)) {
+            $response = "Success";
+            $message = "Quiz created successfully";
+        }
+        else {
+            echo "Error: " . mysqli_error($con);
+        }
+    }
+    else if ($qz_title == "" || $qz_desc == "") {
+        $response = "Error";
+        $message = "Please fill in the quiz title and quiz description";
+    }
+    else {
+        $response = "Error";
+        $message = "Quiz title already existed";
+    }
+
+    $response = array('response' => $response,'message' => $message);
+    $json_response = json_encode($response);
+    echo $json_response;
+    mysqli_close($con);
+?>
