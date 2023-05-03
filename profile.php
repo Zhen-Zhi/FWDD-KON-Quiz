@@ -45,8 +45,12 @@
                                             <div class="card-body">
                                                 <h5 class="card-title">'. $row['Title'] .'</h5>
                                                 <p class="card-text">'. $row['Description'] .'</p>
-                                                <a href="" class="btn btn-primary">View Question</a>
-                                                <a href="" class="btn btn-primary">Delete Quiz</a>
+                                                <form method="" action="">
+                                                    <input type="hidden" value="'. $row['qz_ID'] .'">                                                
+                                                    <button class="btn btn-primary" type>View question</button>
+                                                </form>
+                                                    <button class="btn btn-primary">Delete quiz</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
