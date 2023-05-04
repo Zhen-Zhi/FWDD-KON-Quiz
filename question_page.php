@@ -68,7 +68,7 @@
                                             <h5 class="col">'. $row['ques'] . '</h5>
                                             <form action="edit_ques.php" method="POST">
                                                 <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
-                                                <button id="del_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
+                                                <button type="button" class="btn btn-danger del-btn" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
                                                 <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
@@ -88,7 +88,7 @@
                                             <h5 class="col">'. $row['ques'] . '</h5>
                                             <form action="edit_ques.php" method="POST">
                                                 <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
-                                                <button id="del_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
+                                                <button type="button" class="btn btn-danger del-btn" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
                                                 <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
@@ -108,7 +108,7 @@
                                             <h5 class="col">'. $row['ques'] . '</h5>
                                             <form action="edit_ques.php" method="POST">
                                                 <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
-                                                <button id="del_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                    
+                                                <button type="button" class="btn btn-danger del-btn" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                    
                                                 <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
@@ -128,7 +128,7 @@
                                             <h5 class="col">'. $row['ques'] . '</h5>
                                             <form action="edit_ques.php" method="POST">
                                                 <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
-                                                <button id="del_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
+                                                <button type="button" class="btn btn-danger del-btn" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
                                                 <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
@@ -166,14 +166,16 @@
                 </div>
             </div>
             <div class="modal-body">
-                <input type="hidden" value="<?php echo $_SESSION['id'];?>" name="qz_id">
                 <div class="mx-auto my-3">
                     Are you sure you want to delete this?
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" name="">Yes</button>
+            <div class="modal-footer"><form id="del_ques">
+                <form id="delete-form" action="">
+                    <input type="hidden" value="" name="ques_id">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary" name="">Yes</button>
+                </form>
             </div>
         </div>
     </div>
@@ -201,8 +203,33 @@
     }
 </style>
 <script>
-    $("#del_btn").click(function() {
+    $(document).ready(function() {
+
+        $(".del-btn").click(function() {
         var btn_val = $(this).val();
+        $("#delete-confirm input[name='ques_id']").val(btn_val);
         alert(btn_val);
+        });
+
+    
+        $('#delete-form').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'del_ques.php',
+                data:  $(this).serialize(),
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    console.log(data.check);
+                    if (data.response == 'Success') {
+                        $('#alert').removeClass('text-bg-danger').addClass('text-bg-success');
+                    } else {
+                        $('#alert').removeClass('text-bg-success').addClass('text-bg-danger');
+                    }
+                    $('#alert').find('.toast-body').html(data.message);
+                    bootstrap.Toast.getOrCreateInstance(document.getElementById('alert1')).show();
+                }
+            });
+        });
     });
 </script>
