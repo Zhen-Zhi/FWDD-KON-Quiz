@@ -4,6 +4,7 @@
     include("conn.php");
     if (isset($_GET['qz_id'])) {
         $quiz_id = $_GET['qz_id'];
+        $_SESSION['quiz_id'] = $quiz_id;
     }
     else {
         $quiz_id = $_SESSION['quiz_id'];
@@ -42,8 +43,8 @@
                     <div class="card-header">
                         <div class="row">
                             <h5 class="col">'. $row['ques'] . '</h5>
-                            <form>
-                                <button type="button" class="btn btn-primary col-sm-1 mx-1">Edit</button>
+                            <form action="edit_ques.php" method="POST">
+                                <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
                                 <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
                                 <input type="hidden" value="'. $row['ID'] .'">
                             </form>
@@ -65,18 +66,17 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <h5 class="col">'. $row['ques'] . '</h5>
-                                            <form>
-                                                <button type="button" class="btn btn-primary col-sm-1 mx-1">Edit</button>
+                                            <form action="edit_ques.php" method="POST">
+                                                <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
                                                 <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
-                                                <input type="hidden" value="'. $row['ID'] .'">
+                                                <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="card-body mx-2">'. $row['opt1'] . '</div>
-                                    <div class="card-body mx-2 correct-opt">'. $row['opt2'] . '</div>
+                                    <div class="card-body mx-2 correct-opt">'. $row['opt1'] . '</div>
+                                    <div class="card-body mx-2 ">'. $row['opt2'] . '</div>
                                     <div class="card-body mx-2">'. $row['opt3'] . '</div>
                                     <div class="card-body mx-2">'. $row['opt4'] . '</div>
-                                    <input type="hidden" value="'. $row['ID'] .'">
                                 </div>  
                             ';
                         }
@@ -86,10 +86,10 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <h5 class="col">'. $row['ques'] . '</h5>
-                                            <form>
-                                                <button type="button" class="btn btn-primary col-sm-1 mx-1">Edit</button>
+                                            <form action="edit_ques.php" method="POST">
+                                                <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
                                                 <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
-                                                <input type="hidden" value="'. $row['ID'] .'">
+                                                <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
                                     </div>
@@ -106,16 +106,16 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <h5 class="col">'. $row['ques'] . '</h5>
-                                            <form>
-                                                <button type="button" class="btn btn-primary col-sm-1 mx-1">Edit</button>
+                                            <form action="edit_ques.php" method="POST">
+                                                <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
                                                 <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
-                                                <input type="hidden" value="'. $row['ID'] .'">
+                                                <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
                                     </div>
                                     <div class="card-body mx-2">'. $row['opt1'] . '</div>
-                                    <div class="card-body mx-2 correct-opt">'. $row['opt2'] . '</div>
-                                    <div class="card-body mx-2">'. $row['opt3'] . '</div>
+                                    <div class="card-body mx-2 ">'. $row['opt2'] . '</div>
+                                    <div class="card-body mx-2 correct-opt">'. $row['opt3'] . '</div>
                                     <div class="card-body mx-2">'. $row['opt4'] . '</div>
                                 </div>  
                             ';
@@ -126,17 +126,17 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <h5 class="col">'. $row['ques'] . '</h5>
-                                            <form>
-                                                <button type="button" class="btn btn-primary col-sm-1 mx-1">Edit</button>
+                                            <form action="edit_ques.php" method="POST">
+                                                <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
                                                 <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
-                                                <input type="hidden" value="'. $row['ID'] .'">
+                                                <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
                                     </div>
                                     <div class="card-body mx-2">'. $row['opt1'] . '</div>
-                                    <div class="card-body mx-2 correct-opt">'. $row['opt2'] . '</div>
+                                    <div class="card-body mx-2 ">'. $row['opt2'] . '</div>
                                     <div class="card-body mx-2">'. $row['opt3'] . '</div>
-                                    <div class="card-body mx-2">'. $row['opt4'] . '</div>
+                                    <div class="card-body mx-2 correct-opt">'. $row['opt4'] . '</div>
                                 </div>  
                             ';
                         }
