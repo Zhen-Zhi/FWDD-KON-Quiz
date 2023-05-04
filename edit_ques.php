@@ -2,7 +2,7 @@
 <?php
     include("session.php");
     include("conn.php");
-    $ques_id = $_POST['ques_id'];
+    $ques_id = mysqli_real_escape_string($con,$_POST['ques_id']);
 
     $query = "SELECT * FROM quiz_ques WHERE ID = $ques_id";
     $result = mysqli_query($con, $query);
@@ -52,6 +52,7 @@
                             <input id="opt" class="form-control" type="text" name="opt4" placeholder="Enter option here..." value="<?php echo $row['opt4']?>">
                         </div>
                         <div class="row m-3">
+                            <input type="hidden" value="<?php echo $row['ID']?>" name="ques_id">
                             <button type="submit" id="" class="btn btn-primary" name="submit-btn">Save</button>
                         </div>
                     </div>
@@ -82,8 +83,9 @@
         $opt4 = mysqli_real_escape_string($con,$_POST['opt4']);
         $correct_opt = mysqli_real_escape_string($con,$_POST['correct_opt']);
         $quiz_id = mysqli_real_escape_string($con,$_SESSION['quiz_id']);
+        $ques_id = mysqli_real_escape_string($con,$_POST['ques_id']);
         
-        $query2 = "UPDATE quiz_ques SET ques = '$ques_title', opt1 = '$opt1', opt2 = '$opt2', opt3 = '$opt3', opt4 = '$opt4', correct_opt = '$correct_opt'";
+        $query2 = "UPDATE quiz_ques SET ques = '$ques_title', opt1 = '$opt1', opt2 = '$opt2', opt3 = '$opt3', opt4 = '$opt4', correct_opt = '$correct_opt' WHERE ID = '$ques_id'";
         if (mysqli_query($con, $query2)) {
             echo '<script>alert("Question edited successfully");window.location.href="question_page.php";</script>';
         }

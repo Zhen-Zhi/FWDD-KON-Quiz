@@ -68,7 +68,7 @@
                                             <h5 class="col">'. $row['ques'] . '</h5>
                                             <form action="edit_ques.php" method="POST">
                                                 <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
-                                                <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
+                                                <button id="del_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
                                                 <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
@@ -88,7 +88,7 @@
                                             <h5 class="col">'. $row['ques'] . '</h5>
                                             <form action="edit_ques.php" method="POST">
                                                 <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
-                                                <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
+                                                <button id="del_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
                                                 <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
@@ -108,7 +108,7 @@
                                             <h5 class="col">'. $row['ques'] . '</h5>
                                             <form action="edit_ques.php" method="POST">
                                                 <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
-                                                <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
+                                                <button id="del_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                    
                                                 <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
@@ -128,7 +128,7 @@
                                             <h5 class="col">'. $row['ques'] . '</h5>
                                             <form action="edit_ques.php" method="POST">
                                                 <button type="submit" class="btn btn-primary col-sm-1 mx-1">Edit</button>
-                                                <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
+                                                <button id="del_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
                                                 <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
                                             </form>
                                         </div>
@@ -148,6 +148,36 @@
 
         </div>
         </div>
+
+<!-- Confirm delete modal -->
+<div class="modal fade" id="delete-confirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog flex-column modal-dialog-centered">
+        <img class="modal-img-danger" src="img/Cave_Monkey.png" alt="">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Quiz</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="toast align-items-center mx-auto border-0" id="alert" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" value="<?php echo $_SESSION['id'];?>" name="qz_id">
+                <div class="mx-auto my-3">
+                    Are you sure you want to delete this?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" name="">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
     </body>
 </html>
 
@@ -165,4 +195,14 @@
     .correct-opt {
         background-color: #9cff82;
     }
+
+    .modal-img-danger{
+        width: 40vh;
+    }
 </style>
+<script>
+    $("#del_btn").click(function() {
+        var btn_val = $(this).val();
+        alert(btn_val);
+    });
+</script>
