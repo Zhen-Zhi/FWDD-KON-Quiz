@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <head>
     <title>KON Quiz - Profile Page</title>
 </head>
@@ -13,16 +11,12 @@
     $result = mysqli_query($con, $query);
 ?>
 
-<body>
-<div class="container-fluid pt-5 mt-2">
-    <div class="mt-4">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb px-2">
-                <li class="breadcrumb-item"><a href="homepage.php">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-        </nav>
-    </div>
-</div>
+<nav class="container-fluid" aria-label="breadcrumb">
+    <ol class="breadcrumb px-2">
+        <li class="breadcrumb-item"><a href="homepage.php">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+</nav>
 
 <div class="container-fluid">
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
@@ -134,8 +128,6 @@
         </div>
     </div>
 </div>
-</body>
-</html>
 
 <script>
     $(document).ready(function() {

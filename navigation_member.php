@@ -18,6 +18,10 @@
 </nav>
 
 <style>
+    body{
+        padding-top: 8vh;
+    }
+
     .navbar{
         background-color: #1c0052 !important;
     }

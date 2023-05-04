@@ -8,28 +8,27 @@
 <head>
     <title>KON Quiz - Edit profile</title>
 </head>
-
-<div class="container pt-5 px-5 mx-auto">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb mt-3">
-            <li class="breadcrumb-item"><a href="homepage.php">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
-        </ol>
-    </nav>
-    <div class="shadow p-5">
-        <div class="toast align-items-center mx-auto border-0" id="alert1" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
+<!-- <div class="toast align-items-center mx-auto border-0" id="alert1" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
         </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div> -->
+
+<div class="container mx-auto">
+    <div class="px-3">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="homepage.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Edit Profile</a>
+            </li>
+        </ul>
         <?php while($row = mysqli_fetch_array($result)) { ?>
-        <form action="" method="POST" class="" id="edit-form">
+        <form action="" method="POST" class="mt-2" id="edit-form">
             <div class="row">
-                <div class="d-flex justify-content-between align-items-center mb-3"> 
-                    <h4 class="text-right">Edit Profile</h4> 
-                </div> 
                 <input type="hidden" name="id" value='<?php echo $_SESSION['id'] ?>'>
                 <div class="col-md-5 mx-auto">
                     <label for="username" class="form-label">Username</label>
