@@ -8,7 +8,7 @@
     include("../template/toast.php");
     $id = $_SESSION['id'];
 
-    $query = "SELECT * FROM quiz where User_ID = $id";
+    $query = "SELECT * FROM quiz where User_ID = $id ORDER BY qz_ID DESC";
     $result = mysqli_query($con, $query);
 ?>
 
@@ -47,7 +47,38 @@
                                     <form method="GET" class="my-0" action="question_page.php">
                                         <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">                                              
                                         <button type="submit" class="btn btn-primary" type>View</button>
+                                        <button type="button" class="btn text-light btn-secondary" data-bs-toggle="modal" data-bs-target="#edit-quiz-<?php echo $row['qz_ID']?>" value="<?php echo $row['qz_ID']?>" name="editQuiz">Edit</button>
                                         <button type="button" class="btn btn-danger del-btn" data-bs-toggle="modal" data-bs-target="#delete-quiz" value="<?php echo $row['qz_ID']?>">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="edit-quiz-<?php echo $row['qz_ID']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header text-bg-secondary shadow">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit quiz</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form class="needs-validation" action="" method="POST" novalidate id="edit-form">
+                                        <div class="modal-body">
+                                            <div class="mx-auto">
+                                                <label for="quiz-title" class="form-label">Quiz Title</label>
+                                                <input id="quiz-title" class="form-control" type="text" name="qz_title" value="<?php echo $row['Title'] ?>">
+                                            </div>
+                                            <div class="mx-auto">
+                                                <label for="quiz-desc" class="form-label">Quiz Description</label>
+                                                <textarea class="form-control" id="quiz-desc" name="qz_desc"><?php echo $row['Description'] ?></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">
+                                            <input type="hidden" value="1" name="editQuiz">
+                                            <button class="btn btn-primary edit-btn" name="create_quiz" type="submit">
+                                                Save
+                                            </button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -67,13 +98,6 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Create new quiz</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!-- <div class="toast align-items-center mx-auto border-0" id="alert" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div> -->
             <form class="needs-validation" action="" method="POST" novalidate id="quiz-form">
                 <div class="modal-body">
                     <input type="hidden" value="<?php echo $_SESSION['id'];?>" name="id">
@@ -105,13 +129,6 @@
             <div class="modal-header text-bg-danger">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Quiz</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="toast align-items-center mx-auto border-0" id="alert2" role="alert2" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
             </div>
             <div class="modal-body">
                 <div class="mx-auto my-3">
@@ -155,6 +172,26 @@
             });
         });
 
+        $('#edit-form').submit(function(e) {
+            e.preventDefault();
+            var formData = $(this).serializeArray();
+            $.ajax({
+                type: 'POST',
+                url: 'quiz_handler.php',
+                data: formData,
+                success: function(response) {
+                    var data = response;
+                    if(data.response == "Success"){ 
+                        window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
+                    }else{
+                        $('#liveToast').addClass('text-bg-danger');
+                        $('#liveToast').find('.toast-body').html(data.message);
+                        toastBootstrap.show();
+                    }
+                }
+            });
+        });
+
         $('#del').submit(function(e) {
             e.preventDefault();
             $.ajax({
@@ -174,6 +211,12 @@
             });
         });
 
+        // $(".edit-btn").click(function() {
+        //     var btn_val = $(this).val();
+        //     $("#edit-quiz input[name='qz_id']").val(btn_val);
+        //     $('#edit-quiz').modal('show');
+        // });
+
         $(".del-btn").click(function() {
             var btn_val = $(this).val();
             $("#delete-quiz input[name='qz_id']").val(btn_val);
@@ -188,7 +231,11 @@
         border-bottom: 5px solid #1c0052 !important;
         color: white !important;
     } */
-
+    #edit-quiz-desc{
+        height: 25vh;
+        resize: none;
+    }
+    
     #quiz-desc {
         height: 25vh;
         resize: none;

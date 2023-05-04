@@ -54,6 +54,23 @@
         
         $response = array('response' => $response, 'message' => $message,);
         echo json_encode($response);
+    }else if (isset($_POST['editQuiz'])){
+        $qz_id = mysqli_real_escape_string($con,$_POST['qz_id']);
+        $title = mysqli_real_escape_string($con,$_POST['qz_title']);
+        $desc = mysqli_real_escape_string($con,$_POST['qz_desc']);
+        
+        $query = "UPDATE quiz SET Title = '$title', Description = '$desc' WHERE qz_ID = '$qz_id'";
+
+        if (mysqli_query($con, $query)) {
+            $response = "Success";
+            $message = 'Edit Successfully';
+        } else {
+            $response = "Error";
+            $message = 'No quiz found with that ID.';
+        }
+
+        $res = array('response' => $response, 'message' => $message);
+        echo json_encode($res);
     }
 
     mysqli_close($con);
