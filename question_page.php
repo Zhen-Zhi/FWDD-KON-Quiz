@@ -144,7 +144,6 @@
                         echo $question_block;
                     }
                 ?>
-                <button type="button" class="btn btn-danger">Delete quiz</button>
             </div>
 
         </div>
