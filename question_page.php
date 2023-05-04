@@ -39,30 +39,112 @@
                 </form>
                 
                 <div class="card">
-                    <div class="card-header"><?php echo "Question title 1"?></div>
-                    <div class="card-body mx-2"><img src="img/tick.png" class="tick mx-2">Option 1</div>
-                    <div class="card-body mx-2"><img src="img/tick.png" class="tick mx-2">Option 2</div>
-                    <div class="card-body mx-2"><img src="img/tick.png" class="tick mx-2">Option 3</div>
-                    <div class="card-body mx-2"><img src="img/tick.png" class="tick mx-2">Option 4</div>
-                </div>
+                    <div class="card-header">
+                        <div class="row">
+                            <h5 class="col">'. $row['ques'] . '</h5>
+                            <form>
+                                <button type="button" class="btn btn-primary col-sm-1 mx-1">Edit</button>
+                                <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
+                                <input type="hidden" value="'. $row['ID'] .'">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body mx-2">'. $row['opt1'] . '</div>
+                    <div class="card-body mx-2 correct-opt">'. $row['opt2'] . '</div>
+                    <div class="card-body mx-2">'. $row['opt3'] . '</div>
+                    <div class="card-body mx-2">'. $row['opt4'] . '</div>
+                </div>  
                 
 
                 <!-- show all available question -->
                 <?php 
                     while($row=mysqli_fetch_array($question_result)) {
-                        $question_block = '
-                            <div class="card">
-                                <div class="card-header">'. $row['ques'] . '</div>
-                                <div class="card-body mx-2"><img src="img/tick.png" class="tick mx-2">'. $row['opt1'] . '</div>
-                                <div class="card-body mx-2"><img src="img/tick.png" class="tick mx-2">'. $row['opt2'] . '</div>
-                                <div class="card-body mx-2"><img src="img/tick.png" class="tick mx-2">'. $row['opt3'] . '</div>
-                                <div class="card-body mx-2"><img src="img/tick.png" class="tick mx-2">'. $row['opt4'] . '</div>
-                            </div>  
-                        ';
-
+                        if ($row['correct_opt'] == "opt1") {
+                            $question_block = '
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <h5 class="col">'. $row['ques'] . '</h5>
+                                            <form>
+                                                <button type="button" class="btn btn-primary col-sm-1 mx-1">Edit</button>
+                                                <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
+                                                <input type="hidden" value="'. $row['ID'] .'">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="card-body mx-2">'. $row['opt1'] . '</div>
+                                    <div class="card-body mx-2 correct-opt">'. $row['opt2'] . '</div>
+                                    <div class="card-body mx-2">'. $row['opt3'] . '</div>
+                                    <div class="card-body mx-2">'. $row['opt4'] . '</div>
+                                    <input type="hidden" value="'. $row['ID'] .'">
+                                </div>  
+                            ';
+                        }
+                        else if ($row['correct_opt'] == "opt2") {
+                            $question_block = '
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <h5 class="col">'. $row['ques'] . '</h5>
+                                            <form>
+                                                <button type="button" class="btn btn-primary col-sm-1 mx-1">Edit</button>
+                                                <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
+                                                <input type="hidden" value="'. $row['ID'] .'">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="card-body mx-2">'. $row['opt1'] . '</div>
+                                    <div class="card-body mx-2 correct-opt">'. $row['opt2'] . '</div>
+                                    <div class="card-body mx-2">'. $row['opt3'] . '</div>
+                                    <div class="card-body mx-2">'. $row['opt4'] . '</div>
+                                </div>  
+                            ';
+                        }
+                        else if ($row['correct_opt'] == "opt3") {
+                            $question_block = '
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <h5 class="col">'. $row['ques'] . '</h5>
+                                            <form>
+                                                <button type="button" class="btn btn-primary col-sm-1 mx-1">Edit</button>
+                                                <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
+                                                <input type="hidden" value="'. $row['ID'] .'">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="card-body mx-2">'. $row['opt1'] . '</div>
+                                    <div class="card-body mx-2 correct-opt">'. $row['opt2'] . '</div>
+                                    <div class="card-body mx-2">'. $row['opt3'] . '</div>
+                                    <div class="card-body mx-2">'. $row['opt4'] . '</div>
+                                </div>  
+                            ';
+                        }
+                        else if ($row['correct_opt'] == "opt4") {
+                            $question_block = '
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <h5 class="col">'. $row['ques'] . '</h5>
+                                            <form>
+                                                <button type="button" class="btn btn-primary col-sm-1 mx-1">Edit</button>
+                                                <button type="button" class="btn btn-primary col-sm-1">Delete</button>                    
+                                                <input type="hidden" value="'. $row['ID'] .'">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="card-body mx-2">'. $row['opt1'] . '</div>
+                                    <div class="card-body mx-2 correct-opt">'. $row['opt2'] . '</div>
+                                    <div class="card-body mx-2">'. $row['opt3'] . '</div>
+                                    <div class="card-body mx-2">'. $row['opt4'] . '</div>
+                                </div>  
+                            ';
+                        }
+                        
                         echo $question_block;
                     }
                 ?>
+                <button type="button" class="btn btn-danger">Delete quiz</button>
             </div>
 
         </div>
@@ -79,5 +161,9 @@
     .tick {
         height: 30px;
         width: 30px;        
+    }
+
+    .correct-opt {
+        background-color: #9cff82;
     }
 </style>

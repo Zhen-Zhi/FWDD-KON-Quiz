@@ -49,10 +49,6 @@
                                                     <input type="hidden" value="'. $row['qz_ID'] .'" name="qz_id">                                              
                                                     <button class="btn btn-primary" type>View question</button>
                                                 </form>
-                                                <form method="" action="" id="delete-quiz'. $row['qz_ID'] .'">
-                                                    <input type="hidden" value="'. $row['qz_ID'] .'" name="qz_id"> 
-                                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete-confirm">Delete quiz</button>
-                                                </form>
                                             </div>
                                         </div>
                                     </div>
