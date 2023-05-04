@@ -109,9 +109,9 @@
 </script>
 
 <style>
-    .card{
+    /* .card{
         height: 30vh;
-    }
+    } */
 
     .checked{
         background-color: #9cff82;
