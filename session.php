@@ -4,9 +4,9 @@
     // session_destroy();
 
    if(isset($_SESSION['id'])){
-        include("navigation_member.php");
+        include("template/navigation_member.php");
     }else{
-        include("navigation_guest.php");
+        include("template/navigation_guest.php");
     }
 
     mysqli_close($con);

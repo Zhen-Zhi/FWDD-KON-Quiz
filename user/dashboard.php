@@ -3,8 +3,8 @@
 </head>
 
 <?php 
-    include("session.php");
-    include("conn.php");
+    include("../session.php");
+    include("../conn.php");
     $id = $_SESSION['id'];
 
     $query = "SELECT * FROM quiz where User_ID = $id";
@@ -14,7 +14,7 @@
 <div class="container px-3">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="homepage.php">Home</a>
+            <a class="nav-link" href="../homepage.php">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
@@ -61,23 +61,23 @@
 <!--  Modal  -->
 <div class="modal fade" id="create-quiz" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog flex-column modal-dialog-centered">
-        <img class="modal-img" src="img/wiz.png" alt="">
+        <img class="modal-img" src="img/dart_monkey.png" alt="">
         <div class="modal-content">
             <div class="modal-header shadow">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Create new quiz</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="toast align-items-center mx-auto border-0" id="alert" role="alert" aria-live="assertive" aria-atomic="true">
+            <!-- <div class="toast align-items-center mx-auto border-0" id="alert" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                     </div>
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
-            </div>
+            </div> -->
             <div class="modal-body">
                 <form class="needs-validation" action="" method="POST" novalidate id="quiz-form">
                     <input type="hidden" value="<?php echo $_SESSION['id'];?>" name="id">
-                    <div class="mx-auto my-3">
+                    <div class="mx-auto">
                         <label for="quiz-title" class="form-label">Quiz Title</label>
                         <input id="quiz-title" class="form-control" type="text" name="qz_title">
                     </div>
@@ -85,12 +85,12 @@
                         <label for="quiz-desc" class="form-label">Quiz Description</label>
                         <textarea class="form-control" id="quiz-desc" name="qz_desc"></textarea>
                     </div>
-                    <div class="col-md-6 mt-2 mx-auto text-center pt-1">
-                        <button class="btn btn-primary w-50" name="create_quiz" type="submit" id="modal-btn">
-                            Create Quiz
-                        </button>
-                    </div>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" name="create_quiz" type="submit">
+                    Create Quiz
+                </button>
             </div>
         </div>
     </div>
@@ -164,7 +164,7 @@
                     if (data.response == 'Success') {
                             $('#alert2').removeClass('text-bg-danger').addClass('text-bg-success');
                             setTimeout(function() {
-                                window.location.href = 'profile.php';
+                                window.location.href = 'dashboard.php';
                             }, 1000);
                         } else {
                             $('#alert2').removeClass('text-bg-success').addClass('text-bg-danger');

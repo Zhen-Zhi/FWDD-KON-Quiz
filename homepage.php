@@ -163,7 +163,7 @@
 </div>
 
 <?php 
-    include("footer.php"); 
+    include("template/footer.php"); 
 ?>
 
 <script>

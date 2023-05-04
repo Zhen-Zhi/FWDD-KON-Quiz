@@ -11,7 +11,7 @@
             <input class="me-2" type="search" placeholder="Search" aria-label="Search" id="search-bar">
             <button class="btn btn-outline-light" type="submit" id="search-btn">Search</button>
         </form>
-        <a class="navbar-brand" href="./homepage.php">
+        <a class="navbar-brand" href="/FWDD-KON-QUIZ/homepage.php">
             KON-QUIZ
         </a>
     </div>

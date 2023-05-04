@@ -1,7 +1,7 @@
 <?php
-    include("session.php");
-    include("conn.php");
-    include("toast.php");
+    include("../session.php");
+    include("../conn.php");
+    include("../template/toast.php");
     
     $ques_id = mysqli_real_escape_string($con,$_POST['ques_id']);
 
@@ -18,10 +18,10 @@
 <div class="container">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="homepage.php">Home</a>
+            <a class="nav-link" href="../homepage.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="profile.php">Dashboard</a>
+            <a class="nav-link" href="dashboard.php">Dashboard</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="question_page.php?qz_id=<?php echo $_SESSION['quiz_id'] ?>">View Question</a>

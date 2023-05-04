@@ -1,7 +1,7 @@
 <?php
-    include("session.php");
-    include("conn.php");
-    include("toast.php");
+    include("../session.php");
+    include("../conn.php");
+    include("../template/toast.php");
     if (isset($_GET['qz_id'])) {
         $quiz_id = $_GET['qz_id'];
         $_SESSION['quiz_id'] = $quiz_id;
@@ -30,10 +30,10 @@
 <div class="container px-3">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="homepage.php">Home</a>
+            <a class="nav-link" href="../homepage.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="profile.php">Dashboard</a>
+            <a class="nav-link" href="dashboard.php">Dashboard</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">View Question</a>

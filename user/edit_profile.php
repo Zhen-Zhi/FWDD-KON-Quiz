@@ -1,6 +1,6 @@
 <?php
-    include('session.php');
-    include("conn.php");
+    include('../session.php');
+    include("../conn.php");
     $id = $_SESSION['id'];
     $sql = "SELECT * FROM user WHERE ID = $id";
     $result = mysqli_query($con, $sql);
@@ -20,7 +20,7 @@
     <div class="px-3">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="homepage.php">Home</a>
+                <a class="nav-link" href="../homepage.php">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Edit Profile</a>
