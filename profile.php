@@ -101,7 +101,7 @@
     <div class="modal-dialog flex-column modal-dialog-centered">
         <img class="modal-img-danger" src="img/Cave_Monkey.png" alt="">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header text-bg-danger">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Quiz</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -184,9 +184,6 @@
 </script>
 
 <style>
-    .modal-header{
-        background-color: #dc3545;
-    }
     /* #modal-btn{
         background-color: #6E2BF2 !important;
         border-bottom: 5px solid #1c0052 !important;
