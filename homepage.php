@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-md-6 my-auto text-center mx-auto py-3">
                             <h4><?php if (isset($_SESSION['id'])) echo $_SESSION['username']; ?></h4>
-                            <button class="btn home-btn" onclick="window.location.href='edit_profile2.php'">Edit Profile</button>
+                            <button class="btn home-btn" onclick="window.location.href='user/edit_profile.php'">Edit Profile</button>
                         </div>
                     </div>
                 </div>
