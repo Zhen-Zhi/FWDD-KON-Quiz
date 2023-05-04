@@ -77,9 +77,6 @@
 </div>
 
 <script>
-    const toastLiveExample = document.getElementById('liveToast')
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-
     $(document).ready(function() {
         $('#create-form').submit(function(e) {
             e.preventDefault();

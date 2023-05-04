@@ -135,31 +135,10 @@
 </div>
 
 <script>
-    const toastLiveExample = document.getElementById('liveToast')
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-
     $('.form-check-input:checked').each(function() {
         $(this).parent('.form-check').addClass('checked');
     });
-
-    $(document).ready(function() {
-        var message = decodeURIComponent(getUrlParameter('message'));
-        if (message) {
-            $('#liveToast').addClass('text-bg-success');
-            $('#liveToast').find('.toast-body').html(message);
-            toastBootstrap.show();
-
-            const newUrl = window.location.href.replace(`&message=${message}`, '');
-            history.replaceState(null, null, newUrl);
-        }
-    });
-
-    function getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    };
+    
     $('#del').submit(function(e) {
             e.preventDefault();
             var formData = $(this).serialize();
