@@ -161,7 +161,13 @@
                         bootstrap.Toast.getOrCreateInstance(document.getElementById('alert')).show();
                 }
             });
-        });
+        });    
+        
+    $(".del-btn").click(function() {
+        var btn_val = $(this).val();
+        $("#delete-confirm input[name='ques_id']").val(btn_val);
+        $('#delete-confirm').modal('show');
+    });
 </script>
 
 <style>
@@ -177,10 +183,3 @@
         width: 40vh;
     }
 </style>
-<script>
-    $(".del-btn").click(function() {
-        var btn_val = $(this).val();
-        $("#delete-confirm input[name='ques_id']").val(btn_val);
-        $('#delete-confirm').modal('show');
-    });
-</script>
