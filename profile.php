@@ -179,7 +179,6 @@
             var btn_val = $(this).val();
             $("#delete-quiz input[name='qz_id']").val(btn_val);
             $('#delete-quiz').modal('show');
-            alert(btn_val);
         });
     });
 </script>
