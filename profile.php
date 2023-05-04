@@ -14,58 +14,56 @@
 ?>
 
 <body>
-<div class="container-fluid pt-5 mt-2 px-5">
+<div class="container-fluid pt-5 mt-2">
     <div class="mt-4">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
+            <ol class="breadcrumb px-2">
                 <li class="breadcrumb-item"><a href="homepage.php">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
         </nav>
     </div>
 </div>
 
-<div class="container-fluid px-5">
-    <div class="row">
-        <div class="col mt-4">
-            <div class="border-0 shadow-lg" style="height: 80vh;">
-                <div class="col px-3">
-
-                <h2 class="card-title fs-1 pb-1 pt-4 mb-3 px-3" style="font-weight: bold; color: black !important">Your Current Quizzes</h2>
-
-                    <!-- HELLOOOOOOOOOOOOOOOOOOOOOOOOO need put loop here from database -->
-                    <div class="row mx-5">
-                        <button data-bs-toggle="modal" data-bs-target="#create-quiz" class="col btn my-4 mx-2 px-5 py-5" type="submit" name= "" style= "font-weight: bold; font-size: 3vh; color: white !important; background-color: #fe2c54;">
-                            + ADD QUIZ
+<div class="container-fluid">
+    <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
+        <h2 class="px-2">Your Current Quizzes</h2>
+        <!-- HELLOOOOOOOOOOOOOOOOOOOOOOOOO need put loop here from database -->
+        <div class="container-fluid">
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <div class="col">
+                    <div class="card">
+                        <button data-bs-toggle="modal" data-bs-target="#create-quiz" class="btn fs-1 h-100" type="submit" name= "" style="color:gray;">
+                            +
                         </button>
-                        <?php 
-                            while($row=mysqli_fetch_array($result)) {
-                                $quiz_block = '
-                                    <div class="col-md-3">
-                                        <div class="card" style="">
-                                            <div class="card-body">
-                                                <h5 class="card-title">'. $row['Title'] .'</h5>
-                                                <p class="card-text">'. $row['Description'] .'</p>
-                                                <form method="GET" action="question_page.php">
-                                                    <input type="hidden" value="'. $row['qz_ID'] .'" name="qz_id">                                              
-                                                    <button class="btn btn-primary" type>View question</button>
-                                                </form>
-                                                <form method="" action="" id="delete-quiz'. $row['qz_ID'] .'">
-                                                    <input type="hidden" value="'. $row['qz_ID'] .'" name="qz_id"> 
-                                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete-confirm">Delete quiz</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ';
-
-                                echo $quiz_block;
-                            }
-                        ?>
                     </div>
                 </div>
+                
+                <?php 
+                    while($row=mysqli_fetch_array($result)) {
+                ?>
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $row['Title'] ?></h5>
+                                    <p class="card-text"><?php echo $row['Description'] ?></p>
+                                </div>
+                                <div class="card-footer d-flex flex-row">
+                                    <form method="GET" action="question_page.php">
+                                        <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">                                              
+                                        <button class="btn btn-primary me-1" type>View</button>
+                                    </form>
+                                    <form method="" action="" id="delete-quiz<?php echo $row['qz_ID']?>">
+                                        <input type="hidden" value="<?php echo $row['qz_ID'] ?>" name="qz_id"> 
+                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                <?php
+                    }
+                ?>
             </div>
         </div>
-    </div>
 </div>
 
 <!--  Modal  -->
@@ -110,9 +108,9 @@
 <!-- Confirm delete modal -->
 <div class="modal fade" id="delete-confirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog flex-column modal-dialog-centered">
-        <img class="modal-img" src="img/wiz.png" alt="">
+        <img class="modal-img-danger" src="img/Cave_Monkey.png" alt="">
         <div class="modal-content">
-            <div class="modal-header shadow">
+            <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Quiz</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -126,18 +124,12 @@
             <div class="modal-body">
                 <input type="hidden" value="<?php echo $_SESSION['id'];?>" name="qz_id">
                 <div class="mx-auto my-3">
-                    <label for="quiz-title" class="form-label">Are you sure you want to delete </label>
+                    Are you sure you want to delete this?
                 </div>
-                <div class="col-md-6 mt-2 mx-auto text-center pt-1">
-                    <button class="btn btn-primary w-50" name="create_quiz" type="submit" id="modal-btn">
-                        Yes
-                    </button>
-                </div>
-                <div class="col-md-6 mt-2 mx-auto text-center pt-1">
-                    <button class="btn btn-primary w-50" data-bs-dismiss="modal" name="create_quiz" id="modal-btn">
-                        No
-                    </button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" name="">Yes</button>
             </div>
         </div>
     </div>
@@ -196,42 +188,25 @@
 </script>
 
 <style>
-    #modal-btn{
+    .modal-header{
+        background-color: #dc3545;
+    }
+    /* #modal-btn{
         background-color: #6E2BF2 !important;
         border-bottom: 5px solid #1c0052 !important;
         color: white !important;
-    }
-
-    .sd-bar {
-        float: left;
-        margin-right: 10px;
-    }
-
-    .username {
-        text-align: center;
-    }
-
-    .navi{
-        color: white !important;
-        padding-top: 1.5vh;
-        padding-bottom: 1.5vh;
-        display: flex;
-        justify-content: center;
-    }
+    } */
 
     #quiz-desc {
         height: 25vh;
         resize: none;
     }
 
-    #exampleModalLable {
-        text-align: center;
-    }
-
     .card{
         height: 25vh;
-        width: 40vh;
     }
 
-    .card-text
+    .modal-img-danger{
+        width: 40vh;
+    }
 </style>
