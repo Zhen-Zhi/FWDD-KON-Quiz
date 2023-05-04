@@ -84,7 +84,7 @@
                         <form action="edit_ques.php" method="POST">
                             <button type="submit" class="btn btn-primary">Edit</button>
                             <button id="del_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
-                            <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
+                            <input type="hidden" value="<?php echo $row['ID'] ?>" name="ques_id">
                         </form>
                     </div>
                 </div>
