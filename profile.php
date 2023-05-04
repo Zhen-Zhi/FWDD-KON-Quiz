@@ -45,11 +45,13 @@
                                             <div class="card-body">
                                                 <h5 class="card-title">'. $row['Title'] .'</h5>
                                                 <p class="card-text">'. $row['Description'] .'</p>
-                                                <form method="" action="">
-                                                    <input type="hidden" value="'. $row['qz_ID'] .'">                                                
+                                                <form method="GET" action="question_page.php">
+                                                    <input type="hidden" value="'. $row['qz_ID'] .'" name="qz_id">                                              
                                                     <button class="btn btn-primary" type>View question</button>
                                                 </form>
-                                                    <button class="btn btn-primary">Delete quiz</button>
+                                                <form method="" action="" id="delete-quiz'. $row['qz_ID'] .'">
+                                                    <input type="hidden" value="'. $row['qz_ID'] .'" name="qz_id"> 
+                                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete-confirm">Delete quiz</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -82,13 +84,6 @@
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
-            <div class="toast align-items-center mx-auto border-0" id="alert1" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
             <div class="modal-body">
                 <form class="needs-validation" action="" method="POST" novalidate id="quiz-form">
                     <input type="hidden" value="<?php echo $_SESSION['id'];?>" name="id">
@@ -110,6 +105,43 @@
         </div>
     </div>
 </div>
+
+
+<!-- Confirm delete modal -->
+<div class="modal fade" id="delete-confirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog flex-column modal-dialog-centered">
+        <img class="modal-img" src="img/wiz.png" alt="">
+        <div class="modal-content">
+            <div class="modal-header shadow">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Quiz</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="toast align-items-center mx-auto border-0" id="alert" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" value="<?php echo $_SESSION['id'];?>" name="qz_id">
+                <div class="mx-auto my-3">
+                    <label for="quiz-title" class="form-label">Are you sure you want to delete </label>
+                </div>
+                <div class="col-md-6 mt-2 mx-auto text-center pt-1">
+                    <button class="btn btn-primary w-50" name="create_quiz" type="submit" id="modal-btn">
+                        Yes
+                    </button>
+                </div>
+                <div class="col-md-6 mt-2 mx-auto text-center pt-1">
+                    <button class="btn btn-primary w-50" data-bs-dismiss="modal" name="create_quiz" id="modal-btn">
+                        No
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
@@ -123,12 +155,34 @@
                 data:  $(this).serialize(),
                 success: function(response) {
                     var data = JSON.parse(response);
-                    console.log("below data parse");
                     if (data.response == 'Success') {
                         $('#alert').removeClass('text-bg-danger').addClass('text-bg-success');
                         
                         setTimeout(function() {
                             window.location.href = 'question_page.php';
+                        }, 2000);
+                    } else {
+                        $('#alert').removeClass('text-bg-success').addClass('text-bg-danger');
+                    }
+                    $('#alert').find('.toast-body').html(data.message);
+                    bootstrap.Toast.getOrCreateInstance(document.getElementById('alert')).show();
+                }
+            });
+        });
+
+        $('[id^="delete-quiz"]').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'GET',
+                url: 'delete_quiz.php',
+                data:  $(this).serialize(),
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    if (data.response == 'Success') {
+                        $('#alert').removeClass('text-bg-danger').addClass('text-bg-success');
+                        
+                        setTimeout(function() {
+                            window.location.href = 'profile.php';
                         }, 2000);
                     } else {
                         $('#alert').removeClass('text-bg-success').addClass('text-bg-danger');

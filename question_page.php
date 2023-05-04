@@ -2,7 +2,12 @@
 <?php
     include("session.php");
     include("conn.php");
-    $quiz_id = $_SESSION['quiz_id'];
+    if (isset($_GET['qz_id'])) {
+        $quiz_id = $_GET['qz_id'];
+    }
+    else {
+        $quiz_id = $_SESSION['quiz_id'];
+    }
     $id = $_SESSION['id'];
 
     $query = "SELECT * FROM quiz WHERE qz_ID = $quiz_id AND User_ID = $id";
