@@ -26,7 +26,7 @@
     <meta name="keywords" content="html tutorial template">
 </head>
 
-<div class="container-fluid px-3">
+<div class="container px-3">
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link" href="homepage.php">Home</a>
