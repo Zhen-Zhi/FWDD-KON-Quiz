@@ -108,16 +108,16 @@
         <img class="modal-img-danger" src="img/Cave_Monkey.png" alt="">
         <div class="modal-content">
             <div class="modal-header text-bg-danger">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Quiz</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Question</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="toast align-items-center mx-auto border-0" id="alert" role="alert" aria-live="assertive" aria-atomic="true">
+            <!-- <div class="toast align-items-center mx-auto border-0" id="alert" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                     </div>
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
-            </div>
+            </div> -->
             <div class="modal-body">
                 <div class="mx-auto my-3">
                     Are you sure you want to delete this?
@@ -125,6 +125,7 @@
             </div>
             <div class="modal-footer">
                 <form id="del">
+                    <input type="hidden" value="1" name="deleteQuestion">
                     <input type="hidden" value="" name="ques_id">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                     <button type="submit" class="btn btn-primary" name="">Yes</button>
@@ -138,27 +139,27 @@
     $('.form-check-input:checked').each(function() {
         $(this).parent('.form-check').addClass('checked');
     });
-    
+
     $('#del').submit(function(e) {
             e.preventDefault();
             var formData = $(this).serialize();
             console.log(formData)
             $.ajax({
                 type: 'POST',
-                url: 'del_ques.php',
+                url: 'question_handler.php',
                 data: formData,
                 success: function(response) {
-                    var data = JSON.parse(response);
+                    var data = response;
                     if (data.response == 'Success') {
-                            $('#alert').removeClass('text-bg-danger').addClass('text-bg-success');
-                            setTimeout(function() {
-                                window.location.href = 'question_page.php';
-                            }, 1000);
-                        } else {
-                            $('#alert').removeClass('text-bg-success').addClass('text-bg-danger');
-                        }
-                        $('#alert').find('.toast-body').html(data.message);
-                        bootstrap.Toast.getOrCreateInstance(document.getElementById('alert')).show();
+                        window.location.href = 'question_page.php?qz_id=<?php echo $_SESSION['quiz_id'] ?>&message=' + encodeURIComponent(data.message);
+                    } else {
+                        $('#liveToast').addClass('text-bg-danger');
+                        $('#liveToast').find('.toast-body').html(data.message);
+                        toastBootstrap.show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log("AJAX error: " + status + " - " + error);
                 }
             });
         });    
