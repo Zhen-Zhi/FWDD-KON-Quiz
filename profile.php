@@ -11,14 +11,15 @@
     $result = mysqli_query($con, $query);
 ?>
 
-<nav class="container-fluid" aria-label="breadcrumb">
-    <ol class="breadcrumb px-2">
-        <li class="breadcrumb-item"><a href="homepage.php">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-    </ol>
-</nav>
-
-<div class="container-fluid">
+<div class="container px-3">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="homepage.php">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+        </li>
+    </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
         <h2 class="px-2">Your Current Quizzes</h2>
         <!-- HELLOOOOOOOOOOOOOOOOOOOOOOOOO need put loop here from database -->
