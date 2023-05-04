@@ -27,7 +27,7 @@
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <div class="col">
                     <div class="card">
-                        <button data-bs-toggle="modal" data-bs-target="#create-quiz" class="btn fs-1 h-100" type="submit" name= "" style="color:gray;">
+                        <button data-bs-toggle="modal" data-bs-target="#create-quiz" class="btn fs-1 h-100 text-secondary" type="submit" name= "">
                             +
                         </button>
                     </div>
