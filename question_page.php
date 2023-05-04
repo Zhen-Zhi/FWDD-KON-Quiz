@@ -1,6 +1,7 @@
 <?php
     include("session.php");
     include("conn.php");
+    include("toast.php");
     if (isset($_GET['qz_id'])) {
         $quiz_id = $_GET['qz_id'];
         $_SESSION['quiz_id'] = $quiz_id;
@@ -43,6 +44,11 @@
 
         <!-- show all available question -->
         <div class="row row-cols-1 row-cols-md-1 g-4">
+            <div class="col">
+                <div class="card">
+                    <a type="button" class="btn btn-lg h-100" href="create_ques.php"><button class="btn fs-1 text-secondary border-0 h-100">+</button></a>
+                </div>
+            </div>
         <?php 
             while($row=mysqli_fetch_array($question_result)) {
                 $count += 1;
@@ -92,20 +98,36 @@
             <?php
             }
             ?>
-
-            <div class="col">
-                <div class="card">
-                    <a type="button" class="btn btn-lg h-100" href="create_ques.php"><button class="btn fs-1 text-secondary border-0 h-100">+</button></a>
-                </div>
-            </div>
         </div>
     </div>
 </div>
 
 <script>
+    const toastLiveExample = document.getElementById('liveToast')
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+
     $('.form-check-input:checked').each(function() {
         $(this).parent('.form-check').addClass('checked');
     });
+
+    $(document).ready(function() {
+        var message = decodeURIComponent(getUrlParameter('message'));
+        if (message) {
+            $('#liveToast').addClass('text-bg-success');
+            $('#liveToast').find('.toast-body').html(message);
+            toastBootstrap.show();
+
+            const newUrl = window.location.href.replace(`&message=${message}`, '');
+            history.replaceState(null, null, newUrl);
+        }
+    });
+
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
 </script>
 
 <style>
