@@ -83,8 +83,8 @@
                     <div class="card-footer">
                         <form action="edit_ques.php" method="POST">
                             <button type="submit" class="btn btn-primary">Edit</button>
-                            <button id="del_btn" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="'. $row['ID'] .'" onclick="">Delete</button>                       
-                            <input type="hidden" value="'. $row['ID'] .'" name="ques_id">
+                            <button type="button" class="btn btn-danger del-btn" data-bs-toggle="modal" data-bs-target="#delete-confirm" value="<?php echo $row['ID']?>" onclick="">Delete</button>                       
+                            <input type="hidden" value="<?php echo $row['ID']?>" name="ques_id">
                         </form>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
     }
 </style>
 <script>
-    $("#del_btn").click(function() {
+    $(".del-btn").click(function() {
         var btn_val = $(this).val();
         alert(btn_val);
     });
