@@ -27,7 +27,7 @@
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <div class="col">
-                    <div class="card">
+                    <div class="card h-100">
                         <button data-bs-toggle="modal" data-bs-target="#create-quiz" class="btn fs-1 h-100 text-secondary" type="submit" name= "">
                             +
                         </button>
@@ -38,24 +38,47 @@
                     while($row=mysqli_fetch_array($result)) {
                 ?>
                         <div class="col">
-                            <div class="card">
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col d-flex w-100 align-items-center">
+                                            <div class="form-check my-0 form-switch">
+                                                <input class="form-check-input switch" type="checkbox" role="switch" id="flexSwitchCheckDefault-<?php echo $row['qz_ID'] ?>" <?php echo ($row['Room_ID'] != '') ? 'checked' : ''; ?>>
+                                                <label class="form-check-label" for="flexSwitchCheckDefault-<?php echo $row['qz_ID'] ?>"><?php echo ($row['Room_ID'] != '') ? 'Open' : 'Close'; ?></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col pe-0 text-end">
+                                            <div class="dropdown">
+                                                <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-menu-down"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <form method="GET" class="my-0" action="question_page.php">
+                                                        <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">  
+                                                        <li><button type="submit" class="dropdown-item">View</button></li>
+                                                        <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-quiz-<?php echo $row['qz_ID']?>" value="<?php echo $row['qz_ID']?>" name="editQuiz">Edit</button></li>
+                                                        <li><button type="button" class="dropdown-item del-btn" data-bs-toggle="modal" data-bs-target="#delete-quiz" value="<?php echo $row['qz_ID']?>">Delete</button></li>
+                                                    </form>
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $row['Title'] ?></h5>
                                     <p class="card-text"><?php echo $row['Description'] ?></p>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input switch" type="checkbox" role="switch" id="flexSwitchCheckDefault-<?php echo $row['qz_ID'] ?>" <?php echo ($row['Room_ID'] != '') ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="flexSwitchCheckDefault-<?php echo $row['qz_ID'] ?>"><?php echo ($row['Room_ID'] != '') ? 'Open' : 'Close'; ?></label>
-                                    </div>
 
-                                    <form method="GET" class="my-0" action="question_page.php">
-                                        <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">                     
-                                        <button type="submit" class="btn btn-primary">View</button>
-                                        <button type="button" class="btn text-light btn-secondary" data-bs-toggle="modal" data-bs-target="#edit-quiz-<?php echo $row['qz_ID']?>" value="<?php echo $row['qz_ID']?>" name="editQuiz">Edit</button>
-                                        <button type="button" class="btn btn-danger del-btn" data-bs-toggle="modal" data-bs-target="#delete-quiz" value="<?php echo $row['qz_ID']?>">Delete</button>
-                                    </form>
+                                <?php if ($row['Room_ID'] != ""){ ?>
+                                <div class="card-footer">
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary"><i class="bi bi-share"></i></button>
+                                        <input class="form-control" type="text" value="<?php echo $row['Room_ID'] ?>" aria-label="default input example" readonly>
+                                    </div>
                                 </div>
+                                <?php } ?>
                             </div>
                         </div>
 
@@ -293,19 +316,19 @@
         border-bottom: 5px solid #1c0052 !important;
         color: white !important;
     } */
-    #edit-quiz-desc{
+    /* #edit-quiz-desc{
         height: 25vh;
         resize: none;
-    }
+    } */
     
-    #quiz-desc {
+    /* #quiz-desc {
         height: 25vh;
         resize: none;
-    }
+    } */
 
-    .card{
+    /* .card{
         height: 25vh;
-    }
+    } */
 
     .modal-img-danger{
         width: 40vh;
