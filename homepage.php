@@ -48,10 +48,10 @@
                 <div class="card-body">
                     <h4 class="card-title">Enter Code to Join</h4>
                     <div class="card-text">
-                        <form action="">
+                        <form action="quiz/quiz.php" method="post">
                             <div class="d-flex">
                                 <div class="col-md-9 me-3">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="room_id">
                                 </div>
                                 <div class="col-md-3">
                                     <button class="btn home-btn" type="submit" name="login">

@@ -44,9 +44,14 @@
                                     <p class="card-text"><?php echo $row['Description'] ?></p>
                                 </div>
                                 <div class="card-footer">
-                                    <form method="GET" class="my-0" action="question_page.php">
-                                        <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">                                              
-                                        <button type="submit" class="btn btn-primary" type>View</button>
+                                    <form method="POST" id="quiz" action="../quiz/pre_quiz.php">
+                                        <input type="hidden" value="" name="room_ID">
+                                        <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">
+                                        <button type="submit" value="<?php echo $row['qz_ID']?>" class="btn btn-success start-quiz">Start</button>
+                                    </form>
+                                         
+                                    <form method="GET" class="my-0" action="question_page.php">                     
+                                        <button type="submit" class="btn btn-primary">View</button>
                                         <button type="button" class="btn text-light btn-secondary" data-bs-toggle="modal" data-bs-target="#edit-quiz-<?php echo $row['qz_ID']?>" value="<?php echo $row['qz_ID']?>" name="editQuiz">Edit</button>
                                         <button type="button" class="btn btn-danger del-btn" data-bs-toggle="modal" data-bs-target="#delete-quiz" value="<?php echo $row['qz_ID']?>">Delete</button>
                                     </form>
@@ -147,7 +152,16 @@
     </div>
 </div>
 
-<script>
+<script>    
+    function generateRoomID() {
+        const num = '0123456789';
+        let result = '';
+        for (let i = 0; i < 6; i++) {
+            result += num[Math.floor(Math.random() * num.length)];
+        }
+        return result;
+    }
+
     $(document).ready(function() {
         $('#quiz-form').submit(function(e) {
             e.preventDefault();
@@ -222,7 +236,15 @@
             $("#delete-quiz input[name='qz_id']").val(btn_val);
             $('#delete-quiz').modal('show');
         });
+
+        $(".start-quiz").click(function() {
+            var roomID = generateRoomID();
+            console.log(roomID);
+            $("#quiz input[name='room_ID']").val(roomID);
+        });
     });
+
+
 </script>
 
 <style>

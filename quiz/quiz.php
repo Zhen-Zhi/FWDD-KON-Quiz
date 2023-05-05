@@ -2,6 +2,7 @@
 <?php 
     include("../session.php");
     include("../conn.php");
+    $_SESSION['room_id'] = $_POST['room_id'];
 ?>
 <html>
     <head>
