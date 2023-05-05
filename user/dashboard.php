@@ -10,6 +10,9 @@
 
     $query = "SELECT * FROM quiz where User_ID = $id ORDER BY qz_ID DESC";
     $result = mysqli_query($con, $query);
+    
+    $category = "SELECT * FROM category ORDER BY ID ASC";
+    $res = mysqli_query($con, $category);
 ?>
 
 <div class="container px-3">
@@ -129,11 +132,22 @@
             <form class="needs-validation" action="" method="POST" novalidate id="quiz-form">
                 <div class="modal-body">
                     <input type="hidden" value="<?php echo $_SESSION['id'];?>" name="id">
-                    <div class="mx-auto">
+                    <div class="col">
                         <label for="quiz-title" class="form-label">Quiz Title</label>
                         <input id="quiz-title" class="form-control" type="text" name="qz_title">
                     </div>
-                    <div class="mx-auto">
+                    <div class="col mt-2">
+                        <label for="quiz-category" class="form-label">Category</label>
+                        <select class="form-select" aria-label="Default select example" name="qz_cat">
+                            <?php while(($row = mysqli_fetch_assoc($res))){
+                            ?>
+                                <option value="<?php echo $row['ID'] ?>"><?php echo $row['Category'] ?></option>
+                            <?php
+                                    }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col mt-2">
                         <label for="quiz-desc" class="form-label">Quiz Description</label>
                         <textarea class="form-control" id="quiz-desc" name="qz_desc"></textarea>
                     </div>
