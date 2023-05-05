@@ -1,7 +1,7 @@
 <?php 
     include("../session.php");
     include("../conn.php");
-    $_SESSION['room_id'] = $_POST['room_id'];
+    $_SESSION['room_id'] = $_GET['room_id'];
 ?>
 <head>
     <title>KON Quiz - Quiz</title>
@@ -42,6 +42,10 @@
             </div>
         </form>
     </div>
+    <div class="m-5 container-sc">
+        <h2 class="mx-3">Score: </h2>
+        <h2 id="score">0</h2>
+    </div>
 </div>
 
 <!-- <div class="container">
@@ -53,6 +57,10 @@
 <style>
     .option {
         transition: all 0.3s ease-in-out;
+    }
+
+    .container-sc {
+        display: flex;
     }
     
 </style>

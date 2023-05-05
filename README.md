@@ -23,3 +23,19 @@ html template:
 
 
 ALTER TABLE `user` ADD `Gender` VARCHAR(50) NOT NULL AFTER `Tel`;
+
+
+
+the about us page not good in phone
+sidebar too big for phone, almost cover full screen
+do quiz not yet done, should add
+1. user enter name
+2. end show the result
+3. modal for showing the qr code and room id, backend code to generate the qr code with correct url
+
+ipad:
+1. enter code to join block 
+
+
+
+quiz - click button (duno how to use), should allow user to click the card
