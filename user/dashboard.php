@@ -44,12 +44,11 @@
                                     <p class="card-text"><?php echo $row['Description'] ?></p>
                                 </div>
                                 <div class="card-footer">
-                                    <form method="POST" id="quiz" action="../quiz/pre_quiz.php">
-                                        <input type="hidden" value="" name="room_ID">
-                                        <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">
-                                        <button type="submit" value="<?php echo $row['qz_ID']?>" class="btn btn-success start-quiz">Start</button>
-                                    </form>
-                                         
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input switch" type="checkbox" role="switch" id="flexSwitchCheckDefault-<?php echo $row['qz_ID'] ?>" <?php echo ($row['Room_ID'] != '') ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="flexSwitchCheckDefault-<?php echo $row['qz_ID'] ?>"><?php echo ($row['Room_ID'] != '') ? 'Open' : 'Close'; ?></label>
+                                    </div>
+
                                     <form method="GET" class="my-0" action="question_page.php">
                                         <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">                     
                                         <button type="submit" class="btn btn-primary">View</button>
@@ -153,7 +152,7 @@
     </div>
 </div>
 
-<script>    
+<script>
     function generateRoomID() {
         const num = '0123456789';
         let result = '';
@@ -164,6 +163,46 @@
     }
 
     $(document).ready(function() {
+        $('.switch').change(function() {
+            let roomID = null;
+            let id = parseInt(this.id.replace('flexSwitchCheckDefault-', ''));
+            let state = 1;
+
+            if ($(this).is(':checked')) {
+                $('label[for='+ this.id +'').text('Open');
+                roomID = generateRoomID();
+                state = 1;
+            } else {
+                $('label[for='+ this.id +'').text('Close');
+                state = 0;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'quiz_handler.php',
+                data: {
+                    qz_id: id,
+                    room_ID: roomID,
+                    changeState: true,
+                    state: state
+                },
+                success: function(response) {
+                    var data = response;
+                    if (data.response == 'Success') {
+                        window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
+                    } else {
+                        $('#liveToast').addClass('text-bg-danger');
+                        $('#liveToast').find('.toast-body').html(data.message);
+                        toastBootstrap.show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log("AJAX error: " + status + " - " + error);
+                }
+            });
+            // console.log(222,roomID,id)
+        });
+
         $('#quiz-form').submit(function(e) {
             e.preventDefault();
             var formData = $(this).serializeArray();
@@ -238,11 +277,11 @@
             $('#delete-quiz').modal('show');
         });
 
-        $(".start-quiz").click(function() {
-            var roomID = generateRoomID();
-            console.log(roomID);
-            $("#quiz input[name='room_ID']").val(roomID);
-        });
+        // $(".start-quiz").click(function() {
+        //     var roomID = generateRoomID();
+        //     console.log(roomID);
+        //     $("#quiz input[name='room_ID']").val(roomID);
+        // });
     });
 
 

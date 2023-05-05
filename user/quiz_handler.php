@@ -71,6 +71,27 @@
 
         $res = array('response' => $response, 'message' => $message);
         echo json_encode($res);
+    }else if (isset($_POST['changeState'])){
+        $room_id = $_POST['room_ID'];
+        $quiz_id = $_POST['qz_id'];
+        $state = $_POST['state'];
+
+        $query = "UPDATE quiz SET Room_ID = '$room_id' WHERE qz_ID = '$quiz_id'";
+        if (mysqli_query($con, $query)) {
+            $response = "Success";
+            if($state == 1){
+                $message = 'Room opened successfully';
+            }else{
+                $message = 'Room closed successfully';
+            }
+        }
+        else {
+            $response = "Error";
+            $message = 'Failed';
+        }
+
+        $res = array('response' => $response, 'message' => $message, 'room_id' => $room_id, 'quiz_id' => $quiz_id);
+        echo json_encode($res);
     }
 
     mysqli_close($con);
