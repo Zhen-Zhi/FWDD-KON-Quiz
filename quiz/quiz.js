@@ -23,6 +23,8 @@ fxPromise.then(
         let copyQues = [...question];
         console.log(copyQues);
         let currentQuestion = {};
+        let correctQues = 0;
+
         const opt = Array.from(document.getElementsByClassName("option"));
 
         const progressBar = document.querySelector('.progress-bar');
@@ -55,7 +57,10 @@ fxPromise.then(
                 const optNo = selectedOption.dataset['opt'];
 
                 if (currentQuestion.correct_opt == ("opt" + optNo)) {
-                    console.log("Answer correct: " + (marks += 10));
+                    correctQues += 1;
+                    marks += 10;
+                    console.log("Answer correct: " + marks);
+                    document.getElementById("score").textContent = marks;
                 }
                 else {
                     console.log("Answer Incorrect: " + marks);
@@ -67,6 +72,12 @@ fxPromise.then(
                 }
                 else {
                     alert("Quiz done!");
+                    const result_url = "result.php" +
+                        "?score=" + marks +
+                        "&correct_ques=" + correctQues +
+                        "&tot_ques=" + question.length;
+
+                    window.location.href = result_url;
                 }
             })
         });

@@ -77,7 +77,7 @@
                                 <?php if ($row['Room_ID'] != ""){ ?>
                                 <div class="card-footer">
                                     <div class="input-group">
-                                        <button class="btn btn-outline-secondary" onclick="copyText()"><i class="bi bi-share"></i></button>
+                                        <button class="btn btn-outline-secondary share" onclick="copyText()" value="<?php echo $row['Room_ID'] ?>"><i class="bi bi-share"></i></button>
                                         <input id="roomID-<?php echo $row['Room_ID'] ?>" class="form-control" type="text" value="<?php echo $row['Room_ID'] ?>" aria-label="default input example" readonly>
                                     </div>
                                 </div>
@@ -184,6 +184,31 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                     <button type="submit" class="btn btn-primary" name="">Yes</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- display modal -->
+<div class="modal fade" id="display" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog flex-column modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-bg-danger">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Join Quiz</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mx-auto my-3">
+                    <?php 
+                        echo '<img src="">';
+                    ?>
+                </div>
+                <div class="container-fluid shadow">
+                    <h2 id="room-id" >room id</h2>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
@@ -320,11 +345,13 @@
             $('#delete-quiz').modal('show');
         });
 
-        // $(".start-quiz").click(function() {
-        //     var roomID = generateRoomID();
-        //     console.log(roomID);
-        //     $("#quiz input[name='room_ID']").val(roomID);
-        // });
+        $(".share").click(function() {
+            var roomId = $(this).val();
+            document.getElementById("room-id").textContent = roomId;
+            $('#display').modal('show');
+            $('#display img').attr('src', 'https://quickchart.io/qr?text=' + encodeURIComponent('http://192.168.100.15/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login='));
+            console.log(roomId);
+        });
     });
 
 
