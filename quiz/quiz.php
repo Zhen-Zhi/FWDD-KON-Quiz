@@ -1,7 +1,7 @@
 <?php 
     include("../session.php");
     include("../conn.php");
-    $_SESSION['room_id'] = $_POST['room_id'];
+    $_SESSION['room_id'] = $_GET['room_id'];
 ?>
 <head>
     <title>KON Quiz - Quiz</title>
