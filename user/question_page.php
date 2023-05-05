@@ -17,7 +17,7 @@
     $quiz_data = mysqli_fetch_assoc($result);
 
     //get question
-    $query_ques = "SELECT * FROM quiz_ques WHERE qz_ID = $quiz_id";
+    $query_ques = "SELECT * FROM quiz_ques WHERE qz_ID = $quiz_id ORDER BY ID ASC";
     $question_result = mysqli_query($con, $query_ques);
 ?>
 
@@ -55,11 +55,9 @@
             ?>
             <div class="col">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <h5 class="col"><?php echo $count ?>. <?php echo $row['ques'] ?></h5>
-                        </div>
-                    </div>
+                    <h5 class="card-header p-3">
+                        <?php echo $count ?>. <?php echo $row['ques'] ?>
+                    </h5>
                     <div class="card-body" id="answer">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="opt1" id="flexCheckDefault" <?php echo ($row['correct_opt'] == 'opt1') ? 'checked' : ''; ?> disabled>
