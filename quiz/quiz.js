@@ -27,6 +27,31 @@ fxPromise.then(
 
         const progressBar = document.querySelector('.progress-bar');
 
+        function startTimer(){
+            const timerEl = document.getElementById('timer');
+        
+            let seconds = 0;
+            let minutes = 0;
+        
+            const timer = setInterval(() => {
+                seconds++;
+        
+                if (seconds < 10) {
+                    seconds = `0${seconds}`;
+                }
+                if (seconds == 60) {
+                    seconds = '00';
+                    minutes++;
+                }
+        
+                timerEl.textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        
+            function stopTimer() {
+                clearInterval(timer);
+            }
+        }
+
         function updateProgressBar(e, i) {
             let progress = (e/i)*100;
             progressBar.style.width = progress + '%';
@@ -35,6 +60,7 @@ fxPromise.then(
 
         function startQuiz() {
             nextQuestion(quesCounter);
+            startTimer();
         }
 
         function nextQuestion(index) {
@@ -67,6 +93,7 @@ fxPromise.then(
                 }
                 else {
                     alert("Quiz done!");
+                    stopTimer();
                 }
             })
         });
