@@ -81,7 +81,7 @@
                                 <?php if ($row['Room_ID'] != ""){ ?>
                                 <div class="card-footer">
                                     <div class="input-group">
-                                        <button class="btn btn-outline-secondary share" onclick="copyText()" value="<?php echo $row['Room_ID'] ?>"><i class="bi bi-share"></i></button>
+                                        <button class="btn btn-outline-secondary share" value="<?php echo $row['Room_ID'] ?>"><i class="bi bi-share"></i></button>
                                         <input id="roomID-<?php echo $row['Room_ID'] ?>" class="form-control" type="text" value="<?php echo $row['Room_ID'] ?>" aria-label="default input example" readonly>
                                     </div>
                                 </div>
@@ -195,20 +195,27 @@
 
 <!-- display modal -->
 <div class="modal fade" id="display" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog flex-column modal-dialog-centered">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header text-bg-danger">
+            <div class="modal-header text-bg-success">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Join Quiz</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="mx-auto my-3">
-                    <?php 
-                        echo '<img src="">';
-                    ?>
-                </div>
-                <div class="container-fluid shadow">
-                    <h2 id="room-id" >room id</h2>
+                <div class="container-fluid">
+                    <div class="row w-50 mx-auto">
+                        <img src="" alt="" class="img-fluid">
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <label for="" class="form-label">Room ID</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 text-center mx-auto">
+                            <input type="text" class="form-control text-center" id="room-id" disabled>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -229,9 +236,10 @@
     }
 
     function copyText(){
-        // var roomID = document.getElementById("roomID");
-        // roomID.select();
-        // document.execCommand("copy");
+        var roomID = document.getElementById("room-id");
+        roomID.select();
+        // roomID.setSelectionRange(0, 99999);
+        document.execCommand("copy");
     }
 
     $(document).ready(function() {
@@ -351,7 +359,7 @@
 
         $(".share").click(function() {
             var roomId = $(this).val();
-            document.getElementById("room-id").textContent = roomId;
+            document.getElementById("room-id").value = roomId;
             $('#display').modal('show');
             $('#display img').attr('src', 'https://quickchart.io/qr?text=' + encodeURIComponent('http://192.168.100.15/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login='));
             console.log(roomId);
