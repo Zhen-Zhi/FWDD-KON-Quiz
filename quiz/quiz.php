@@ -26,18 +26,18 @@
         <form class="card-body p-5">
             <div class="row mb-4">
                 <div class="col text-center">
-                    <button type="button" class="btn btn-lg btn-secondary w-100 option p-2" data-opt="1">Option 1</button>
+                    <button type="button" class="btn h-100 btn-secondary w-100 option p-2" data-opt="1">Option 1</button>
                 </div>
                 <div class="col text-center">
-                    <button type="button" class="btn btn-lg btn-secondary w-100 option p-2" data-opt="2">Option 2</button>
+                    <button type="button" class="btn h-100 btn-secondary w-100 option p-2" data-opt="2">Option 2</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col text-center">
-                    <button type="button" class="btn btn-lg btn-secondary w-100 option p-2" data-opt="3">Option 3</button>
+                    <button type="button" class="btn h-100 btn-secondary w-100 option p-2" data-opt="3">Option 3</button>
                 </div>
                 <div class="col text-center">
-                    <button type="button" class="btn btn-lg btn-secondary w-100 option p-2" data-opt="4">Option 4</button>
+                    <button type="button" class="btn h-100 btn-secondary w-100 option p-2" data-opt="4">Option 4</button>
                 </div>
             </div>
         </form>
