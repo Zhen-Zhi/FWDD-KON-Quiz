@@ -27,13 +27,15 @@ fxPromise.then(
 
         const progressBar = document.querySelector('.progress-bar');
 
+        let timer;
+
         function startTimer(){
             const timerEl = document.getElementById('timer');
         
             let seconds = 0;
             let minutes = 0;
         
-            const timer = setInterval(() => {
+            timer = setInterval(() => {
                 seconds++;
         
                 if (seconds < 10) {
@@ -46,10 +48,10 @@ fxPromise.then(
         
                 timerEl.textContent = `${minutes}:${seconds}`;
             }, 1000);
-        
-            function stopTimer() {
-                clearInterval(timer);
-            }
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
         }
 
         function updateProgressBar(e, i) {
