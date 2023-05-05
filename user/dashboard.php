@@ -41,7 +41,6 @@
                     while($row=mysqli_fetch_array($result)) {
                 ?>
                         <div class="col">
-                            <a class="text-decoration-none" href="question_page.php?qz_id=<?php echo $row['qz_ID'] ?>">
                             <div class="card quiz-card h-100">
                                 <div class="card-header">
                                     <div class="row">
@@ -69,10 +68,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $row['Title'] ?></h5>
-                                    <p class="card-text"><?php echo $row['Description'] ?></p>
-                                </div>
+
+                                <!-- <a type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Click to view question" class="text-decoration-none text-dark-emphasis" href="question_page.php?qz_id=<?php echo $row['qz_ID'] ?>"> -->
+                                    <div class="card-body" onclick="window.location.href = 'question_page.php?qz_id=<?php echo $row['qz_ID'] ?>">
+                                        <a class="text-decoration-none text-dark-emphasis" href="question_page.php?qz_id=<?php echo $row['qz_ID'] ?>">
+                                            <h5 class="card-title"><?php echo $row['Title'] ?></h5>
+                                            <p class="card-text"><?php echo $row['Description'] ?></p>
+                                        </a>
+                                    </div>
+                                <!-- </a> -->
 
                                 <?php if ($row['Room_ID'] != ""){ ?>
                                 <div class="card-footer">
@@ -83,7 +87,6 @@
                                 </div>
                                 <?php } ?>
                             </div>
-                            </a>
                         </div>
 
                         <div class="modal fade" id="edit-quiz-<?php echo $row['qz_ID']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
