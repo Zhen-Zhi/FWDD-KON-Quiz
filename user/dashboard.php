@@ -50,7 +50,8 @@
                                         <button type="submit" value="<?php echo $row['qz_ID']?>" class="btn btn-success start-quiz">Start</button>
                                     </form>
                                          
-                                    <form method="GET" class="my-0" action="question_page.php">                     
+                                    <form method="GET" class="my-0" action="question_page.php">
+                                        <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">                     
                                         <button type="submit" class="btn btn-primary">View</button>
                                         <button type="button" class="btn text-light btn-secondary" data-bs-toggle="modal" data-bs-target="#edit-quiz-<?php echo $row['qz_ID']?>" value="<?php echo $row['qz_ID']?>" name="editQuiz">Edit</button>
                                         <button type="button" class="btn btn-danger del-btn" data-bs-toggle="modal" data-bs-target="#delete-quiz" value="<?php echo $row['qz_ID']?>">Delete</button>
