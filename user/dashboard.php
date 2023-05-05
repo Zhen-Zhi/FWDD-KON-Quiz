@@ -41,7 +41,8 @@
                     while($row=mysqli_fetch_array($result)) {
                 ?>
                         <div class="col">
-                            <div class="card h-100">
+                            <a class="text-decoration-none" href="question_page.php?qz_id=<?php echo $row['qz_ID'] ?>">
+                            <div class="card quiz-card h-100">
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col d-flex w-100 align-items-center">
@@ -57,9 +58,8 @@
                                                     <i class="bi bi-menu-down"></i>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <form method="GET" class="my-0" action="question_page.php">
+                                                    <form method="" class="my-0" action="">
                                                         <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">  
-                                                        <li><button type="submit" class="dropdown-item">View</button></li>
                                                         <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-quiz-<?php echo $row['qz_ID']?>" value="<?php echo $row['qz_ID']?>" name="editQuiz">Edit</button></li>
                                                         <li><button type="button" class="dropdown-item del-btn" data-bs-toggle="modal" data-bs-target="#delete-quiz" value="<?php echo $row['qz_ID']?>">Delete</button></li>
                                                     </form>
@@ -83,6 +83,7 @@
                                 </div>
                                 <?php } ?>
                             </div>
+                            </a>
                         </div>
 
                         <div class="modal fade" id="edit-quiz-<?php echo $row['qz_ID']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -352,5 +353,10 @@
 
     .modal-img-danger{
         width: 40vh;
+    }
+
+    .quiz-card:hover{
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        transition: box-shadow 0.3s ease-in-out;
     }
 </style>
