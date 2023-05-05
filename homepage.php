@@ -11,16 +11,16 @@
     //     echo "<script>alert(123);</script>";
     // }
 ?>
-<div class="container-fluid pt-5 px-5">
+<div class="container-fluid px-5">
     <div class="row">
         <div class="col-md-5 mt-3">
             <div class="card h-100 border-0 shadow">
                 <div class="card-body my-5" style="display: <?php if (isset($_SESSION['id'])) echo 'none' ?>">
                     <div class="row">
                         <div class="col-md-12 justify-content-center d-flex flex-row">
-                            <button class="btn home-btn btn-lg" data-bs-toggle="modal" data-bs-target="#login">Login</button>
+                            <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#login">Login</button>
                             <div class="vl h-auto mx-2"></div>
-                            <button class="btn home-btn btn-lg" data-bs-toggle="modal" data-bs-target="#signup">Sign-up</button>
+                            <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#signup">Sign-up</button>
                         </div>
                     </div>
                     <div class="row mt-2">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="col-md-6 my-auto text-center mx-auto py-3">
                             <h4><?php if (isset($_SESSION['id'])) echo $_SESSION['username']; ?></h4>
-                            <button class="btn home-btn" onclick="window.location.href='user/edit_profile.php'">Edit Profile</button>
+                            <button class="btn btn-dark" onclick="window.location.href='user/edit_profile.php'">Edit Profile</button>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                                     <input type="text" class="form-control" name="room_id">
                                 </div>
                                 <div class="col-md-3">
-                                    <button class="btn home-btn" type="submit" name="login">
+                                    <button class="btn btn-dark" type="submit" name="login">
                                         Enter
                                     </button>
                                 </div>
@@ -74,15 +74,15 @@
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-        <div class="carousel-inner h-50">
+        <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="img/qr.png" class="d-block w-100" alt="...">
+                <img src="img/carousel-3.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="img/wiz.png" class="d-block w-100" alt="...">
+                <img src="img/carousel-2.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="..." class="d-block w-100" alt="...">
+                <img src="img/carousel-1.jpg" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -248,17 +248,15 @@
         height: 1rem;
     }
 
-    .home-btn{
+    /* .home-btn{
         background-color: #6E2BF2 !important;
-        border-bottom: 5px solid #1c0052 !important;
         color: white !important;
     }
 
     .home-btn:hover{
         background-color: #7e42f5 !important;
-        border-bottom: 5px solid #1c0052;
         color: white;
-    }
+    } */
 
     .thumbnail{
         border-radius: 100% !important;
@@ -275,4 +273,8 @@
     .profile{
         background-color:#6E2BF2;
     }
+
+    /* .carousel-item img{
+        object-fit: cover !important;
+    } */
 </style>

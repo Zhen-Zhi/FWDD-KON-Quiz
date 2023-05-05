@@ -17,15 +17,15 @@
 </div> -->
 
 <div class="container mx-auto">
-    <div class="px-3">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" href="../homepage.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Edit Profile</a>
-            </li>
-        </ul>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="../homepage.php">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Edit Profile</a>
+        </li>
+    </ul>
+    <div class="shadow p-5 pt-4">
         <?php while($row = mysqli_fetch_array($result)) { ?>
         <form action="" method="POST" class="mt-2" id="edit-form">
             <div class="row">
@@ -99,7 +99,7 @@
             </div>
             <div class="col-md-6 mt-2 mx-auto text-center pt-3">
                 <input type="hidden" name="edit-profile" value="1">
-                <button class="btn" name="edit" id="save-btn" style="width: 10vh;">
+                <button class="btn btn-primary" name="edit" style="width: 10vh;">
                     SAVE
                 </button>
             </div>
@@ -257,21 +257,5 @@
     .form-control{
         margin-bottom: 0.5rem;
         transition: all 0.2s ease-in-out;
-    }
-
-    #save-btn{
-        background-color: #6E2BF2 !important;
-        border-bottom: 5px solid #1c0052 !important;
-        color: white !important;
-    }
-
-    #save-btn:hover{
-        background-color: #7e42f5 !important;
-        border-bottom: 5px solid #1c0052;
-        color: white;
-    }
-
-    #save-btn-close:focus{
-        box-shadow: none;  
     }
 </style>

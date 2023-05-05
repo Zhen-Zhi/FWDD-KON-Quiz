@@ -1,4 +1,7 @@
-<?php include("template.html"); ?>
+<?php 
+    include("template.html"); 
+    include("toast.php");
+?>
 <nav class="navbar fixed-top" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="./homepage.php">
@@ -6,10 +9,10 @@
         </a>
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <button class="nav-link" id="login-btn" type="button" data-bs-toggle="modal" data-bs-target="#login">LOGIN</button>
+                <button class="nav-link text-light" id="login-btn" type="button" data-bs-toggle="modal" data-bs-target="#login">LOGIN</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link" id="signup-btn" type="button" data-bs-toggle="modal" data-bs-target="#signup">SIGN UP</button>
+                <button class="nav-link text-light" id="signup-btn" type="button" data-bs-toggle="modal" data-bs-target="#signup">SIGN UP</button>
             </li>
         </ul>
     </div>
@@ -50,7 +53,7 @@
                     
                     <div class="col-md-6 mt-2 mx-auto text-center pt-1">
                         <input type="hidden" name="login" value="1">
-                        <button class="btn w-50 h-50" type="submit" name="login">
+                        <button class="btn btn-secondary w-50" type="submit" name="login">
                             <div id="login-text">
                                 LOGIN
                             </div>
@@ -141,7 +144,7 @@
                     </div>
                     <div class="col-md-6 mt-2 mx-auto text-center pt-1">
                         <input type="hidden" name="signup" value="1">
-                        <button class="btn w-50" name="signup">
+                        <button class="btn btn-secondary" name="signup">
                             SIGNUP
                         </button>
                     </div>
@@ -163,7 +166,7 @@
             console.log(formData)
             $.ajax({
                 type: 'POST',
-                url: '../auth.php',
+                url: '../FWDD-KON-QUIZ/auth.php',
                 data: formData,
                 success: function(response) {
                     var data = JSON.parse(response);
@@ -174,12 +177,12 @@
                         $('#spinner').show();
 
                         setTimeout(function() {
-                            window.location.href = '../homepage.php';
+                            window.location.href = '../FWDD-KON-QUIZ/homepage.php';
                         }, 2000);
                     } else {
-                        $('#alert').addClass('text-bg-danger');
-                        $('#alert').find('.toast-body').html(data.message);
-                        bootstrap.Toast.getOrCreateInstance(document.getElementById('alert')).show();
+                        $('#liveToast').addClass('text-bg-danger');
+                        $('#liveToast').find('.toast-body').html(data.message);
+                        toastBootstrap.show();
                         $('#credential').removeClass('is-valid').addClass('is-invalid');
                         $('#password').removeClass('is-valid').addClass('is-invalid');
                     }
@@ -200,14 +203,18 @@
             if(pass)
                 $.ajax({
                     type: 'POST',
-                    url: '../auth.php',
+                    url: '../FWDD-KON-QUIZ/auth.php',
                     data: formData,
                     success: function(response) {
+                        console.log(12322,response)
                         var data = JSON.parse(response);
+                        console.log(123,data)
                         if (data.response == 'Success') {
-                            $('#alert1').removeClass('text-bg-danger').addClass('text-bg-success');
+                            window.location.href = 'homepage.php?&message=' + encodeURIComponent(data.message);
                         } else {
-                            $('#alert1').removeClass('text-bg-success').addClass('text-bg-danger');
+                            $('#liveToast').addClass('text-bg-danger');
+                            $('#liveToast').find('.toast-body').html(data.message);
+                            toastBootstrap.show();
                             if(data.type == 0){
                                 $('#username').removeClass('is-valid').addClass('is-invalid');
                             }else if(data.type == 1){
@@ -216,8 +223,6 @@
                                 $('#pass1').removeClass('is-valid').addClass('is-invalid');
                             }
                         }
-                        $('#alert1').find('.toast-body').html(data.message);
-                        bootstrap.Toast.getOrCreateInstance(document.getElementById('alert1')).show();
                     }
                 });
         });
@@ -314,6 +319,10 @@
 </script>
 
 <style>
+    body{
+        padding-top: 8vh;
+    }
+
     .navbar{
         background-color: #1c0052 !important;
     }
@@ -339,7 +348,7 @@
         color: white !important;
     }
 
-    .btn{
+    /* .btn{
         background-color: #6E2BF2 !important;
         border-bottom: 5px solid #1c0052 !important;
         color: white !important;
@@ -349,14 +358,10 @@
         background-color: #7e42f5 !important;
         border-bottom: 5px solid #1c0052;
         color: white;
-    }
+    } */
 
     .btn-close:focus{
         box-shadow: none;  
-    }
-
-    a{
-        color: #6E2BF2;
     }
 
     .sign{
