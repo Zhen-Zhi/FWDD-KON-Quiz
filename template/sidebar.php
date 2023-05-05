@@ -16,13 +16,13 @@
                 <a class="nav-link" href="/FWDD-KON-QUIZ/user/dashboard.php">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="dashboard.php">My Question</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="dashboard.php">Report</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/FWDD-KON-QUIZ/user/edit_profile.php">Edit Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/FWDD-KON-QUIZ/support.php">Support</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/FWDD-KON-QUIZ/logout.php">Logout</a>
