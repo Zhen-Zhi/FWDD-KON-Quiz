@@ -163,7 +163,7 @@
             console.log(formData)
             $.ajax({
                 type: 'POST',
-                url: 'auth.php',
+                url: '../auth.php',
                 data: formData,
                 success: function(response) {
                     var data = JSON.parse(response);
@@ -174,7 +174,7 @@
                         $('#spinner').show();
 
                         setTimeout(function() {
-                            window.location.href = 'homepage.php';
+                            window.location.href = '../homepage.php';
                         }, 2000);
                     } else {
                         $('#alert').addClass('text-bg-danger');
@@ -200,7 +200,7 @@
             if(pass)
                 $.ajax({
                     type: 'POST',
-                    url: 'auth.php',
+                    url: '../auth.php',
                     data: formData,
                     success: function(response) {
                         var data = JSON.parse(response);
