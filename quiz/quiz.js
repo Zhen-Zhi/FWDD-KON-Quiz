@@ -14,6 +14,7 @@ let fxPromise = new Promise(function (resolve, reject) {
 
 fxPromise.then(
     function(value) {
+        // console.log(123,value)
         let marks = 0;
         let question = value;
         let quesCounter = 0;
@@ -24,17 +25,26 @@ fxPromise.then(
         let currentQuestion = {};
         const opt = Array.from(document.getElementsByClassName("option"));
 
+        const progressBar = document.querySelector('.progress-bar');
+
+        function updateProgressBar(e, i) {
+            let progress = (e/i)*100;
+            progressBar.style.width = progress + '%';
+            progressBar.setAttribute('aria-valuenow', progress);
+        }
+
         function startQuiz() {
             nextQuestion(quesCounter);
         }
 
         function nextQuestion(index) {
+            let list = index;
             currentQuestion = copyQues[index];
-            document.getElementById("q1").textContent = currentQuestion.ques;
+            document.getElementById("q1").textContent = list+1 + '. ' + currentQuestion.ques;
 
             opt.forEach(option => {
                 const optNo = option.dataset["opt"];
-                option.innerText = currentQuestion['opt' + optNo];
+                option.innerText  = currentQuestion['opt' + optNo];
             });
         }
 
@@ -53,6 +63,7 @@ fxPromise.then(
 
                 if (quesCounter < question.length) {
                     nextQuestion(quesCounter);
+                    updateProgressBar(quesCounter, question.length);
                 }
                 else {
                     alert("Quiz done!");

@@ -77,8 +77,8 @@
                                 <?php if ($row['Room_ID'] != ""){ ?>
                                 <div class="card-footer">
                                     <div class="input-group">
-                                        <button class="btn btn-outline-secondary"><i class="bi bi-share"></i></button>
-                                        <input class="form-control" type="text" value="<?php echo $row['Room_ID'] ?>" aria-label="default input example" readonly>
+                                        <button class="btn btn-outline-secondary" onclick="copyText()"><i class="bi bi-share"></i></button>
+                                        <input id="roomID-<?php echo $row['Room_ID'] ?>" class="form-control" type="text" value="<?php echo $row['Room_ID'] ?>" aria-label="default input example" readonly>
                                     </div>
                                 </div>
                                 <?php } ?>
@@ -197,6 +197,12 @@
             result += num[Math.floor(Math.random() * num.length)];
         }
         return result;
+    }
+
+    function copyText(){
+        // var roomID = document.getElementById("roomID");
+        // roomID.select();
+        // document.execCommand("copy");
     }
 
     $(document).ready(function() {
