@@ -24,6 +24,8 @@ fxPromise.then(
         console.log(copyQues);
         let currentQuestion = {};
         let correctQues = 0;
+        var quiz_id;
+        var quiz_title;
 
         const opt = Array.from(document.getElementsByClassName("option"));
 
@@ -70,6 +72,8 @@ fxPromise.then(
         function nextQuestion(index) {
             let list = index;
             currentQuestion = copyQues[index];
+            quiz_id = currentQuestion.qz_ID;
+            quiz_title = currentQuestion.Title;
             document.getElementById("q1").textContent = list+1 + '. ' + currentQuestion.ques;
 
             opt.forEach(option => {
@@ -100,17 +104,27 @@ fxPromise.then(
                 }
                 else {
                     alert("Quiz done!");
-                    stopTimer();
+                    time_data = document.getElementById("timer").textContent;
+                    
                     const result_url = "result.php" +
                         "?score=" + marks +
                         "&correct_ques=" + correctQues +
-                        "&tot_ques=" + question.length;
+                        "&tot_ques=" + question.length +
+                        "&time=" + time_data +
+                        "&quiz_title=" + quiz_title +
+                        "&quiz_id=" + quiz_id;
 
+                    stopTimer();
                     window.location.href = result_url;
                 }
             })
         });
 
+        function setQuizTitle () {
+            document.getElementById('quiz-title').textContent = quiz_title;
+        }
+
         startQuiz();
+        setQuizTitle();
     }
 )

@@ -7,6 +7,8 @@
     <title>KON Quiz - Quiz</title>
 </head>
 
+
+<h2 id="quiz-title">Quiz Title</h2>
 <div class="container text-center">
     <i class="bi bi-stopwatch-fill fs-3"><div class="fs-3" id="timer">0:00</div></i>
 </div>
