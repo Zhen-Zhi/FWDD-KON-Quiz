@@ -80,15 +80,16 @@
                 url: 'save_result.php',
                 data:  $(this).serialize(),
                 success: function(response) {
+                    console.log(12322,response);
                     var data = JSON.parse(response);
-                    console.log(data.message);
+                    console.log(123,data);
                     if (data.response == 'Success') {
-                        $('#alert').removeClass('text-bg-danger').addClass('text-bg-success');
+                        $('#liveToast').removeClass('text-bg-danger').addClass('text-bg-success');
                     } else {
-                        $('#alert').removeClass('text-bg-success').addClass('text-bg-danger');
+                        $('#liveToast').removeClass('text-bg-success').addClass('text-bg-danger');
                     }
-                    $('#alert').find('.toast-body').html(data.message);
-                    bootstrap.Toast.getOrCreateInstance(document.getElementById('alert')).show();
+                    $('#liveToast').find('.toast-body').html(data.message);
+                    bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast')).show();
                 }
             });
         });
