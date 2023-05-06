@@ -84,12 +84,12 @@
                     var data = JSON.parse(response);
                     console.log(123,data);
                     if (data.response == 'Success') {
-                        $('#liveToast').removeClass('text-bg-danger').addClass('text-bg-success');
+                        // window.location.href = '/FWDD-KON-QUIZ/homepage.php?&message=' + encodeURIComponent(data.message);
                     } else {
-                        $('#liveToast').removeClass('text-bg-success').addClass('text-bg-danger');
+                        $('#liveToast').addClass('text-bg-danger');
+                        $('#liveToast').find('.toast-body').html(data.message);
+                        toastBootstrap.show();
                     }
-                    $('#liveToast').find('.toast-body').html(data.message);
-                    bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast')).show();
                 }
             });
         });

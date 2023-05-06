@@ -166,7 +166,7 @@
             console.log(formData)
             $.ajax({
                 type: 'POST',
-                url: '../FWDD-KON-QUIZ/auth.php',
+                url: '/FWDD-KON-QUIZ/auth.php',
                 data: formData,
                 success: function(response) {
                     var data = JSON.parse(response);
@@ -177,7 +177,7 @@
                         $('#spinner').show();
 
                         setTimeout(function() {
-                            window.location.href = '../FWDD-KON-QUIZ/homepage.php';
+                            window.location.href = '/FWDD-KON-QUIZ/homepage.php';
                         }, 2000);
                     } else {
                         $('#liveToast').addClass('text-bg-danger');
