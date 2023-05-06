@@ -24,7 +24,7 @@
     }
     else {
         $response = "Error";
-        $message = "Please log in first";
+        $message = "Guest cannot save result";
     }
 
     $response = array('message' => $message, 'response' => $response);

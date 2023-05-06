@@ -84,7 +84,9 @@
                     var data = JSON.parse(response);
                     console.log(123,data);
                     if (data.response == 'Success') {
-                        // window.location.href = '/FWDD-KON-QUIZ/homepage.php?&message=' + encodeURIComponent(data.message);
+                        $('#alert').addClass('text-bg-success');
+                        $('#alert').find('.toast-body').html(data.message);
+                        $('#alert').toast('show');
                     } else {
                         $('#liveToast').addClass('text-bg-danger');
                         $('#liveToast').find('.toast-body').html(data.message);
