@@ -7,8 +7,14 @@
     include("../conn.php");
     include("../template/toast.php");
     $id = $_SESSION['id'];
+    $records_per_page = 12;
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $offset = ($page - 1) * $records_per_page;
 
-    $query = "SELECT * FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID where session.User_ID = $id ORDER BY session.Session_ID DESC";
+    $total_records = mysqli_num_rows(mysqli_query($con, "SELECT * FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID where session.User_ID = $id"));
+    $total_pages = ceil($total_records / $records_per_page);
+
+    $query = "SELECT * FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID where session.User_ID = $id ORDER BY session.Session_ID DESC LIMIT $records_per_page OFFSET $offset";
     // $query = "SELECT * FROM quiz where User_ID = $id ORDER BY qz_ID DESC";
     $result = mysqli_query($con, $query);
     
@@ -28,6 +34,31 @@
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
         <h2 class="px-2 my-4">Your Past Quizzes</h2>
         <!-- HELLOOOOOOOOOOOOOOOOOOOOOOOOO need put loop here from database -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination px-2">
+                <?php if ($page > 1): ?>
+                <li class="page-item">
+                    <a class="page-link" href="?page=<?php echo $page - 1; ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
+                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+                <?php endfor; ?>
+
+                <?php if ($page < $total_pages): ?>
+                <li class="page-item">
+                    <a class="page-link" href="?page=<?php echo $page + 1; ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <?php endif; ?>
+            </ul>
+        </nav>
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <!-- <div class="col">
