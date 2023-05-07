@@ -9,15 +9,24 @@
     else {
         $quiz_id = $_SESSION['quiz_id'];
     }
-    $count = 0;
+
     $id = $_SESSION['id'];
 
     $query = "SELECT * FROM quiz WHERE qz_ID = $quiz_id AND User_ID = $id";
     $result = mysqli_query($con, $query);
     $quiz_data = mysqli_fetch_assoc($result);
 
+    $records_per_page = 4;
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $offset = ($page - 1) * $records_per_page;
+
+    $count = ($_GET['page'] - 1) * $records_per_page;
+
+    $total_records = mysqli_num_rows(mysqli_query($con, "SELECT * FROM quiz_ques WHERE qz_ID = $quiz_id ORDER BY ID ASC"));
+    $total_pages = ceil($total_records / $records_per_page);
+
     //get question
-    $query_ques = "SELECT * FROM quiz_ques WHERE qz_ID = $quiz_id ORDER BY ID ASC";
+    $query_ques = "SELECT * FROM quiz_ques WHERE qz_ID = $quiz_id ORDER BY ID ASC LIMIT $records_per_page OFFSET $offset";
     $question_result = mysqli_query($con, $query_ques);
 ?>
 
@@ -41,7 +50,6 @@
     </ul>
     <div class="shadow p-5 pt-4">
         <h3><?php echo $quiz_data['Title'] ?></h3>
-
         <!-- show all available question -->
         <div class="row row-cols-1 row-cols-md-1 g-4">
             <div class="col">
@@ -97,13 +105,35 @@
             }
             ?>
         </div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination mt-2">
+                <li class="page-item">
+                    <a class="page-link" href="<?php if ($page > 1){ ?>?page=<?php echo $page - 1;} ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
+                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+                <?php endfor; ?>
+
+                <li class="page-item">
+                    <a class="page-link" href="<?php if ($page < $total_pages){ ?>?page=<?php echo $page + 1;} ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 
 <!-- Confirm delete modal -->
 <div class="modal fade" id="delete-confirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog flex-column modal-dialog-centered">
-        <img class="modal-img-danger" src="img/Cave_Monkey.png" alt="">
+        <img class="modal-img-danger" src="../img/Cave_Monkey.png" alt="">
         <div class="modal-content">
             <div class="modal-header text-bg-danger">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Question</h1>
