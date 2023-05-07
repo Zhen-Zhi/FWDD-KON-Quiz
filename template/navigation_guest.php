@@ -203,14 +203,14 @@
             if(pass)
                 $.ajax({
                     type: 'POST',
-                    url: '../FWDD-KON-QUIZ/auth.php',
+                    url: '/FWDD-KON-QUIZ/auth.php',
                     data: formData,
                     success: function(response) {
                         console.log(12322,response)
                         var data = JSON.parse(response);
                         console.log(123,data)
                         if (data.response == 'Success') {
-                            window.location.href = 'homepage.php?&message=' + encodeURIComponent(data.message);
+                            window.location.href = '/FWDD-KON-QUIZ/homepage.php?&message=' + encodeURIComponent(data.message);
                         } else {
                             $('#liveToast').addClass('text-bg-danger');
                             $('#liveToast').find('.toast-body').html(data.message);
