@@ -8,7 +8,7 @@
     $tot_ques = mysqli_real_escape_string($con,$_POST['tot-ques']);
     $quiz_id = mysqli_real_escape_string($con,$_POST['quiz-id']);
     $time_used = mysqli_real_escape_string($con,$_POST['time-used']);
-    $date = date("d-m-Y");
+    $date = date("d.m.Y");
 
     if (isset($_SESSION['id'])) {
         $id = $_SESSION['id'];
