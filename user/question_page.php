@@ -11,6 +11,7 @@
     }
 
     $id = $_SESSION['id'];
+    $count = 0;
 
     $query = "SELECT * FROM quiz WHERE qz_ID = $quiz_id AND User_ID = $id";
     $result = mysqli_query($con, $query);
@@ -20,7 +21,9 @@
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $records_per_page;
 
-    $count = ($_GET['page'] - 1) * $records_per_page;
+    if(isset($_GET['page'])){
+        $count = ($_GET['page'] - 1) * $records_per_page;
+    }
 
     $total_records = mysqli_num_rows(mysqli_query($con, "SELECT * FROM quiz_ques WHERE qz_ID = $quiz_id ORDER BY ID ASC"));
     $total_pages = ceil($total_records / $records_per_page);
