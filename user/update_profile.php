@@ -12,7 +12,8 @@
         $email = mysqli_real_escape_string($con, $_POST['email']);
         $DOB = mysqli_real_escape_string($con, $_POST['DOB']);
         $Tel = mysqli_real_escape_string($con, $_POST['mobile_number']);
-        $Gender = mysqli_real_escape_string($con, $_POST['gender']);  
+        $Gender = mysqli_real_escape_string($con, $_POST['gender']);
+        $profile_pic = $_FILES['profile-pic']['name'];
 
         //get duplicate username and email
         $duplicate_query = "SELECT * FROM user where ID <> '$id' AND (Username = '$username' OR Email = '$email')";
@@ -66,17 +67,30 @@
                 }
             }
             else {
-                //Edit user profile
-                $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
-                if (mysqli_query($con, $query)) {
-                    $response = "Success";
-                    $message = "Profile had been saved";
+                // Edit user profile
+                $target_dir = "profile/";
+                $target_file = $target_dir . basename($_FILES["profile-pic"]["name"]);
+                if (move_uploaded_file($_FILES['profile-pic']['tmp_name'],$target_file)) {
+                    $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender', Profile_pic = '$profile_pic' WHERE ID = '$id'";
+                    // $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
+                    if (mysqli_query($con, $query)) {
+                        $response = "Success";
+                        $message = "Profile had been saved";
+                    }
+                    else {
+                        $message = "Error: " . mysqli_error($con);
+                    }
                 }
                 else {
-                    $message = "Error: " . mysqli_error($con);
+                    $response = "Error";
+                    $message = "File upload fail". error_get_last()['message'];;
                 }
             }   
         } 
+    }
+    else {
+        $response = "Error";
+        $message = "File upload fail out";
     }
     
     $response = array('response' => $response, 'type' => $type, 'message' => $message);
