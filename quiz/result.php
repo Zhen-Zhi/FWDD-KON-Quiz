@@ -1,7 +1,11 @@
 <?php 
     include("../session.php");
     include("../conn.php");
-    include("../template/toast.php");
+
+    if(isset($_SESSION['id'])){
+        include("../template/toast.php");
+    }
+    
     $score = $_GET['score'];
     $correct_ques = $_GET['correct_ques'];
     $tot_ques = $_GET['tot_ques'];
@@ -49,7 +53,7 @@
                     </div>
                 </div> -->
                 
-            <form action="" method="" id="save-result" onsubmit= "disableButton()">
+            <form action="" method="" id="save-result">
                 <div class="card">
                     <div class="card-body p-4">
                         <div class="mb-2">
@@ -126,10 +130,6 @@
         let pal = calPercentage();
         progressBarGreen.style.width = pal + '%';
         progressBarRed.style.width = (100 - pal) + '%';
-    }
-
-    function disableButton () {
-        document.getElementById('sv-btn').disabled = true;
     }
 
     updateProgressBar();

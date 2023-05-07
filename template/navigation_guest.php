@@ -8,7 +8,7 @@
             KON-QUIZ
         </a>
         <ul class="nav nav-pills">
-            <li class="nav-item">
+            <li class="nav-item nav-bar">
                 <button class="nav-link text-light" id="login-btn" type="button" data-bs-toggle="modal" data-bs-target="#login">LOGIN</button>
             </li>
             <li class="nav-item">
@@ -22,7 +22,7 @@
 <!-- Modal -->
 <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog flex-column modal-dialog-centered">
-        <img class="modal-img" src="img/wiz.png" alt="">
+        <img class="modal-img" src="/FWDD-KON-QUIZ/img/wiz.png" alt="">
         <div class="modal-content">
             <div class="modal-header shadow">
                 <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">LOGIN</h1> -->
@@ -57,7 +57,7 @@
                             <div id="login-text">
                                 LOGIN
                             </div>
-                            <div class="spinner-border spinner-border-sm text-light my-1" id="spinner" role="status" style="display:none;" disabled>
+                            <div class="spinner-border spinner-border-sm text-light" id="spinner" role="status" hidden disabled>
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </button>
@@ -74,7 +74,7 @@
 
 <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog flex-column modal-dialog-centered">
-        <img class="modal-img" src="img/wiz.png" alt="">
+        <img class="modal-img" src="/FWDD-KON-QUIZ/img/wiz.png" alt="">
         <div class="modal-content">
             <div class="modal-header">
                 <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1> -->
@@ -173,8 +173,8 @@
                     if (data.response == 'Success') {
                         $('#credential').removeClass('is-invalid');
                         $('#password').removeClass('is-invalid');
-                        $('#login-text').css('display', 'none');
-                        $('#spinner').show();
+                        document.getElementById('login-text').hidden = true;
+                        document.getElementById('spinner').hidden = false;
 
                         setTimeout(function() {
                             window.location.href = '/FWDD-KON-QUIZ/homepage.php';
@@ -343,7 +343,7 @@
         color: white !important;
     }
 
-    .nav-link.active{
+    .nav-bar .nav-link.active{
         background-color: #6E2BF2 !important;
         color: white !important;
     }
@@ -372,9 +372,9 @@
         font-weight: bold;
     }
 
-    .form-control{
+    /* .form-control{
         margin-bottom: 0.5rem;
-    }
+    } */
     
     .form-control, .form-select{
         background-color: rgb(239, 237, 242) !important;

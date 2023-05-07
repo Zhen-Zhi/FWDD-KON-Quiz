@@ -1,7 +1,3 @@
-<head>
-    <title>KON Quiz - Homepage</title>
-</head>
-
 <?php 
     include("session.php");
     // if(isset($_SESSION['id'])){
@@ -11,6 +7,11 @@
     //     echo "<script>alert(123);</script>";
     // }
 ?>
+
+<head>
+    <title>KON Quiz - Homepage</title>
+</head>
+
 <div class="container-fluid px-5">
     <div class="row">
         <div class="col-md-5 mt-3">
@@ -121,43 +122,6 @@
             <?php
                 }
             ?>
-
-            <!-- <div class="col">
-                <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                </div>
-            </div> -->
-            <!-- <div class="col">
-                <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>
@@ -248,16 +212,6 @@
         height: 1rem;
     }
 
-    /* .home-btn{
-        background-color: #6E2BF2 !important;
-        color: white !important;
-    }
-
-    .home-btn:hover{
-        background-color: #7e42f5 !important;
-        color: white;
-    } */
-
     .thumbnail{
         border-radius: 100% !important;
         width: 150px;
@@ -273,8 +227,4 @@
     .profile{
         background-color:#6E2BF2;
     }
-
-    /* .carousel-item img{
-        object-fit: cover !important;
-    } */
 </style>
