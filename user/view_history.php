@@ -8,7 +8,7 @@
     include("../template/toast.php");
     $id = $_SESSION['id'];
 
-    $query = "SELECT * FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID where session.User_ID = $id";
+    $query = "SELECT * FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID where session.User_ID = $id ORDER BY session.Session_ID DESC";
     // $query = "SELECT * FROM quiz where User_ID = $id ORDER BY qz_ID DESC";
     $result = mysqli_query($con, $query);
     
@@ -26,46 +26,44 @@
         </li>
     </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
-        <h2 class="px-2">Your Current Quizzes</h2>
+        <h2 class="px-2 my-4">Your Past Quizzes</h2>
         <!-- HELLOOOOOOOOOOOOOOOOOOOOOOOOO need put loop here from database -->
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
-                <div class="col">
+                <!-- <div class="col">
                     <div class="card h-100">
                         <button data-bs-toggle="modal" data-bs-target="#create-quiz" class="btn fs-1 h-100 text-secondary" type="submit" name= "">
                             +
                         </button>
                     </div>
-                </div>
+                </div> -->
                 
                 <?php 
                     while($row=mysqli_fetch_array($result)) {
                 ?>
                         <div class="col">
                             <div class="card quiz-card h-100">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col d-flex w-100 align-items-center">
-                                            <div class="form-check my-0 form-switch">
-                                                <label class="form-check-label"><?php echo $row['Date']?></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <!-- <a type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Click to view question" class="text-decoration-none text-dark-emphasis" href="question_page.php?qz_id=<?php echo $row['qz_ID'] ?>"> -->
                                     <div class="card-body" onclick="window.location.href = 'question_page.php?qz_id=<?php echo $row['qz_ID'] ?>">
                                         <h5 class="card-title"><?php echo $row['Title'] ?></h5>
-                                        <p class="card-text"><?php echo $row['Description'] ?></p>
-                                        <div class="row">
-                                            <i class="bi bi-stopwatch-fill fs-3 col-2"></i><p class="col card-text"><?php echo $row['Time_used']?><p>
-                                        </div>                                           
+                                        <div class="card-text">
+                                            <?php echo $row['Description'] ?>
+                                            <div class="row my-4">
+                                                <i class="bi bi-stopwatch-fill fs-3 col-2"></i><p class="col card-text"><?php echo $row['Time_used']?></p>
+                                            </div>   
+                                            <div>
+                                                <label><?php echo $row['Correct_question'] ?> / <?php echo $row['Total_question'] ?></label>
+                                                <div class="progress shadow mt-2" style="height: 15px" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-success" style="width:<?php echo ($row['Correct_question'] / $row['Total_question']) * 100?>%" id="cor-bar"></div>
+                                                    <div class="progress-bar progress-bar-striped bg-danger" style="width:<?php echo (($row['Total_question'] - $row['Correct_question']) / $row['Total_question']) * 100?>%" id="wrg-bar"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 <!-- </a> -->
-                                <p class="card-title"><?php echo $row['Correct_question'] ?> / <?php echo $row['Total_question'] ?><p>
-                                <div class="progress shadow m-3" style="height: 15px" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar bg-success" style="width:<?php echo ($row['Correct_question'] / $row['Total_question']) * 100?>%" id="cor-bar"></div>
-                                    <div class="progress-bar progress-bar-striped bg-danger" style="width:<?php echo (($row['Total_question'] - $row['Correct_question']) / $row['Total_question']) * 100?>%" id="wrg-bar"></div>
+
+                                <div class="card-footer text-center">
+                                    <small class="text-body-secondary">Last Completed <?php echo $row['Date']?></small>
                                 </div>
                             </div>
                         </div>
@@ -205,150 +203,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    function generateRoomID() {
-        const num = '0123456789';
-        let result = '';
-        for (let i = 0; i < 6; i++) {
-            result += num[Math.floor(Math.random() * num.length)];
-        }
-        return result;
-    }
-
-    function copyText(){
-        var roomID = document.getElementById("room-id");
-        roomID.select();
-        // roomID.setSelectionRange(0, 99999);
-        document.execCommand("copy");
-    }
-
-    $(document).ready(function() {
-        $('.switch').change(function() {
-            let roomID = null;
-            let id = parseInt(this.id.replace('flexSwitchCheckDefault-', ''));
-            let state = 1;
-
-            if ($(this).is(':checked')) {
-                $('label[for='+ this.id +'').text('Open');
-                roomID = generateRoomID();
-                state = 1;
-            } else {
-                $('label[for='+ this.id +'').text('Close');
-                state = 0;
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: 'quiz_handler.php',
-                data: {
-                    qz_id: id,
-                    room_ID: roomID,
-                    changeState: true,
-                    state: state
-                },
-                success: function(response) {
-                    var data = response;
-                    if (data.response == 'Success') {
-                        window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
-                    } else {
-                        $('#liveToast').addClass('text-bg-danger');
-                        $('#liveToast').find('.toast-body').html(data.message);
-                        toastBootstrap.show();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log("AJAX error: " + status + " - " + error);
-                }
-            });
-            // console.log(222,roomID,id)
-        });
-
-        $('#quiz-form').submit(function(e) {
-            e.preventDefault();
-            var formData = $(this).serializeArray();
-            $.ajax({
-                type: 'POST',
-                url: 'quiz_handler.php',
-                data: formData,
-                success: function(response) {
-                    var data = response;
-                    if (data.response == 'Success') {
-                        window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
-                    } else {
-                        $('#liveToast').addClass('text-bg-danger');
-                        $('#liveToast').find('.toast-body').html(data.message);
-                        toastBootstrap.show();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log("AJAX error: " + status + " - " + error);
-                }
-            });
-        });
-
-        $('#edit-form').submit(function(e) {
-            e.preventDefault();
-            var formData = $(this).serializeArray();
-            $.ajax({
-                type: 'POST',
-                url: 'quiz_handler.php',
-                data: formData,
-                success: function(response) {
-                    var data = response;
-                    if(data.response == "Success"){ 
-                        window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
-                    }else{
-                        $('#liveToast').addClass('text-bg-danger');
-                        $('#liveToast').find('.toast-body').html(data.message);
-                        toastBootstrap.show();
-                    }
-                }
-            });
-        });
-
-        $('#del').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: 'quiz_handler.php',
-                data: $(this).serializeArray(),
-                success: function(response) {
-                    var data = response;
-                    if (data.response == 'Success') {
-                        window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
-                    } else {
-                        $('#liveToast').addClass('text-bg-danger');
-                        $('#liveToast').find('.toast-body').html(data.message);
-                        toastBootstrap.show();
-                    }
-                }
-            });
-        });
-
-        // $(".edit-btn").click(function() {
-        //     var btn_val = $(this).val();
-        //     $("#edit-quiz input[name='qz_id']").val(btn_val);
-        //     $('#edit-quiz').modal('show');
-        // });
-
-        $(".del-btn").click(function() {
-            var btn_val = $(this).val();
-            $("#delete-quiz input[name='qz_id']").val(btn_val);
-            $('#delete-quiz').modal('show');
-        });
-
-        $(".share").click(function() {
-            var roomId = $(this).val();
-            document.getElementById("room-id").value = roomId;
-            $('#display').modal('show');
-            $('#display img').attr('src', 'https://quickchart.io/qr?text=' + encodeURIComponent('http://192.168.100.15/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login='));
-            console.log(roomId);
-        });
-    });
-
-
-</script>
 
 <style>
     /* #modal-btn{
