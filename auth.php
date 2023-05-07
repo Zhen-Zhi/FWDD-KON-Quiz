@@ -46,6 +46,7 @@
         $DOB = mysqli_real_escape_string($con, $_POST['DOB']);
         $Tel = mysqli_real_escape_string($con, $_POST['mobile_number']);
         $Gender = mysqli_real_escape_string($con, $_POST['gender']);
+        $profile_pic = "nerd.png";
 
         $type = "";
 
@@ -66,7 +67,7 @@
         } else {
             if ($password == $password2) {
                 // Insert new user
-                $query = "INSERT INTO user (Username, Email, Password, DOB, Tel, Gender) VALUES ('$username', '$email', '$password', '$DOB', '$Tel', '$Gender')";
+                $query = "INSERT INTO user (Username, Email, Password, DOB, Tel, Gender, Profile_pic) VALUES ('$username', '$email', '$password', '$DOB', '$Tel', '$Gender', '$profile_pic')";
                 if (mysqli_query($con, $query)) {
                     $response = "Success";
                     $message = "Account has been created successfully";

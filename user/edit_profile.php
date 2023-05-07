@@ -33,8 +33,6 @@
                 <div class="mx-auto">
                     <label for="" class="form-label">Profile Picture</label>
                         <input id="profile-pic" class="form-control" type="file" name="profile-pic">
-                    <div class="invalid-feedback">
-                    </div>
                 </div>
                 <div class="col-md-5 mx-auto">
                     <label for="username" class="form-label">Username</label>
@@ -121,10 +119,12 @@
     $(document).ready(function() {
         $('#edit-form').submit(function(e) {
             e.preventDefault();
-            var form_data = $(this).serializeArray();
+            // var form_data = $(this).serializeArray();
+            var form_data = new FormData($(this)[0]);
             var file = document.forms['edit-profile']['profile-pic'].files[0]
             const file_name = file.name;
-            form_data.push({name: "profile_pic", value: file_name})
+            //form_data.push({name: "profile-pic", value: file_name})
+            form_data.append('profile-pic', file_name);
             console.log(form_data);
             $.ajax({
                 type: 'POST',
