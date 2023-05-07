@@ -1,5 +1,5 @@
 <?php 
-    include("conn.php");
+    include("../conn.php");
     session_start();
     $response = "Error";
     $message = "Not in else statement";
