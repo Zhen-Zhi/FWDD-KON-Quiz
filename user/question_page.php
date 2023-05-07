@@ -34,7 +34,7 @@
 ?>
 
 <head>
-    <title>KON Quiz - Create Quiz</title>
+    <title>KON Quiz - View Question</title>
     <meta name="description" content="Our first page">
     <meta name="keywords" content="html tutorial template">
 </head>

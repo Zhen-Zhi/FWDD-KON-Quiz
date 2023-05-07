@@ -16,7 +16,7 @@
         WHERE all_session.qz_ID = $quiz_id";
     $result = mysqli_query($con, $query);
 
-    $query_get_date = "SELECT Date FROM all_session WHERE qz_ID = $quiz_id GROUP BY Date";
+    $query_get_date = "SELECT Date FROM all_session WHERE qz_ID = $quiz_id GROUP BY Date ORDER BY Correct_question DESC";
     $date_result = mysqli_query($con, $query_get_date);
 
     //get question
@@ -26,9 +26,7 @@
 ?>
 
 <head>
-    <title>KON Quiz - Create Quiz</title>
-    <meta name="description" content="Our first page">
-    <meta name="keywords" content="html tutorial template">
+    <title>KON Quiz - Participant List</title>
 </head>
 
 <div class="container px-3">
@@ -37,147 +35,70 @@
             <a class="nav-link" href="../homepage.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="dashboard.php">Dashboard</a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" aria-current="page" href="view_participant.php">View participant</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Participant</a>
+            <a class="nav-link active" aria-current="page" href="#">Participant List</a>
         </li>
     </ul>
     <div class="shadow p-5 pt-4">
         <h3><?php echo $quiz_data['Title'] ?></h3>
 
         <!-- show all available question -->
-        <div class="row row-cols-1 row-cols-md-1 g-4">
         <?php 
             while($row=mysqli_fetch_array($date_result)) {
-                // $query = 'SELECT session.User_ID as UID, quiz.Title, session.Date, session.Total_question, session.Correct_question, 
-                //     session.Time_used
-                //     FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID WHERE session.qz_ID = $quiz_id AND session.Date ='. $row["Date"];
-                // $result = mysqli_query($con, $query);
-            ?>
-                <h4><?php echo $row['Date']?></h4>
-                <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">Username</th>
-                    <th scope="col">Result</th>
-                    <th scope="col">Marks</th>
-                    </tr>
-                </thead>
-            <?php
-                mysqli_data_seek($result, 0);
-                while($data = mysqli_fetch_array($result)) {
-                    $count += 1;
-                    if ($data['Date'] == $row['Date']) {
-            ?>
-                <tbody>
-                    <tr>
-                    <td><?php if ($data['UID'] == 0) { echo "Guest"; } else { echo $data['Username'];}?></td>
-                    <td><?php echo $data['Correct_question']. "/" . $data['Total_question']?></td>
-                    <td><?php echo ($data['Correct_question'] / $data['Total_question'] * 100)?>%
-                        <div class="progress shadow" style="height: 20px" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar bg-success" style="width:<?php echo ($data['Correct_question'] / $data['Total_question'] * 100)?>%" id="cor-bar"></div>
-                            <div class="progress-bar progress-bar-striped bg-danger progress-bar" style="width:<?php echo (($data['Total_question'] - $data['Correct_question']) / $data['Total_question'] * 100)?>%" id="wrg-bar"></div>
-                        </div>
-                        
-                    </td>
-                    </tr>
-                </tbody>
+            ?>  
+            <div class="row">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-calendar"></i>
+                    <div class="fs-5 ms-3"><?php echo $row['Date'];?></div>
+                </div>
                 
+                <div class="table-responsive">
+                    <table class="table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="col-4">Username</th>
+                                <th scope="col" class="col-2">Result</th>
+                                <th scope="col" class="col-6">Marks</th>
+                            </tr>
+                        </thead>
+                        <?php
+                        mysqli_data_seek($result, 0);
+                        while($data = mysqli_fetch_array($result)) {
+                            $count += 1;
+                            if ($data['Date'] == $row['Date']) {
+                        ?>
+                        <tbody>
+                            <tr>
+                                <td><?php if ($data['UID'] == 0) { echo "Guest"; } else { echo $data['Username'];}?></td>
+                                <td><?php echo $data['Correct_question']. "/" . $data['Total_question']?></td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="progress my-1" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                <div class="progress-bar bg-success" style="width:<?php echo ($data['Correct_question'] / $data['Total_question'] * 100)?>%" id="cor-bar"></div>
+                                                <div class="progress-bar progress-bar-striped bg-danger progress-bar" style="width:<?php echo (($data['Total_question'] - $data['Correct_question']) / $data['Total_question'] * 100)?>%" id="wrg-bar"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 ps-0">
+                                            <?php echo ($data['Correct_question'] / $data['Total_question'] * 100)?>%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                            <?php
+                            }
+                        }
+                            ?>
+                    </table>
+                </div>
+            </div>
             <?php
-            }}
+            }
             ?>
-            </table>
-            <?php
-                }
-            ?>
-            
-        </div>
     </div>
 </div>
 
-<!-- Confirm delete modal -->
-<div class="modal fade" id="delete-confirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog flex-column modal-dialog-centered">
-        <img class="modal-img-danger" src="img/Cave_Monkey.png" alt="">
-        <div class="modal-content">
-            <div class="modal-header text-bg-danger">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Question</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <!-- <div class="toast align-items-center mx-auto border-0" id="alert" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                    <div class="toast-body">
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div> -->
-            <div class="modal-body">
-                <div class="mx-auto my-3">
-                    Are you sure you want to delete this?
-                </div>
-            </div>
-            <div class="modal-footer">
-                <form id="del">
-                    <input type="hidden" value="1" name="deleteQuestion">
-                    <input type="hidden" value="" name="ques_id">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="submit" class="btn btn-primary" name="">Yes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
-<script>
-    $('.form-check-input:checked').each(function() {
-        $(this).parent('.form-check').addClass('checked');
-    });
-
-    $('#del').submit(function(e) {
-            e.preventDefault();
-            var formData = $(this).serialize();
-            console.log(formData)
-            $.ajax({
-                type: 'POST',
-                url: 'question_handler.php',
-                data: formData,
-                success: function(response) {
-                    var data = response;
-                    if (data.response == 'Success') {
-                        window.location.href = 'question_page.php?qz_id=<?php echo $_SESSION['quiz_id'] ?>&message=' + encodeURIComponent(data.message);
-                    } else {
-                        $('#liveToast').addClass('text-bg-danger');
-                        $('#liveToast').find('.toast-body').html(data.message);
-                        toastBootstrap.show();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log("AJAX error: " + status + " - " + error);
-                }
-            });
-        });    
-        
-    $(".del-btn").click(function() {
-        var btn_val = $(this).val();
-        $("#delete-confirm input[name='ques_id']").val(btn_val);
-        $('#delete-confirm').modal('show');
-    });
-</script>
-
-<style>
-    /* .card{
-        height: 30vh;
-    } */
-
-    .checked{
-        background-color: #9cff82;
-    }
-
-    .modal-img-danger{
-        width: 40vh;
-    }
-</style>

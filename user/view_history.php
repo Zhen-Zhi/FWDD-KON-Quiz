@@ -1,7 +1,3 @@
-<head>
-    <title>KON Quiz - Profile Page</title>
-</head>
-
 <?php 
     include("../session.php");
     include("../conn.php");
@@ -21,6 +17,10 @@
     $category = "SELECT * FROM category ORDER BY ID ASC";
     $res = mysqli_query($con, $category);
 ?>
+
+<head>
+    <title>KON Quiz - History</title>
+</head>
 
 <div class="container px-3">
     <ul class="nav nav-tabs">

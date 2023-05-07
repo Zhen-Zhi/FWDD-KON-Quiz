@@ -16,10 +16,10 @@
                 <a class="nav-link" href="/FWDD-KON-QUIZ/user/dashboard.php">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/FWDD-KON-QUIZ/user/view_history.php">History</a>
+                <a class="nav-link" href="/FWDD-KON-QUIZ/user/view_participant.php">View Participant</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/FWDD-KON-QUIZ/user/view_participant.php">View participant of quiz</a>
+                <a class="nav-link" href="/FWDD-KON-QUIZ/user/view_history.php">History</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/FWDD-KON-QUIZ/user/edit_profile.php">Edit Profile</a>

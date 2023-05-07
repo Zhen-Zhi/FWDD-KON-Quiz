@@ -1,7 +1,3 @@
-<head>
-    <title>KON Quiz - Profile Page</title>
-</head>
-
 <?php 
     include("../session.php");
     include("../conn.php");
@@ -22,6 +18,10 @@
     $res = mysqli_query($con, $category);
 ?>
 
+<head>
+    <title>KON Quiz - Dashboard</title>
+</head>
+
 <div class="container px-3">
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -29,6 +29,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="view_participant.php">View Participant</a>
         </li>
     </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->

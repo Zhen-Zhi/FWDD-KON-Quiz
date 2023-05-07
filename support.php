@@ -1,10 +1,10 @@
-<head>
-    <title>KON Quiz - About_us</title>
-</head>
-
 <?php 
     include("session.php");
 ?>
+
+<head>
+    <title>KON Quiz - Support</title>
+</head>
 
 <div class="container px-3">
     <ul class="nav nav-tabs">
