@@ -7,8 +7,10 @@
     include("../conn.php");
     include("../template/toast.php");
     $id = $_SESSION['id'];
+    $qz_id = $_POST['qz_id'];
 
-    $query = "SELECT * FROM quiz where User_ID = $id ORDER BY qz_ID DESC";
+    $query = "SELECT * FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID INNER JOIN user on user.ID = session.User_ID where session.qz_ID = $qz_id";
+    // $query = "SELECT * FROM quiz where User_ID = $id ORDER BY qz_ID DESC";
     $result = mysqli_query($con, $query);
     
     $category = "SELECT * FROM category ORDER BY ID ASC";
@@ -25,17 +27,10 @@
         </li>
     </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
-        <h2 class="px-2 my-4">Your Current Quizzes</h2>
+        <h2 class="px-2">Your Current Quizzes</h2>
         <!-- HELLOOOOOOOOOOOOOOOOOOOOOOOOO need put loop here from database -->
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
-                <div class="col">
-                    <div class="card h-100">
-                        <button data-bs-toggle="modal" data-bs-target="#create-quiz" class="btn fs-1 h-100 text-secondary" type="submit" name= "">
-                            +
-                        </button>
-                    </div>
-                </div>
                 
                 <?php 
                     while($row=mysqli_fetch_array($result)) {
@@ -46,25 +41,7 @@
                                     <div class="row">
                                         <div class="col d-flex w-100 align-items-center">
                                             <div class="form-check my-0 form-switch">
-                                                <input class="form-check-input switch" type="checkbox" role="switch" id="flexSwitchCheckDefault-<?php echo $row['qz_ID'] ?>" <?php echo ($row['Room_ID'] != '') ? 'checked' : ''; ?>>
-                                                <label class="form-check-label" for="flexSwitchCheckDefault-<?php echo $row['qz_ID'] ?>"><?php echo ($row['Room_ID'] != '') ? 'Open' : 'Close'; ?></label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col pe-0 text-end">
-                                            <div class="dropdown">
-                                                <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="bi bi-menu-down"></i>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <form method="POST" class="my-0" action="view_participant.php">
-                                                        <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">  
-                                                        <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-quiz-<?php echo $row['qz_ID']?>" value="<?php echo $row['qz_ID']?>" name="editQuiz">Edit</button></li>
-                                                        <li><button type="button" class="dropdown-item del-btn" data-bs-toggle="modal" data-bs-target="#delete-quiz" value="<?php echo $row['qz_ID']?>">Delete</button></li>
-                                                        <li><button type="submit" class="dropdown-item del-btn" value="<?php echo $row['qz_ID']?>">View Participant</button></li>
-                                                    </form>
-                                                    
-                                                </ul>
+                                                <label class="form-check-label"><?php echo $row['Date']?></label>
                                             </div>
                                         </div>
                                     </div>
@@ -72,21 +49,18 @@
 
                                 <!-- <a type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Click to view question" class="text-decoration-none text-dark-emphasis" href="question_page.php?qz_id=<?php echo $row['qz_ID'] ?>"> -->
                                     <div class="card-body" onclick="window.location.href = 'question_page.php?qz_id=<?php echo $row['qz_ID'] ?>">
-                                        <a class="text-decoration-none text-dark-emphasis" href="question_page.php?qz_id=<?php echo $row['qz_ID'] ?>">
-                                            <h5 class="card-title"><?php echo $row['Title'] ?></h5>
-                                            <p class="card-text"><?php echo $row['Description'] ?></p>
-                                        </a>
+                                        <h5 class="card-title"><?php echo $row['Username'] ?></h5>
+                                        <p class="card-text"><?php echo $row['Title'] ?></p>
+                                        <div class="row">
+                                            <i class="bi bi-stopwatch-fill fs-3 col-2"></i><p class="col card-text"><?php echo $row['Time_used']?><p>
+                                        </div>                                           
                                     </div>
                                 <!-- </a> -->
-
-                                <?php if ($row['Room_ID'] != ""){ ?>
-                                <div class="card-footer">
-                                    <div class="input-group">
-                                        <button class="btn btn-outline-secondary share" value="<?php echo $row['Room_ID'] ?>"><i class="bi bi-share"></i></button>
-                                        <input id="roomID-<?php echo $row['Room_ID'] ?>" class="form-control" type="text" value="<?php echo $row['Room_ID'] ?>" aria-label="default input example" readonly>
-                                    </div>
+                                <p class="card-title"><?php echo $row['Correct_question'] ?> / <?php echo $row['Total_question'] ?><p>
+                                <div class="progress shadow m-3" style="height: 15px" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-success" style="width:<?php echo ($row['Correct_question'] / $row['Total_question']) * 100?>%" id="cor-bar"></div>
+                                    <div class="progress-bar progress-bar-striped bg-danger" style="width:<?php echo (($row['Total_question'] - $row['Correct_question']) / $row['Total_question']) * 100?>%" id="wrg-bar"></div>
                                 </div>
-                                <?php } ?>
                             </div>
                         </div>
 
@@ -194,7 +168,7 @@
     </div>
 </div>
 
-<!-- display qrcode -->
+<!-- display modal -->
 <div class="modal fade" id="display" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -204,18 +178,11 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row w-50 d-flex justify-content-center mx-auto">
-                        <div class="spinner-border text-dark" role="status" id="qr-spinner">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <img src="" alt="" id="qr-code" class="img-fluid">
+                    <div class="row w-50 mx-auto">
+                        <img src="" alt="" class="img-fluid">
                     </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="container-fluid">
                     <div class="row">
-                        <div class="col text-center">
+                        <div class="col-12 text-center">
                             <label for="" class="form-label">Room ID</label>
                         </div>
                     </div>
@@ -225,6 +192,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
@@ -366,12 +336,7 @@
             var roomId = $(this).val();
             document.getElementById("room-id").value = roomId;
             $('#display').modal('show');
-            var qrUrl = 'https://quickchart.io/qr?text=' + encodeURIComponent('http://192.168.100.15/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login=');
-            $('#qr-code').on('load', function() {
-                $('#qr-spinner').hide();
-                $('#qr-code').show();
-            });
-            $('#qr-code').attr('src', qrUrl);
+            $('#display img').attr('src', 'https://quickchart.io/qr?text=' + encodeURIComponent('http://192.168.100.15/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login='));
             console.log(roomId);
         });
     });

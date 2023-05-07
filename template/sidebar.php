@@ -16,7 +16,7 @@
                 <a class="nav-link" href="/FWDD-KON-QUIZ/user/dashboard.php">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../user/view_history.php">Report</a>
+                <a class="nav-link" href="/FWDD-KON-QUIZ/user/view_history.php">Report</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/FWDD-KON-QUIZ/user/edit_profile.php">Edit Profile</a>
