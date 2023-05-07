@@ -7,20 +7,38 @@
     <title>KON Quiz - Quiz</title>
 </head>
 
-
-<h2 id="quiz-title">Quiz Title</h2>
-<div class="container text-center">
-    <i class="bi bi-stopwatch-fill fs-3"><div class="fs-3" id="timer">0:00</div></i>
-</div>
-
-<div class="container">
+<div class="container px-3">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="../homepage.php">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" id="quiz-title" href=""></a>
+        </li>
+    </ul>
+    <div class="row mt-3">
+        <div class="col text-center">
+            <div class="fs-3">Score: </div>
+            <div class="fs-3" id="score">
+                0
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+        <i class="bi bi-stopwatch-fill fs-3"></i>
+            <div class="fs-3" id="timer">0:00</div>
+        </div>
+    </div>
+    
     Your Progress:
     <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
         <div class="progress-bar" style="width: 1%"></div>
     </div>
+    
 </div>
 
-<div class="container mt-5">
+<div class="container px-3 mt-4">
     <div class="card border-0 shadow">
         <h5 class="card-header text-bg-dark px-5 p-3" id="q1">
             Question title
@@ -44,15 +62,7 @@
             </div>
         </form>
     </div>
-    <div class="m-5 container-sc">
-        <h2 class="mx-3">Score: </h2>
-        <h2 id="score">0</h2>
-    </div>
 </div>
-
-<!-- <div class="container">
-    <img src="../img/dart_monkey.png" alt="">
-</div> -->
 
 <script src="quiz.js"></script>
 
@@ -60,10 +70,14 @@
     .option {
         transition: all 0.3s ease-in-out;
     }
-
-    .container-sc {
-        display: flex;
-    }
     
+    #score {
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    #score.changed {
+        color: green;
+        transform: scale(1.1);
+    }
 </style>
 

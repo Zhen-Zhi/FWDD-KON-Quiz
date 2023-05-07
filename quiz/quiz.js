@@ -14,14 +14,10 @@ let fxPromise = new Promise(function (resolve, reject) {
 
 fxPromise.then(
     function(value) {
-        // console.log(123,value)
         let marks = 0;
         let question = value;
         let quesCounter = 0;
-        console.log(question);
-        console.log(question.length);
         let copyQues = [...question];
-        console.log(copyQues);
         let currentQuestion = {};
         let correctQues = 0;
         var quiz_id;
@@ -93,6 +89,10 @@ fxPromise.then(
                     marks += 10;
                     console.log("Answer correct: " + marks);
                     document.getElementById("score").textContent = marks;
+                    document.getElementById("score").classList.add('changed');
+                    setTimeout(() => {
+                        document.getElementById("score").classList.remove('changed');
+                    }, 200);
                 }
                 else {
                     console.log("Answer Incorrect: " + marks);
@@ -103,7 +103,7 @@ fxPromise.then(
                     updateProgressBar(quesCounter, question.length);
                 }
                 else {
-                    alert("Quiz done!");
+                    // alert("Quiz done!");
                     time_data = document.getElementById("timer").textContent;
                     
                     const result_url = "result.php" +
@@ -115,6 +115,7 @@ fxPromise.then(
                         "&quiz_id=" + quiz_id;
 
                     stopTimer();
+                    
                     window.location.href = result_url;
                 }
             })
