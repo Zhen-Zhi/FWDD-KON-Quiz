@@ -97,7 +97,7 @@
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Edit quiz</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form class="needs-validation" action="" method="POST" novalidate id="edit-form">
+                                    <form class="needs-validation" action="" method="POST" novalidate id="edit-form-<?php echo $row['qz_ID']?>">
                                         <div class="modal-body">
                                             <div class="mx-auto">
                                                 <label for="quiz-title" class="form-label">Quiz Title</label>
@@ -105,15 +105,15 @@
                                             </div>
                                             <div class="mx-auto">
                                                 <label for="quiz-desc" class="form-label">Quiz Description</label>
-                                                <textarea class="form-control" id="quiz-desc" name="qz_desc"><?php echo $row['Description'] ?></textarea>
+                                                <textarea class="form-control" id="quiz-desc" rows="7" name="qz_desc"><?php echo $row['Description'] ?></textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">
                                             <input type="hidden" value="1" name="editQuiz">
-                                            <button class="btn btn-primary edit-btn" name="create_quiz" type="submit">
+                                            <a onclick="submitForm('<?php echo $row['qz_ID']?>')" class="btn btn-primary edit-btn" name="create_quiz" type="submit">
                                                 Save
-                                            </button>
+                                            </a>
                                         </div>
                                     </form>
                                 </div>
@@ -247,6 +247,30 @@
         document.execCommand("copy");
     }
 
+    function submitForm(e) {
+        const form = document.getElementById(`edit-form-${e}`);
+        const formData = new FormData(form);
+
+        $.ajax({
+            type: 'POST',
+            url: 'quiz_handler.php',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+            console.log(123, response)
+            var data = response;
+            if (data.response == "Success") {
+                window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
+            } else {
+                $('#liveToast').addClass('text-bg-danger');
+                $('#liveToast').find('.toast-body').html(data.message);
+                toastBootstrap.show();
+            }
+            }
+        });
+    }
+
     $(document).ready(function() {
         $('.switch').change(function() {
             let roomID = null;
@@ -311,25 +335,26 @@
             });
         });
 
-        $('#edit-form').submit(function(e) {
-            e.preventDefault();
-            var formData = $(this).serializeArray();
-            $.ajax({
-                type: 'POST',
-                url: 'quiz_handler.php',
-                data: formData,
-                success: function(response) {
-                    var data = response;
-                    if(data.response == "Success"){ 
-                        window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
-                    }else{
-                        $('#liveToast').addClass('text-bg-danger');
-                        $('#liveToast').find('.toast-body').html(data.message);
-                        toastBootstrap.show();
-                    }
-                }
-            });
-        });
+        // $('#edit-form').submit(function(e) {
+        //     e.preventDefault();
+        //     var formData = $(this).serializeArray();
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: 'quiz_handler.php',
+        //         data: formData,
+        //         success: function(response) {
+        //             console.log(123,response)
+        //             var data = response;
+        //             if(data.response == "Success"){ 
+        //                 window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
+        //             }else{
+        //                 $('#liveToast').addClass('text-bg-danger');
+        //                 $('#liveToast').find('.toast-body').html(data.message);
+        //                 toastBootstrap.show();
+        //             }
+        //         }
+        //     });
+        // });
 
         $('#del').submit(function(e) {
             e.preventDefault();
