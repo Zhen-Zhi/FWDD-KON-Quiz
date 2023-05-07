@@ -25,7 +25,7 @@
         </li>
     </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
-        <h2 class="px-2">Your Current Quizzes</h2>
+        <h2 class="px-2 my-4">Your Current Quizzes</h2>
         <!-- HELLOOOOOOOOOOOOOOOOOOOOOOOOO need put loop here from database -->
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
