@@ -9,14 +9,14 @@
 
     $count = 0;
 
-    $query = "SELECT session.User_ID as UID, user.Username, quiz.Title, session.Date, session.Total_question, session.Correct_question, 
-        session.Time_used
-        FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID
-        INNER JOIN user on session.User_ID = user.ID
-        WHERE session.qz_ID = $quiz_id";
+    $query = "SELECT all_session.User_ID as UID, user.Username, quiz.Title, all_session.Date, all_session.Total_question, all_session.Correct_question, 
+        all_session.Time_used
+        FROM all_session INNER JOIN quiz ON all_session.qz_ID = quiz.qz_ID
+        LEFT JOIN user on all_session.User_ID = user.ID
+        WHERE all_session.qz_ID = $quiz_id";
     $result = mysqli_query($con, $query);
 
-    $query_get_date = "SELECT Date FROM session WHERE qz_ID = $quiz_id GROUP BY Date";
+    $query_get_date = "SELECT Date FROM all_session WHERE qz_ID = $quiz_id GROUP BY Date";
     $date_result = mysqli_query($con, $query_get_date);
 
     //get question
@@ -40,7 +40,10 @@
             <a class="nav-link" href="dashboard.php">Dashboard</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">View Question</a>
+            <a class="nav-link" aria-current="page" href="view_participant.php">View participant</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Participant</a>
         </li>
     </ul>
     <div class="shadow p-5 pt-4">
@@ -61,7 +64,6 @@
                     <tr>
                     <th scope="col">Username</th>
                     <th scope="col">Result</th>
-                    <th scope="col">Correct Question</th>
                     <th scope="col">Marks</th>
                     </tr>
                 </thead>
@@ -73,10 +75,15 @@
             ?>
                 <tbody>
                     <tr>
-                    <td><?php echo $data['Username']?></td>
+                    <td><?php if ($data['UID'] == 0) { echo "Guest"; } else { echo $data['Username'];}?></td>
                     <td><?php echo $data['Correct_question']. "/" . $data['Total_question']?></td>
-                    <td><?php echo $data['Correct_question']?></td>
-                    <td><?php echo ($data['Correct_question'] / $data['Total_question'] * 100)?>%</td>
+                    <td><?php echo ($data['Correct_question'] / $data['Total_question'] * 100)?>%
+                        <div class="progress shadow" style="height: 20px" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-success" style="width:<?php echo ($data['Correct_question'] / $data['Total_question'] * 100)?>%" id="cor-bar"></div>
+                            <div class="progress-bar progress-bar-striped bg-danger progress-bar" style="width:<?php echo (($data['Total_question'] - $data['Correct_question']) / $data['Total_question'] * 100)?>%" id="wrg-bar"></div>
+                        </div>
+                        
+                    </td>
                     </tr>
                 </tbody>
                 

@@ -88,7 +88,6 @@
                                                         <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">  
                                                         <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-quiz-<?php echo $row['qz_ID']?>" value="<?php echo $row['qz_ID']?>" name="editQuiz">Edit</button></li>
                                                         <li><button type="button" class="dropdown-item del-btn" data-bs-toggle="modal" data-bs-target="#delete-quiz" value="<?php echo $row['qz_ID']?>">Delete</button></li>
-                                                        <li><button type="submit" class="dropdown-item del-btn" value="<?php echo $row['qz_ID']?>">View Participant</button></li>
                                                     </form>
                                                     
                                                 </ul>

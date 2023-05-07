@@ -18,11 +18,12 @@
             <a class="nav-link" href="../homepage.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link active" aria-current="page" href="#">View participant</a>
         </li>
     </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
         <h2 class="px-2">Your Current Quizzes</h2>
+        <p class="px-2">Select a quiz to view participant</p>
         <!-- HELLOOOOOOOOOOOOOOOOOOOOOOOOO need put loop here from database -->
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
