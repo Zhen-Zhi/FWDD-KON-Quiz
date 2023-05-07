@@ -33,16 +33,13 @@
     </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
         <h2 class="px-2 my-4">Your Past Quizzes</h2>
-        <!-- HELLOOOOOOOOOOOOOOOOOOOOOOOOO need put loop here from database -->
         <nav aria-label="Page navigation example">
             <ul class="pagination px-2">
-                <?php if ($page > 1): ?>
                 <li class="page-item">
-                    <a class="page-link" href="?page=<?php echo $page - 1; ?>" aria-label="Previous">
+                    <a class="page-link" href="<?php if ($page > 1){ ?>?page=<?php echo $page - 1;} ?>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <?php endif; ?>
 
                 <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                 <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
@@ -50,13 +47,11 @@
                 </li>
                 <?php endfor; ?>
 
-                <?php if ($page < $total_pages): ?>
                 <li class="page-item">
-                    <a class="page-link" href="?page=<?php echo $page + 1; ?>" aria-label="Next">
+                    <a class="page-link" href="<?php if ($page < $total_pages){ ?>?page=<?php echo $page + 1;} ?>" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
-                <?php endif; ?>
             </ul>
         </nav>
         <div class="container">
