@@ -258,15 +258,14 @@
             processData: false,
             contentType: false,
             success: function(response) {
-            console.log(123, response)
-            var data = response;
-            if (data.response == "Success") {
-                window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
-            } else {
-                $('#liveToast').addClass('text-bg-danger');
-                $('#liveToast').find('.toast-body').html(data.message);
-                toastBootstrap.show();
-            }
+                var data = response;
+                if (data.response == "Success") {
+                    window.location.href = 'dashboard.php?&message=' + encodeURIComponent(data.message);
+                } else {
+                    $('#liveToast').addClass('text-bg-danger');
+                    $('#liveToast').find('.toast-body').html(data.message);
+                    toastBootstrap.show();
+                }
             }
         });
     }
