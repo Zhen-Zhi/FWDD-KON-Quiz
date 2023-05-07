@@ -105,18 +105,25 @@ fxPromise.then(
                 else {
                     // alert("Quiz done!");
                     time_data = document.getElementById("timer").textContent;
-                    
-                    const result_url = "result.php" +
-                        "?score=" + marks +
-                        "&correct_ques=" + correctQues +
-                        "&tot_ques=" + question.length +
-                        "&time=" + time_data +
-                        "&quiz_title=" + quiz_title +
-                        "&quiz_id=" + quiz_id;
+                    $.ajax({
+                        type: 'GET',
+                        url: 'save_session.php',
+                        data: {'score' : marks, 'correct_ques' : correctQues, 'tot_ques' : question.length, 'time' : time_data, 'quiz_title' : quiz_title, 'quiz_id' : quiz_id},
+                        success: function(response) {      
+                            const result_url = "result.php" +
+                                "?score=" + marks +
+                                "&correct_ques=" + correctQues +
+                                "&tot_ques=" + question.length +
+                                "&time=" + time_data +
+                                "&quiz_title=" + quiz_title +
+                                "&quiz_id=" + quiz_id;
 
-                    stopTimer();
-                    
-                    window.location.href = result_url;
+                            stopTimer();
+                            
+                            window.location.href = result_url;
+                        },
+                    });
+
                 }
             })
         });

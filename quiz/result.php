@@ -3,7 +3,11 @@
     include("../conn.php");
 
     if(isset($_SESSION['id'])){
+        $id = $_SESSION['id'];
         include("../template/toast.php");
+    }
+    else {
+        $id = 0;
     }
     
     $score = $_GET['score'];
@@ -12,6 +16,7 @@
     $time = $_GET['time'];
     $quiz_title = $_GET['quiz_title'];
     $quiz_id = $_GET['quiz_id'];
+    $date = date("d-m-Y");
 ?>
 <head>
     <title>KON Quiz - Quiz</title>
