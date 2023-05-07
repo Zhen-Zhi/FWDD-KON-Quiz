@@ -193,7 +193,7 @@
     </div>
 </div>
 
-<!-- display modal -->
+<!-- display qrcode -->
 <div class="modal fade" id="display" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -203,11 +203,18 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row w-50 mx-auto">
-                        <img src="" alt="" class="img-fluid">
+                    <div class="row w-50 d-flex justify-content-center mx-auto">
+                        <div class="spinner-border text-dark" role="status" id="qr-spinner">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <img src="" alt="" id="qr-code" class="img-fluid">
                     </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12 text-center">
+                        <div class="col text-center">
                             <label for="" class="form-label">Room ID</label>
                         </div>
                     </div>
@@ -217,9 +224,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
@@ -361,7 +365,12 @@
             var roomId = $(this).val();
             document.getElementById("room-id").value = roomId;
             $('#display').modal('show');
-            $('#display img').attr('src', 'https://quickchart.io/qr?text=' + encodeURIComponent('http://192.168.100.15/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login='));
+            var qrUrl = 'https://quickchart.io/qr?text=' + encodeURIComponent('http://192.168.100.15/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login=');
+            $('#qr-code').on('load', function() {
+                $('#qr-spinner').hide();
+                $('#qr-code').show();
+            });
+            $('#qr-code').attr('src', qrUrl);
             console.log(roomId);
         });
     });
