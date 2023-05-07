@@ -8,13 +8,13 @@
 <head>
     <title>KON Quiz - Edit profile</title>
 </head>
-<!-- <div class="toast align-items-center mx-auto border-0" id="alert1" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="toast align-items-center mx-auto border-0" id="alert1" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
         </div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-</div> -->
+</div>
 
 <div class="container mx-auto">
     <ul class="nav nav-tabs">
@@ -122,6 +122,7 @@
                 success: function(response) {
                     console.log("Test");
                     console.log("<?php echo $_SESSION['id']?>");
+                    console.log('Response:', response);
                     var data = JSON.parse(response);
                     if (data.response == 'Success') {
                         $('#alert1').removeClass('text-bg-danger').addClass('text-bg-success');
