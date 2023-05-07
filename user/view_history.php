@@ -22,7 +22,7 @@
             <a class="nav-link" href="../homepage.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link active" aria-current="page" href="#">History</a>
         </li>
     </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
