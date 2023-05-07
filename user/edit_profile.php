@@ -27,9 +27,15 @@
     </ul>
     <div class="shadow p-5 pt-4">
         <?php while($row = mysqli_fetch_array($result)) { ?>
-        <form action="" method="POST" class="mt-2" id="edit-form">
+        <form action="" method="POST" class="mt-2" id="edit-form" name="edit-profile" enctype="multipart/form-data">
             <div class="row">
                 <input type="hidden" name="id" value='<?php echo $_SESSION['id'] ?>'>
+                <div class="mx-auto">
+                    <label for="" class="form-label">Profile Picture</label>
+                        <input id="profile-pic" class="form-control" type="file" name="profile-pic">
+                    <div class="invalid-feedback">
+                    </div>
+                </div>
                 <div class="col-md-5 mx-auto">
                     <label for="username" class="form-label">Username</label>
                     <input id="username" class="form-control" type="text" name="username" value="<?php echo $row['Username']?>" oninput="validateName()">
@@ -115,10 +121,17 @@
     $(document).ready(function() {
         $('#edit-form').submit(function(e) {
             e.preventDefault();
+            var form_data = $(this).serializeArray();
+            var file = document.forms['edit-profile']['profile-pic'].files[0]
+            const file_name = file.name;
+            form_data.push({name: "profile_pic", value: file_name})
+            console.log(form_data);
             $.ajax({
                 type: 'POST',
                 url: 'update_profile.php',
-                data:  $(this).serialize(),
+                processData: false,
+                contentType: false,
+                data:  form_data,
                 success: function(response) {
                     console.log("Test");
                     console.log("<?php echo $_SESSION['id']?>");

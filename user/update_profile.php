@@ -12,7 +12,8 @@
         $email = mysqli_real_escape_string($con, $_POST['email']);
         $DOB = mysqli_real_escape_string($con, $_POST['DOB']);
         $Tel = mysqli_real_escape_string($con, $_POST['mobile_number']);
-        $Gender = mysqli_real_escape_string($con, $_POST['gender']);  
+        $Gender = mysqli_real_escape_string($con, $_POST['gender']);
+        $profile_pic = mysqli_real_escape_string($con, $_POST['profile-pic']);
 
         //get duplicate username and email
         $duplicate_query = "SELECT * FROM user where ID <> '$id' AND (Username = '$username' OR Email = '$email')";
@@ -67,13 +68,22 @@
             }
             else {
                 //Edit user profile
-                $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
-                if (mysqli_query($con, $query)) {
-                    $response = "Success";
-                    $message = "Profile had been saved";
+                $target_dir = "/FWDD-KON-QUIZ/user/profile/";
+                $target_file = $target_dir . $profile_pic;
+
+                if (move_uploaded_file($profile_pic,$target_file)) {
+                    $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender', Profile_pic = '$profile_pic' WHERE ID = '$id'";
+                    if (mysqli_query($con, $query)) {
+                        $response = "Success";
+                        $message = "Profile had been saved";
+                    }
+                    else {
+                        $message = "Error: " . mysqli_error($con);
+                    }
                 }
                 else {
-                    $message = "Error: " . mysqli_error($con);
+                    $response = "Error";
+                    $message = "File upload fail". error_get_last()['message'];;
                 }
             }   
         } 
