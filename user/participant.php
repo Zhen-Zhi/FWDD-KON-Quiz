@@ -9,9 +9,11 @@
 
     $count = 0;
 
-    $query = "SELECT session.User_ID as UID, quiz.Title, session.Date, session.Total_question, session.Correct_question, 
+    $query = "SELECT session.User_ID as UID, user.Username, quiz.Title, session.Date, session.Total_question, session.Correct_question, 
         session.Time_used
-        FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID WHERE session.qz_ID = $quiz_id";
+        FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID
+        INNER JOIN user on session.User_ID = user.ID
+        WHERE session.qz_ID = $quiz_id";
     $result = mysqli_query($con, $query);
 
     $query_get_date = "SELECT Date FROM session WHERE qz_ID = $quiz_id GROUP BY Date";
@@ -54,34 +56,38 @@
                 // $result = mysqli_query($con, $query);
             ?>
                 <h4><?php echo $row['Date']?></h4>
+                <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Result</th>
+                    <th scope="col">Correct Question</th>
+                    <th scope="col">Marks</th>
+                    </tr>
+                </thead>
             <?php
                 mysqli_data_seek($result, 0);
                 while($data = mysqli_fetch_array($result)) {
                     $count += 1;
                     if ($data['Date'] == $row['Date']) {
             ?>
-                
-                <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col"><?php echo $data['UID']?></th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td><?php echo $data['Username']?></td>
+                    <td><?php echo $data['Correct_question']. "/" . $data['Total_question']?></td>
+                    <td><?php echo $data['Correct_question']?></td>
+                    <td><?php echo ($data['Correct_question'] / $data['Total_question'] * 100)?>%</td>
                     </tr>
                 </tbody>
-                </table>
+                
             <?php
-            }}}
+            }}
             ?>
+            </table>
+            <?php
+                }
+            ?>
+            
         </div>
     </div>
 </div>
