@@ -11,7 +11,23 @@
     $total_records = mysqli_num_rows(mysqli_query($con, "SELECT * FROM quiz where User_ID = $id"));
     $total_pages = ceil($total_records / $records_per_page);
 
-    $query = "SELECT * FROM quiz where User_ID = $id ORDER BY qz_ID DESC LIMIT $records_per_page OFFSET $offset";
+    $query = "SELECT * FROM quiz where User_ID = $id";
+
+    $sort = null;
+    
+    $search = null;
+
+    if(isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $_GET['search'];
+        $query .= " AND Title LIKE '%$search%'";
+    }
+    if(isset($_GET['sortBy']) && !empty($_GET['sortBy'])) {
+        $sort = $_GET['sortBy'];
+        // $query .= " AND Room_ID LIKE '%$search%'";
+    }
+
+    $query .= " ORDER BY qz_ID DESC LIMIT $records_per_page OFFSET $offset";
+    
     $result = mysqli_query($con, $query);
     
     $category = "SELECT * FROM category ORDER BY ID ASC";
@@ -36,27 +52,45 @@
     </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
         <h2 class="px-2 my-4">Your Current Quizzes</h2>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination px-2">
-                <li class="page-item">
-                    <a class="page-link" href="<?php if ($page > 1){ ?>?page=<?php echo $page - 1;} ?>" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
+        <div class="row">
+            <nav class="col" aria-label="Page navigation example">
+                <ul class="pagination justify-content-start px-2">
+                    <li class="page-item">
+                        <a class="page-link" href="<?php if ($page > 1){ ?>?page=<?php echo $page - 1;} ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
 
-                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
-                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                </li>
-                <?php endfor; ?>
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
+                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    </li>
+                    <?php endfor; ?>
 
-                <li class="page-item">
-                    <a class="page-link" href="<?php if ($page < $total_pages){ ?>?page=<?php echo $page + 1;} ?>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+                    <li class="page-item">
+                        <a class="page-link" href="<?php if ($page < $total_pages){ ?>?page=<?php echo $page + 1;} ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- <form method="get" action="dashboard.php" class="row w-100 justify-content-end" role="search">
+                    <div class="col">
+                        <input class="form-control" id="search-input" type="search" name="search" placeholder="Search Quiz Title" aria-label="Search" value="<?php echo $search ?>">
+                    </div>
+                    <div class="col-1 ps-0">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </form> -->
+            </nav>
+            
+            <div class="col">
+                <select class="form-select" onchange="sortSession(this)">
+                    <option value="All" <?php if ($sort === "All") echo "selected"; ?>>All</option>
+                    <option value="Open" <?php if ($sort === "Open") echo "selected"; ?>>Open</option>
+                    <option value="Close" <?php if ($sort === "Close") echo "selected"; ?>>Close</option>
+                </select>
+            </div>
+        </div>
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <div class="col">
@@ -260,6 +294,18 @@
 </div>
 
 <script>
+    function sortSession(e) {
+        var url = window.location.href;
+        var paramIndex = url.indexOf('?sortBy=');
+
+        if (paramIndex !== -1) {
+            var baseUrl = url.substring(0, paramIndex);
+            window.location.href = baseUrl + '?sortBy=' + e.value;
+        } else {
+            window.location.href = url + '?sortBy=' + e.value;
+        }
+    }
+
     function generateRoomID() {
         const num = '0123456789';
         let result = '';
