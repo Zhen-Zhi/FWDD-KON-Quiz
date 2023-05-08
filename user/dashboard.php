@@ -280,7 +280,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3 text-center mx-auto">
+                        <div class="col text-center mx-auto">
                             <input type="text" class="form-control text-center" id="room-id" disabled>
                         </div>
                     </div>
