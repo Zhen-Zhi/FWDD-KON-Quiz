@@ -7,9 +7,9 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="d-flex m-0" role="search">
-            <input class="me-2" type="search" placeholder="Search" aria-label="Search" id="search-bar">
-            <button class="btn btn-outline-light" type="submit" id="search-btn">Search</button>
+        <form class="d-flex m-0" role="search" action="/FWDD-KON-QUIZ/quiz/quiz.php" method="GET">
+            <input class="me-2" type="text" placeholder="Enter a room ID..." aria-label="Search" id="search-bar" name="room_id">
+            <button class="btn btn-outline-light" type="submit" id="search-btn">Join</button>
         </form>
         <a class="navbar-brand" href="/FWDD-KON-QUIZ/homepage.php">
             KON-QUIZ
