@@ -3,8 +3,6 @@
     include("conn.php");
     include("template/toast.php");
     $cat_id = $_GET['cat_id'];
-    $cat_id = 2;
-
     $query = "SELECT * FROM quiz WHERE Category_ID = $cat_id AND Room_ID <> ''";
     $result = mysqli_query($con, $query);
 ?>
@@ -33,8 +31,8 @@
                         <div class="col">
                             <div class="card quiz-card h-100">
                                 <!-- <a type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Click to view question" class="text-decoration-none text-dark-emphasis" href="question_page.php?qz_id=<?php echo $row['qz_ID'] ?>"> -->
-                                    <div class="card-body" onclick="window.location.href = 'question_page.php?qz_id=<?php echo $row['qz_ID'] ?>">
-                                        <a class="text-decoration-none text-dark-emphasis" href="question_page.php?qz_id=<?php echo $row['qz_ID'] ?>">
+                                    <div class="card-body" onclick="window.location.href = 'quiz/quiz.php?room_id=<?php echo $row['Room_ID'] ?>">
+                                        <a class="text-decoration-none text-dark-emphasis" href="quiz/quiz.php?room_id=<?php echo $row['Room_ID'] ?>">
                                             <h5 class="card-title"><?php echo $row['Title'] ?></h5>
                                             <p class="card-text"><?php echo $row['Description'] ?></p>
                                         </a>
@@ -44,8 +42,7 @@
                                 <?php if ($row['Room_ID'] != ""){ ?>
                                 <div class="card-footer">
                                     <div class="input-group">
-                                        <button class="btn btn-outline-secondary share" value="<?php echo $row['Room_ID'] ?>"><i class="bi bi-share"></i></button>
-                                        <input id="roomID-<?php echo $row['Room_ID'] ?>" class="form-control" type="text" value="<?php echo $row['Room_ID'] ?>" aria-label="default input example" readonly>
+                                        <p>Click to join quiz</p>
                                     </div>
                                 </div>
                                 <?php } ?>
