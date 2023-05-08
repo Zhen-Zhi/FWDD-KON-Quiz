@@ -210,6 +210,7 @@
                             <?php
                                     }
                             ?>
+                                <option value="0">Others</option>
                         </select>
                     </div>
                     <div class="col mt-2">

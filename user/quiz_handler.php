@@ -9,13 +9,14 @@
         $qz_title = mysqli_real_escape_string($con,$_POST['qz_title']);
         $qz_desc = mysqli_real_escape_string($con,$_POST['qz_desc']);
         $user_id = mysqli_real_escape_string($con,$_POST['id']);
+        $cat_id = mysqli_real_escape_string($con,$_POST['qz_cat']);
 
         // check duplicate quiz title
         $query = "SELECT qz_id, Title FROM quiz WHERE Title = '$qz_title'";
         $duplicate_title = mysqli_query($con, $query);
 
         if (mysqli_num_rows($duplicate_title) == 0 && $qz_title != "" && $qz_desc != "") {
-            $query_create_quiz = "INSERT INTO quiz (Title, Description, User_ID) VALUES ('$qz_title', '$qz_desc', '$user_id')";
+            $query_create_quiz = "INSERT INTO quiz (Title, Description, User_ID, Category_ID) VALUES ('$qz_title', '$qz_desc', '$user_id', '$cat_id')";
             if (mysqli_query($con, $query_create_quiz)) {
                 $response = "Success";
                 $message = "Quiz created successfully";
