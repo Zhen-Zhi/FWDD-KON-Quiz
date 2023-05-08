@@ -63,7 +63,7 @@
             
             <?php 
                 while($row=mysqli_fetch_array($result2)) {
-                    $query = 'SELECT * FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID INNER JOIN user on user.ID = session.User_ID where session.qz_ID ='. $row["qz_ID"];
+                    $query = 'SELECT * FROM all_session INNER JOIN quiz ON all_session.qz_ID = quiz.qz_ID LEFT JOIN user on user.ID = all_session.User_ID where all_session.qz_ID ='. $row["qz_ID"];
                     $result = mysqli_query($con, $query);
             ?>
                 <div class="col">
