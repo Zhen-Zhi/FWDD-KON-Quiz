@@ -7,7 +7,7 @@
 
     $query = "SELECT * FROM quiz where User_ID = $id";
 
-    $records_per_page = 12;
+    $records_per_page = 11;
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $records_per_page;
 
