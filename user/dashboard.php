@@ -2,8 +2,10 @@
     include("../session.php");
     include("../conn.php");
     include("../template/toast.php");
+
     $id = $_SESSION['id'];
-    $local_ip = $_SERVER['SERVER_ADDR'];
+
+    $query = "SELECT * FROM quiz where User_ID = $id";
 
     $records_per_page = 12;
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -12,11 +14,10 @@
     $total_records = mysqli_num_rows(mysqli_query($con, "SELECT * FROM quiz where User_ID = $id"));
     $total_pages = ceil($total_records / $records_per_page);
 
-    $query = "SELECT * FROM quiz where User_ID = $id";
+    $search = null;
 
     $sort = null;
     
-    $search = null;
 
     if(isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $_GET['search'];
@@ -24,10 +25,18 @@
     }
     if(isset($_GET['sortBy']) && !empty($_GET['sortBy'])) {
         $sort = $_GET['sortBy'];
-        // $query .= " AND Room_ID LIKE '%$search%'";
+        if ($sort == 'Open'){
+            $query .= " AND COALESCE(Room_ID, '') != ''";
+        }else if($sort == 'Close'){
+            $query .= " AND COALESCE(Room_ID, '') = ''";
+        }else if($sort == 'Newest'){
+            $query .= " ORDER BY qz_ID DESC";
+        }else if($sort == 'Oldest'){
+            $query .= " ORDER BY qz_ID ASC";
+        }
     }
 
-    $query .= " ORDER BY qz_ID DESC LIMIT $records_per_page OFFSET $offset";
+    $query .= " LIMIT $records_per_page OFFSET $offset";
     
     $result = mysqli_query($con, $query);
     
@@ -49,7 +58,26 @@
         </li>
     </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
-        <h2 class="px-2 my-4">Your Current Quizzes</h2>
+        <h2 class="px-2 mt-4">Your Current Quizzes</h2>
+        <form class="row px-2 my-4" action="dashboard.php">
+            <div class="col">
+                <input class="form-control" id="search-input" type="search" name="search" placeholder="Search Quiz Title" aria-label="Search"  value="<?php echo $search ?>">
+            </div>
+        
+            <div class="col">
+                <select id="select-input" name="sortBy" class="form-select" onchange="sortItem(this)">
+                    <option value="All" <?php if ($sort === "All") echo "selected"; ?>>All</option>
+                    <option value="Open" <?php if ($sort === "Open") echo "selected"; ?>>Open</option>
+                    <option value="Close" <?php if ($sort === "Close") echo "selected"; ?>>Close</option>
+                    <option value="Newest" <?php if ($sort === "Newest") echo "selected"; ?>>Newest</option>
+                    <option value="Oldest" <?php if ($sort === "Oldest") echo "selected"; ?>>Oldest</option>
+                </select>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
         <div class="row">
             <nav class="col" aria-label="Page navigation example">
                 <ul class="pagination justify-content-start px-2">
@@ -71,23 +99,7 @@
                         </a>
                     </li>
                 </ul>
-                <!-- <form method="get" action="dashboard.php" class="row w-100 justify-content-end" role="search">
-                    <div class="col">
-                        <input class="form-control" id="search-input" type="search" name="search" placeholder="Search Quiz Title" aria-label="Search" value="<?php echo $search ?>">
-                    </div>
-                    <div class="col-1 ps-0">
-                        <button class="btn btn-primary" type="submit">Search</button>
-                    </div>
-                </form> -->
             </nav>
-            
-            <div class="col">
-                <select class="form-select" onchange="sortSession(this)">
-                    <option value="All" <?php if ($sort === "All") echo "selected"; ?>>All</option>
-                    <option value="Open" <?php if ($sort === "Open") echo "selected"; ?>>Open</option>
-                    <option value="Close" <?php if ($sort === "Close") echo "selected"; ?>>Close</option>
-                </select>
-            </div>
         </div>
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
@@ -293,16 +305,26 @@
 </div>
 
 <script>
-    function sortSession(e) {
-        var url = window.location.href;
-        var paramIndex = url.indexOf('?sortBy=');
+    function sortItem(e){
+        let newValue = e.value;
 
-        if (paramIndex !== -1) {
-            var baseUrl = url.substring(0, paramIndex);
-            window.location.href = baseUrl + '?sortBy=' + e.value;
-        } else {
-            window.location.href = url + '?sortBy=' + e.value;
+        if (window.location.search) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sortByParam = urlParams.get('sortBy');
+
+            if (sortByParam) {
+                // Replace the value of the sortBy parameter
+                urlParams.set('sortBy', newValue);
+            } else {
+                // Add a new sortBy parameter
+                urlParams.append('sortBy', newValue);
+            }
+
+            // Update the URL with the new query string
+            window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
         }
+
+        location.reload();
     }
 
     function generateRoomID() {
