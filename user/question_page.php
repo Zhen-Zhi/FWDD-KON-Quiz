@@ -11,6 +11,9 @@
     }
 
     $id = $_SESSION['id'];
+
+    $title = 'Dashboard';
+
     $count = 0;
 
     $query = "SELECT * FROM quiz WHERE qz_ID = $quiz_id AND User_ID = $id";
@@ -40,19 +43,20 @@
 </head>
 
 <div class="container px-3">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="../homepage.php">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="dashboard.php">Dashboard</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">View Question</a>
-        </li>
-    </ul>
+    <?php include('../template/nav_tabs.php') ?>
     <div class="shadow p-5 pt-4">
-        <h3><?php echo $quiz_data['Title'] ?></h3>
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">View Question</li>
+            </ol>
+        </nav>
+        <h3>
+            <?php echo $quiz_data['Title'] ?>
+            <button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="You can create or edit question here">
+                <i class="bi bi-question-circle"></i>
+            </button>
+        </h3>
         <!-- show all available question -->
         <div class="row row-cols-1 row-cols-md-1 g-4">
             <div class="col">
@@ -60,6 +64,27 @@
                     <a type="button" class="btn btn-lg h-100" href="create_ques.php"><button class="btn fs-1 text-secondary border-0 h-100">+</button></a>
                 </div>
             </div>
+            <nav aria-label="Page navigation example">
+            <ul class="pagination mt-2">
+                <li class="page-item">
+                    <a class="page-link" href="<?php if ($page > 1){ ?>?page=<?php echo $page - 1;} ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
+                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+                <?php endfor; ?>
+
+                <li class="page-item">
+                    <a class="page-link" href="<?php if ($page < $total_pages){ ?>?page=<?php echo $page + 1;} ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
         <?php 
             while($row=mysqli_fetch_array($question_result)) {
                 $count += 1;
@@ -108,28 +133,6 @@
             }
             ?>
         </div>
-
-        <nav aria-label="Page navigation example">
-            <ul class="pagination mt-2">
-                <li class="page-item">
-                    <a class="page-link" href="<?php if ($page > 1){ ?>?page=<?php echo $page - 1;} ?>" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-
-                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
-                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                </li>
-                <?php endfor; ?>
-
-                <li class="page-item">
-                    <a class="page-link" href="<?php if ($page < $total_pages){ ?>?page=<?php echo $page + 1;} ?>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </div>
 </div>
 
@@ -167,6 +170,9 @@
 </div>
 
 <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
     $('.form-check-input:checked').each(function() {
         $(this).parent('.form-check').addClass('checked');
     });

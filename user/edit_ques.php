@@ -2,6 +2,8 @@
     include("../session.php");
     include("../conn.php");
     include("../template/toast.php");
+
+    $title = "Dashboard";
     
     $ques_id = mysqli_real_escape_string($con,$_POST['ques_id']);
 
@@ -16,21 +18,16 @@
 </head>
 
 <div class="container">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="../homepage.php">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="dashboard.php">Dashboard</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="question_page.php?qz_id=<?php echo $_SESSION['quiz_id'] ?>">View Question</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Edit Question</a>
-        </li>
-    </ul>
+<?php include('../template/nav_tabs.php') ?>
+
     <div class="shadow p-5 pt-4">
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="question_page.php">View Question</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Question</li>
+            </ol>
+        </nav>
         <h3>Edit question</h3> 
         <?php 
         if ($result) {

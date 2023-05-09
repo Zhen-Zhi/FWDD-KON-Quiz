@@ -7,6 +7,8 @@
         $_SESSION['quiz_id'] = $quiz_id;
     }
 
+    $title = "View Participant";
+
     $count = 0;
 
     $query = "SELECT all_session.User_ID as UID, user.Username, quiz.Title, all_session.Date, all_session.Total_question, all_session.Correct_question, 
@@ -30,20 +32,15 @@
 </head>
 
 <div class="container px-3">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="../homepage.php">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="view_participant.php">View participant</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Participant List</a>
-        </li>
-    </ul>
+<?php include('../template/nav_tabs.php') ?>
     <div class="shadow p-5 pt-4">
-        <h3><?php echo $quiz_data['Title'] ?></h3>
-
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="view_participant.php">View Participant</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Participant List</li>
+            </ol>
+        </nav>
+        <h3 class="my-4"><?php echo $quiz_data['Title'] ?></h3>
         <!-- show all available question -->
         <?php 
             while($row=mysqli_fetch_array($date_result)) {

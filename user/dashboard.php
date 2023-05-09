@@ -7,6 +7,8 @@
 
     $query = "SELECT * FROM quiz where User_ID = $id";
 
+    $title = 'Dashboard';
+
     $records_per_page = 12;
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $records_per_page;
@@ -34,6 +36,8 @@
         }else if($sort == 'Oldest'){
             $query .= " ORDER BY qz_ID ASC";
         }
+    }else{
+        $query .= " ORDER BY qz_ID DESC";
     }
 
     $query .= " LIMIT $records_per_page OFFSET $offset";
@@ -45,20 +49,17 @@
 ?>
 
 <head>
-    <title>KON Quiz - Dashboard</title>
+    <title>KON Quiz - <?php echo $title; ?></title>
 </head>
 
 <div class="container px-3">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="../homepage.php">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
-        </li>
-    </ul>
-    <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
-        <h2 class="px-2 mt-4">Your Current Quizzes</h2>
+    <?php include('../template/nav_tabs.php') ?>
+
+        <h2 class="px-2 mt-4">Your Current Quizzes
+            <button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="You can create a new quiz or modify an existing quiz here">
+                <i class="bi bi-question-circle"></i>
+            </button>
+        </h2>
         <form class="row px-2 my-4" action="dashboard.php">
             <div class="col">
                 <input class="form-control" id="search-input" type="search" name="search" placeholder="Search Quiz Title" aria-label="Search"  value="<?php echo $search ?>">
@@ -128,7 +129,7 @@
                                         <div class="col pe-0 text-end">
                                             <div class="dropdown">
                                                 <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="bi bi-menu-down"></i>
+                                                    <i class="bi bi-pen-fill"></i>
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <form method="POST" class="my-0" action="view_participant.php">
@@ -305,6 +306,10 @@
 </div>
 
 <script>
+    
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
     function sortItem(e){
         let newValue = e.value;
 

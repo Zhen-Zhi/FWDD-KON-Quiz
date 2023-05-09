@@ -4,6 +4,10 @@
     include("../template/toast.php");
     $id = $_SESSION['id'];
 
+    $title = 'View Participant';
+
+    $query = "SELECT * FROM quiz where User_ID = $id";
+
     $records_per_page = 12;
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $records_per_page;
@@ -11,31 +15,62 @@
     $total_records = mysqli_num_rows(mysqli_query($con, "SELECT * FROM quiz where User_ID = $id"));
     $total_pages = ceil($total_records / $records_per_page);
 
-    $query_2 = "SELECT * FROM quiz where User_ID = $id ORDER BY qz_ID DESC LIMIT $records_per_page OFFSET $offset";
-    $result2 = mysqli_query($con, $query_2);
+    $search = null;
+
+    $sort = null;
+
+    if(isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $_GET['search'];
+        $query .= " AND Title LIKE '%$search%'";
+    }
+    if(isset($_GET['sortBy']) && !empty($_GET['sortBy'])) {
+        $sort = $_GET['sortBy'];
+        if($sort == 'Oldest'){
+            $query .= " ORDER BY qz_ID ASC";
+        }else{
+            $query .= " ORDER BY qz_ID DESC";
+        }
+    }else{
+        $query .= " ORDER BY qz_ID DESC";
+    }
+
+    $query .= " LIMIT $records_per_page OFFSET $offset";
+    $result2 = mysqli_query($con, $query);
 ?>
 
 <head>
-    <title>KON Quiz - View Participant</title>
+    <title>KON Quiz - <?php echo $title; ?></title>
 </head>
 
 <div class="container px-3">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="../homepage.php">Home</a>
-        </li>   
-        <li class="nav-item">
-            <a class="nav-link" href="dashboard.php">Dashboard</a>
-        </li>   
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">View Participant</a>
-        </li>
-    </ul>
+    <?php include('../template/nav_tabs.php') ?>
 
-        <div class="px-2">
-            <h2 class="my-4 me-2">Your Current Quizzes</h2>
-            <div class="fs-5">Select quiz to view participant</div>
+    <div class="px-2">
+        <h2 class="my-4">Your Current Quizzes
+            <button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="You can find who have done your quizzes here">
+                <i class="bi bi-question-circle"></i>
+            </button>
+        </h2>
+
     </div>
+
+    <form class="row px-2 my-4" action="view_participant.php">
+        <div class="col">
+            <input class="form-control" id="search-input" type="search" name="search" placeholder="Search Quiz Title" aria-label="Search"  value="<?php echo $search ?>">
+        </div>
+    
+        <div class="col">
+            <select id="select-input" name="sortBy" class="form-select" onchange="sortItem(this)">
+                <option value="All" <?php if ($sort === "All") echo "selected"; ?>>All</option>
+                <option value="Newest" <?php if ($sort === "Newest") echo "selected"; ?>>Newest</option>
+                <option value="Oldest" <?php if ($sort === "Oldest") echo "selected"; ?>>Oldest</option>
+            </select>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
     <nav aria-label="Page navigation example">
         <ul class="pagination mt-2 px-2">
             <li class="page-item">
@@ -83,6 +118,33 @@
         </div>
     </div>
 </div>
+
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    function sortItem(e){
+        let newValue = e.value;
+
+        if (window.location.search) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sortByParam = urlParams.get('sortBy');
+
+            if (sortByParam) {
+                // Replace the value of the sortBy parameter
+                urlParams.set('sortBy', newValue);
+            } else {
+                // Add a new sortBy parameter
+                urlParams.append('sortBy', newValue);
+            }
+
+            // Update the URL with the new query string
+            window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        }
+
+        location.reload();
+    }
+</script>
 
 <style>
     .quiz-card:hover{
