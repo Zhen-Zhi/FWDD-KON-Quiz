@@ -3,6 +3,7 @@
     include("../conn.php");
     include("../template/toast.php");
     $id = $_SESSION['id'];
+    $local_ip = $_SERVER['SERVER_ADDR'];
 
     $records_per_page = 12;
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -459,17 +460,65 @@
             $('#delete-quiz').modal('show');
         });
 
+        function getUserIPAddress() {
+            return new Promise((resolve, reject) => {
+            const RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
+
+            if (RTCPeerConnection) {
+            const rtc = new RTCPeerConnection({iceServers:[]});
+
+            rtc.createDataChannel('test', {reliable:false});
+
+            rtc.onicecandidate = function(evt) {
+                if (evt.candidate) {
+                resolve(evt.candidate.address);
+                rtc.close();
+                }
+            };
+
+            rtc.createOffer()
+                .then(offerDesc => {
+                rtc.setLocalDescription(offerDesc);
+                })
+                .catch(error => {
+                reject(error);
+                });
+            } else {
+            reject('WebRTC not supported');
+            }
+    });
+        }
+
+// call the function to get the IP address and log it
+  
         $(".share").click(function() {
-            var roomId = $(this).val();
-            document.getElementById("room-id").value = roomId;
-            $('#display').modal('show');
-            var qrUrl = 'https://quickchart.io/qr?text=' + encodeURIComponent('http://192.168.100.15/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login=');
-            $('#qr-code').on('load', function() {
-                $('#qr-spinner').hide();
-                $('#qr-code').show();
-            });
-            $('#qr-code').attr('src', qrUrl);
-            console.log(roomId);
+            let link;
+
+            getUserIPAddress()
+            .then(ipAddress => {
+                var roomId = $(this).val();
+                document.getElementById("room-id").value = roomId;
+                console.log(123,ipAddress);
+                $('#display').modal('show');
+                var qrUrl = 'https://quickchart.io/qr?text=' + encodeURIComponent('http://'+ipAddress+'/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login=');
+                $('#qr-code').on('load', function() {
+                    $('#qr-spinner').hide();
+                    $('#qr-code').show();
+                });
+                $('#qr-code').attr('src', qrUrl)
+            })
+            .catch(error => console.error(error));
+
+            // var roomId = $(this).val();
+            // document.getElementById("room-id").value = roomId;
+            // $('#display').modal('show');
+            // var qrUrl = 'https://quickchart.io/qr?text=' + encodeURIComponent('http://'+link+'/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login=');
+            // $('#qr-code').on('load', function() {
+            //     $('#qr-spinner').hide();
+            //     $('#qr-code').show();
+            // });
+            // $('#qr-code').attr('src', qrUrl);
+            // console.log(roomId);
         });
     });
 
