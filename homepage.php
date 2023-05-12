@@ -50,10 +50,13 @@
                 <div class="card-body">
                     <h4 class="card-title">Enter Code to Join</h4>
                     <div class="card-text">
-                        <form action="quiz/quiz.php" method="GET">
+                        <form action="" method="GET" id="join-quiz">
                             <div class="d-flex">
                                 <div class="col-md-9 me-3">
-                                    <input type="text" class="form-control" name="room_id">
+                                    <input type="text" class="form-control" name="room" id="room_id">
+                                    <div class="invalid-feedback">
+                                        <p>Room Not Found.</p>
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
                                     <button class="btn btn-dark" type="submit" name="login">
@@ -135,6 +138,28 @@
 
         window.location.href = url;
     }
+
+    $(document).ready(function() {
+        $('#join-quiz').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'check_quiz.php',
+                data: $(this).serialize(),
+                success: function(response) {
+                    console.log(response);
+                    var data = JSON.parse(response);
+                    if (data.quiz == "Success") {
+                        $('#room_id').removeClass('is-invalid');
+                        window.location.href = '/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + data.room_id;
+                    }
+                    else {
+                        $('#room_id').removeClass('is-valid').addClass('is-invalid');
+                    }
+                }
+            })
+        })
+    });
 </script>
 
 <style>
