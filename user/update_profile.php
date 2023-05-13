@@ -13,7 +13,13 @@
         $DOB = mysqli_real_escape_string($con, $_POST['DOB']);
         $Tel = mysqli_real_escape_string($con, $_POST['mobile_number']);
         $Gender = mysqli_real_escape_string($con, $_POST['gender']);
-        $profile_pic = $_FILES['profile-pic']['name'];
+
+        // if(isset($_FILES['profile-pic']['name'])) {
+        //     $profile_pic = $_FILES['profile-pic']['name'];
+        // }
+        // else {
+        //     $profile_pic = "dummy";
+        // }
 
         //get duplicate username and email
         $duplicate_query = "SELECT * FROM user where ID <> '$id' AND (Username = '$username' OR Email = '$email')";
@@ -44,6 +50,21 @@
                 $data = mysqli_fetch_assoc($result);
 
                 if ($oldPassword == $data['Password']) {
+                    // if(isset($_FILES['profile-pic']['name']) && $newPassword1 == $newPassword2) {
+                    //     $target_dir = "profile/";
+                    //     $target_file = $target_dir . basename($_FILES["profile-pic"]["name"]);
+                    //     if (move_uploaded_file($_FILES['profile-pic']['tmp_name'],$target_file)) {
+                    //         $query = "UPDATE user SET Username = '$username', Email = '$email', Password = '$newPassword1', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender', Profile_pic = '$profile_pic' WHERE ID = '$id'";
+                    //         // $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
+                    //         if (mysqli_query($con, $query)) {
+                    //             $response = "Success";
+                    //             $message = "Profile had been saved";
+                    //         }
+                    //         else {
+                    //             $message = "Error: " . mysqli_error($con);
+                    //         }
+                    //     }
+                    // }
                     if ($newPassword1 == $newPassword2) {
                         $query = "UPDATE user SET Username = '$username', Email = '$email', Password = '$newPassword1', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
                         if (mysqli_query($con, $query)) {
@@ -68,25 +89,60 @@
             }
             else {
                 // Edit user profile
-                $target_dir = "profile/";
-                $target_file = $target_dir . basename($_FILES["profile-pic"]["name"]);
-                if (move_uploaded_file($_FILES['profile-pic']['tmp_name'],$target_file)) {
-                    $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender', Profile_pic = '$profile_pic' WHERE ID = '$id'";
+                // if($profile_pic == "dummy") {
+                //     $target_dir = "profile/";
+                //     $target_file = $target_dir . basename($_FILES["profile-pic"]["name"]);
+                //     if (move_uploaded_file($_FILES['profile-pic']['tmp_name'],$target_file)) {
+                //         $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender', Profile_pic = '$profile_pic' WHERE ID = '$id'";
+                //         // $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
+                //         if (mysqli_query($con, $query)) {
+                //             $response = "Success";
+                //             $message = "Profile had been saved";
+                //         }
+                //         else {
+                //             $message = "Error: " . mysqli_error($con);
+                //         }
+                //     }
+                //     else {
+                //         $response = "Failed";
+                //         $message = "Upload failed";
+                //     }
+                // }
+                // else {
+                    $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
                     // $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
                     if (mysqli_query($con, $query)) {
                         $response = "Success";
-                        $message = "Profile had been saved";
+                        $message = "Profile had been saved xpropic";
                     }
                     else {
                         $message = "Error: " . mysqli_error($con);
                     }
-                }
-                else {
-                    $response = "Error";
-                    $message = "File upload fail". error_get_last()['message'];;
-                }
+                // }
             }   
         } 
+    }
+    else if(isset($_POST['edit-profile-picture'])) {
+        $id = mysqli_real_escape_string($con, $_POST['id']);
+        $profile_pic = $_FILES['profile-pic']['name'];
+        $target_dir = "profile/";
+        $target_file = $target_dir . basename($_FILES["profile-pic"]["name"]);
+        if (move_uploaded_file($_FILES['profile-pic']['tmp_name'],$target_file)) {
+            $query = "UPDATE user SET Profile_pic = '$profile_pic' WHERE ID = '$id'";
+            // $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
+            if (mysqli_query($con, $query)) {
+                $response = "Success";
+                $message = "Profile had been saved";
+                $type = $profile_pic;
+            }
+            else {
+                $message = "Error: " . mysqli_error($con);
+            }
+        }
+        else {
+            $response = "Failed";
+            $message = "Upload failed";
+        }
     }
     else {
         $response = "Error";
