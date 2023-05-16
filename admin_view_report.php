@@ -11,17 +11,47 @@
 
     // attempt of each weeks
     // $query2 = "SELECT COUNT(All_session_ID) FROM all_session INNER JOIN "
-    $query_getMember = "SELECT CASE WHEN User_ID = 0 THEN 'guest' ELSE 'member' END AS userType,
-                            MONTHNAME(Date) AS MonthName, 
-                            COUNT(User_ID) AS No_User FROM all_session 
-                            WHERE Date > CURDATE() - INTERVAL 6 MONTH AND User_ID <> 0 
-                            GROUP BY userType, MonthName;";
+    // $query_getMember = "SELECT CASE WHEN User_ID = 0 THEN 'guest' ELSE 'member' END AS userType,
+    //                         MONTHNAME(Date) AS MonthName, 
+    //                         COUNT(User_ID) AS No_User FROM all_session 
+    //                         WHERE Date > CURDATE() - INTERVAL 6 MONTH AND User_ID <> 0 
+    //                         GROUP BY userType, MonthName;";
 
-    $query_getGuest = "SELECT CASE WHEN User_ID = 0 THEN 'guest' ELSE 'member' END AS userType,
-                            MONTHNAME(Date) AS MonthName, 
-                            COUNT(User_ID) AS No_User FROM all_session 
-                            WHERE Date > CURDATE() - INTERVAL 6 MONTH AND User_ID = 0 
-                            GROUP BY userType, MonthName;";
+    $query_getMember = "SELECT * FROM
+                          (SELECT MONTHNAME(Date) AS MonthName
+                          FROM all_session 
+                          WHERE Date > CURDATE() - INTERVAL 6 MONTH 
+                          GROUP BY MonthName) AS t1
+                          LEFT JOIN
+                          (SELECT
+                          CASE WHEN User_ID = 0 THEN 'guest' ELSE 'member' END AS userType,
+                          MONTHNAME(Date) AS MonthName, 
+                          COUNT(User_ID) AS No_User
+                          FROM all_session 
+                          WHERE Date > CURDATE() - INTERVAL 6 MONTH AND User_ID <> 0 
+                          GROUP BY userType, MonthName) AS t2
+                          ON t1.MonthName = t2.MonthName;";
+
+    // $query_getGuest = "SELECT CASE WHEN User_ID = 0 THEN 'guest' ELSE 'member' END AS userType,
+    //                         MONTHNAME(Date) AS MonthName, 
+    //                         COUNT(User_ID) AS No_User FROM all_session 
+    //                         WHERE Date > CURDATE() - INTERVAL 6 MONTH AND User_ID = 0 
+    //                         GROUP BY userType, MonthName;";
+
+    $query_getGuest = "SELECT * FROM
+                          (SELECT MONTHNAME(Date) AS MonthName
+                          FROM all_session 
+                          WHERE Date > CURDATE() - INTERVAL 6 MONTH 
+                          GROUP BY MonthName) AS t1
+                          LEFT JOIN
+                          (SELECT
+                          CASE WHEN User_ID = 0 THEN 'guest' ELSE 'member' END AS userType,
+                          MONTHNAME(Date) AS MonthName, 
+                          COUNT(User_ID) AS No_User
+                          FROM all_session 
+                          WHERE Date > CURDATE() - INTERVAL 6 MONTH AND User_ID = 0 
+                          GROUP BY userType, MonthName) AS t2
+                          ON t1.MonthName = t2.MonthName;";
 
     $query_getMonthName = "SELECT MONTHNAME(Date) AS MonthName FROM all_session 
                                 WHERE Date > CURDATE() - INTERVAL 6 MONTH 
@@ -106,6 +136,9 @@ var i = 0;
 <?php }?>
 
 const xValuesMonth = arr_month;
+console.log(arr_month);
+console.log(arr_member);
+console.log(arr_guest);
 new Chart("myChart2", {
   type: "line",
   data: {
@@ -113,15 +146,17 @@ new Chart("myChart2", {
     datasets: [{ 
       data: arr_member,
       borderColor: "red",
-      fill: false
+      fill: false,
+      label: "Member Attempt"
     }, { 
       data: arr_guest,
       borderColor: "green",
-      fill: false
+      fill: false,
+      label: "Guest Attempt"
     }]
   },
   options: {
-    legend: {display: false}
+    legend: {display: true}
   }
 });
 </script>
