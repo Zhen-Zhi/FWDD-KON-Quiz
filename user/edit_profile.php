@@ -1,6 +1,7 @@
 <?php
     include('../session.php');
     include("../conn.php");
+    include("../template/toast.php");
 
     $id = $_SESSION['id'];
     $sql = "SELECT * FROM user WHERE ID = $id";
@@ -103,17 +104,16 @@
         </form>
 
         <div class="col">
-            <label for="" class="form-label">Your Current Profile Picture</label>
+            <label for="" class="form-label col-12">Your Current Profile Picture</label>
             <?php 
                 if($row['Profile_pic'] != null){
                     $image_data = base64_encode($row['Profile_pic']);
-                    echo $image_data;
                     $image_src = "data:image/jpeg;base64,{$image_data}";
                 }else{
                     $image_src = "../img/nerd.png";
                 }
             ?>
-                <img src="<?php echo $image_src; ?>" alt="...">
+                <img src="<?php echo $image_src; ?>" class="img-thumbnail thumbnail" alt="...">
         </div>
         <div class="col">
             <input name="profilepic" class="form-control" type="file" oninput="submitFile(this)">
@@ -140,11 +140,13 @@
             contentType: false,
             processData: false,
             success: function(response) {
-                console.log(222,response);
                 var data = response;
-                // console.log(123,data)
                 if (data.response == 'Success') {
-
+                    window.location.href = 'edit_profile.php?message=' + encodeURIComponent(data.message);
+                }else{
+                    $('#liveToast').addClass('text-bg-danger');
+                    $('#liveToast').find('.toast-body').html(data.message);
+                    toastBootstrap.show();
                 }
             },
             error: function(xhr, status, error) {

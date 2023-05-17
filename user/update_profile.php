@@ -71,25 +71,26 @@
     }
 
     else{
-        // $id = mysqli_real_escape_string($con, $_POST['id']);
-        $profile_pic = $_FILES['profile_picture']['name'];
-        $target_dir = "profile/";
-        $target_file = $target_dir . basename($_FILES["profile_picture"]["name"]);
+        $allowed_extensions = array('jpg', 'jpeg', 'png', 'gif');
+        $profile_pic = addslashes(file_get_contents($_FILES['profile_picture']['tmp_name']));
 
-        if (move_uploaded_file($_FILES['profile_picture']['tmp_name'],$target_file)) {
-            $query = "UPDATE user SET Profile_pic = '$profile_pic' WHERE ID = '$id'";
+        $profile_pic_name = $_FILES['profile_picture']['name'];
+        $profile_pic_extension = strtolower(pathinfo($profile_pic_name, PATHINFO_EXTENSION));
+
+        if (in_array($profile_pic_extension, $allowed_extensions)) {
+        $query = "UPDATE user SET Profile_pic = '$profile_pic' WHERE ID = '$id'";
         //     // 
-            if (mysqli_query($con, $query)) {
-                $response = "Success";
-                $message = "Profile picture changed successfully";
-            }
-            else {
-                $message = "Error: " . mysqli_error($con);
-            }
+        if (mysqli_query($con, $query)) {
+            $response = "Success";
+            $message = "Profile picture changed successfully";
         }
         else {
-            $response = "Failed";
-            $message = "Upload failed";
+            $message = "Error: " . mysqli_error($con);
+        }
+        }
+        else {
+            $response = "Error";
+            $message = "Upload failed: Incorrect file type";
         }
     }
     // else {
