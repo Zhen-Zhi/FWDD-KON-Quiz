@@ -1,6 +1,7 @@
 <?php 
     include("template.html"); 
     include("sidebar.php");
+    include("toast.php");
 ?>
 
 <nav class="navbar fixed-top" data-bs-theme="dark">
@@ -94,7 +95,7 @@
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: 'check_quiz.php',
+                url: '/FWDD-KON-QUIZ/check_quiz.php',
                 data: $(this).serialize(),
                 success: function(response) {
                     console.log(response);
@@ -103,7 +104,9 @@
                         window.location.href = '/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + data.room_id;
                     }
                     else {
-                        alert("Room Not Found");
+                        $('#liveToast').addClass('text-bg-danger');
+                        $('#liveToast').find('.toast-body').html(data.message);
+                        toastBootstrap.show();
                     }
                 }
             })

@@ -1,7 +1,6 @@
 <?php 
     include("../session.php");
     include("../conn.php");
-    include("../template/toast.php");
 
     $id = $_SESSION['id'];
 
@@ -36,8 +35,6 @@
         }else if($sort == 'Oldest'){
             $query .= " ORDER BY qz_ID ASC";
         }
-    }else{
-        $query .= " ORDER BY qz_ID DESC";
     }
 
     $query .= " LIMIT $records_per_page OFFSET $offset";

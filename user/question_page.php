@@ -1,7 +1,6 @@
 <?php
     include("../session.php");
     include("../conn.php");
-    include("../template/toast.php");
     if (isset($_GET['qz_id'])) {
         $quiz_id = $_GET['qz_id'];
         $_SESSION['quiz_id'] = $quiz_id;

@@ -1,7 +1,6 @@
 <?php 
     include("../session.php");
     include("../conn.php");
-    include("../template/toast.php");
     $id = $_SESSION['id'];
 
     $title = 'View Participant';

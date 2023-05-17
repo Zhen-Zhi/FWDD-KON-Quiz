@@ -1,7 +1,6 @@
 <?php
     include("session.php");
     include("conn.php");
-    include("template/toast.php");
     $cat_id = $_GET['cat_id'];
     $query = "SELECT * FROM quiz WHERE Category_ID = $cat_id AND Room_ID <> ''";
     $result = mysqli_query($con, $query);
@@ -14,14 +13,14 @@
 <div class="container px-3">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="../homepage.php">Home</a>
+            <a class="nav-link" href="homepage.php">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
         </li>
     </ul>
     <!-- <div class="border-0 shadow-lg" style="height: 80vh;"> -->
-        <h2 class="px-2 my-4">Your Current Quizzes</h2>
+        <h2 class="px-2 my-4">Quizzes</h2>
         </div>
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">

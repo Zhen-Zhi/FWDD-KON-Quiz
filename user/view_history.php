@@ -1,7 +1,6 @@
 <?php 
     include("../session.php");
     include("../conn.php");
-    include("../template/toast.php");
     $id = $_SESSION['id'];
 
     $query = "SELECT * FROM session INNER JOIN quiz ON session.qz_ID = quiz.qz_ID where session.User_ID = $id";
@@ -75,19 +74,19 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination px-2">
                 <li class="page-item">
-                    <a class="page-link" href="<?php if ($page > 1){ ?>?page=<?php echo $page - 1;} ?>" aria-label="Previous">
+                    <a class="page-link" onclick="navigateToPage(<?php echo $page - 1; ?>)" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
 
                 <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                 <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
-                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    <a class="page-link" onclick="navigateToPage(<?php echo $i; ?>)"><?php echo $i; ?></a>
                 </li>
                 <?php endfor; ?>
 
                 <li class="page-item">
-                    <a class="page-link" href="<?php if ($page < $total_pages){ ?>?page=<?php echo $page + 1;} ?>" aria-label="Next">
+                    <a class="page-link" onclick="navigateToPage(<?php echo $page + 1; ?>)" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -102,7 +101,9 @@
                         <div class="col">
                             <div class="card quiz-card h-100">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?php echo $row['Title'] ?></h5>
+                                    <h5 class="card-title">
+                                        <?php echo $row['Title'] ?>
+                                    </h5>
                                     <div class="card-text h-100">
                                         <?php echo $row['Description'] ?>
                                         <div class="d-flex my-1">
@@ -119,36 +120,6 @@
 
                                 <div class="card-footer text-center">
                                     <small class="text-body-secondary">Last Completed <?php echo $row['Date']?></small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="edit-quiz-<?php echo $row['qz_ID']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header text-bg-secondary shadow">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit quiz</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <form class="needs-validation" action="" method="POST" novalidate id="edit-form">
-                                        <div class="modal-body">
-                                            <div class="mx-auto">
-                                                <label for="quiz-title" class="form-label">Quiz Title</label>
-                                                <input id="quiz-title" class="form-control" type="text" name="qz_title" value="<?php echo $row['Title'] ?>">
-                                            </div>
-                                            <div class="mx-auto">
-                                                <label for="quiz-desc" class="form-label">Quiz Description</label>
-                                                <textarea class="form-control" id="quiz-desc" name="qz_desc"><?php echo $row['Description'] ?></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <input type="hidden" value="<?php echo $row['qz_ID']?>" name="qz_id">
-                                            <input type="hidden" value="1" name="editQuiz">
-                                            <button class="btn btn-primary edit-btn" name="create_quiz" type="submit">
-                                                Save
-                                            </button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -180,9 +151,36 @@
 
             // Update the URL with the new query string
             window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        }else{
+            const urlParams = new URLSearchParams('?search=&sortBy=');
+            urlParams.set('sortBy', newValue);
+
+            window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
         }
 
         location.reload();
+    }
+
+    function navigateToPage(page) {
+        if(window.location.search){
+            const urlParams = new URLSearchParams(window.location.search);
+            const sortByParam = urlParams.get('page');
+
+            if (sortByParam) {
+                // Replace the value of the sortBy parameter
+                urlParams.set('page', page);
+            } else {
+                // Add a new sortBy parameter
+                urlParams.append('page', page);
+            }
+
+            window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+
+            location.reload();
+        }else{
+            window.location.href = `?page=${page}`;
+        }
+        
     }
 </script>
 
@@ -195,5 +193,9 @@
     .quiz-card:hover{
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
         transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .page-link:hover{
+        cursor: pointer;
     }
 </style>
