@@ -9,16 +9,16 @@
         </a>
         <ul class="nav nav-pills">
             <li class="nav-item nav-bar">
-                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/adminhome.php">MODIFY QUIZ</a>
+                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/admin/adminhome.php">MODIFY QUIZ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/adminuser.php">MODIFY USERS</a>
+                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/admin/adminuser.php">MODIFY USERS</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/">VIEW REPORTS</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/">LOGOUT</a>
+                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/admin/logoutadmin.php">LOGOUT</a>
             </li>
         </ul>
     </div>
