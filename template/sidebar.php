@@ -1,18 +1,22 @@
 <?php 
-    if(isset($_SESSION['id'])){
-        $id = $_SESSION['id'];    
-        $query = "SELECT * FROM user where ID = $id";
-        $result = mysqli_query($con, $query);
-        $profile_pic = mysqli_fetch_assoc($result);
-    }
-?>
+    $id = $_SESSION['id'];
+    $sql = "SELECT * FROM user WHERE ID = $id";
+    $result = mysqli_query($con, $sql);
 
+    $row = mysqli_fetch_array($result);
+    $image_data = base64_encode($row['Profile_pic']);
+    $image_src = "data:image/jpeg;base64,{$image_data}";
+?>
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
     <div class="offcanvas-header">
         <button type="button" class="btn-close position-absolute top-0 start-0 m-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         <div class="offcanvas-title mx-auto">
-            <img src="/FWDD-KON-QUIZ/user/profile/<?php echo $profile_pic['Profile_pic']?>" class="img-thumbnail thumbnail" alt="...">
+            <?php if ($image_src){ ?>
+                <img src="<?php echo $image_src; ?>" class="img-thumbnail thumbnail" alt="...">
+            <?php }else{ ?>
+                <img src="../img/nerd.png" class="img-thumbnail form-control thumbnail" alt="...">
+            <?php } ?>
             <h4 class="text-center p-3"><?php if (isset($_SESSION['id'])) echo $_SESSION['username']; ?></h4>
         </div>
     </div>

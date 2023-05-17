@@ -1,28 +1,21 @@
 <?php 
     include("../conn.php");
     session_start();
-    $response = "Error";
-    $message = "Not in else statement";
-    $type = "0";
+    $response = "";
+    $type = "";
+    $message = "";
+    header('Content-Type: application/json');
+    $id = $_SESSION['id'];
 
-
-    if (isset($_POST['edit-profile'])) {
-        $id = mysqli_real_escape_string($con, $_POST['id']);
+    if(!isset($_FILES['profile_picture'])){
+        // $id = mysqli_real_escape_string($con, $_POST['id']);
         $username = mysqli_real_escape_string($con, $_POST['username']);
         $email = mysqli_real_escape_string($con, $_POST['email']);
         $DOB = mysqli_real_escape_string($con, $_POST['DOB']);
         $Tel = mysqli_real_escape_string($con, $_POST['mobile_number']);
         $Gender = mysqli_real_escape_string($con, $_POST['gender']);
 
-        // if(isset($_FILES['profile-pic']['name'])) {
-        //     $profile_pic = $_FILES['profile-pic']['name'];
-        // }
-        // else {
-        //     $profile_pic = "dummy";
-        // }
-
-        //get duplicate username and email
-        $duplicate_query = "SELECT * FROM user where ID <> '$id' AND (Username = '$username' OR Email = '$email')";
+        $duplicate_query = "SELECT * FROM user WHERE (Username = '$username' OR Email = '$email') AND ID != '$id'";
         $duplicate_result = mysqli_query($con, $duplicate_query);
         
         if (mysqli_num_rows($duplicate_result) > 0) {
@@ -50,90 +43,45 @@
                 $data = mysqli_fetch_assoc($result);
 
                 if ($oldPassword == $data['Password']) {
-                    // if(isset($_FILES['profile-pic']['name']) && $newPassword1 == $newPassword2) {
-                    //     $target_dir = "profile/";
-                    //     $target_file = $target_dir . basename($_FILES["profile-pic"]["name"]);
-                    //     if (move_uploaded_file($_FILES['profile-pic']['tmp_name'],$target_file)) {
-                    //         $query = "UPDATE user SET Username = '$username', Email = '$email', Password = '$newPassword1', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender', Profile_pic = '$profile_pic' WHERE ID = '$id'";
-                    //         // $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
-                    //         if (mysqli_query($con, $query)) {
-                    //             $response = "Success";
-                    //             $message = "Profile had been saved";
-                    //         }
-                    //         else {
-                    //             $message = "Error: " . mysqli_error($con);
-                    //         }
-                    //     }
-                    // }
                     if ($newPassword1 == $newPassword2) {
                         $query = "UPDATE user SET Username = '$username', Email = '$email', Password = '$newPassword1', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
                         if (mysqli_query($con, $query)) {
                             $response = "Success";
-                            $message = "Profile had been saved";
+                            $message = "Profile had been saved xpropic";
                         }
                         else {
+                            $response = "Error";
                             $message = "Error: " . mysqli_error($con);
                         }
                     }
-                    else {
-                        $response = "Error";
-                        $message = "New Password and Confirm Password not same";
-                        $type = "2";
-                    }
+                }   
+            }else{
+                // $log = 123;
+                $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
+                if (mysqli_query($con, $query)) {
+                    $response = "Success";
+                    $message = "Profile had been saved";;
                 }
                 else {
                     $response = "Error";
-                    $message = "Old Password Incorrect";
-                    $type = "2";
+                    $message = "Error: " . mysqli_error($con);
                 }
             }
-            else {
-                // Edit user profile
-                // if($profile_pic == "dummy") {
-                //     $target_dir = "profile/";
-                //     $target_file = $target_dir . basename($_FILES["profile-pic"]["name"]);
-                //     if (move_uploaded_file($_FILES['profile-pic']['tmp_name'],$target_file)) {
-                //         $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender', Profile_pic = '$profile_pic' WHERE ID = '$id'";
-                //         // $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
-                //         if (mysqli_query($con, $query)) {
-                //             $response = "Success";
-                //             $message = "Profile had been saved";
-                //         }
-                //         else {
-                //             $message = "Error: " . mysqli_error($con);
-                //         }
-                //     }
-                //     else {
-                //         $response = "Failed";
-                //         $message = "Upload failed";
-                //     }
-                // }
-                // else {
-                    $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
-                    // $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
-                    if (mysqli_query($con, $query)) {
-                        $response = "Success";
-                        $message = "Profile had been saved xpropic";
-                    }
-                    else {
-                        $message = "Error: " . mysqli_error($con);
-                    }
-                // }
-            }   
-        } 
+        }
     }
-    else if(isset($_POST['edit-profile-picture'])) {
-        $id = mysqli_real_escape_string($con, $_POST['id']);
-        $profile_pic = $_FILES['profile-pic']['name'];
+
+    else{
+        // $id = mysqli_real_escape_string($con, $_POST['id']);
+        $profile_pic = $_FILES['profile_picture']['name'];
         $target_dir = "profile/";
-        $target_file = $target_dir . basename($_FILES["profile-pic"]["name"]);
-        if (move_uploaded_file($_FILES['profile-pic']['tmp_name'],$target_file)) {
+        $target_file = $target_dir . basename($_FILES["profile_picture"]["name"]);
+
+        if (move_uploaded_file($_FILES['profile_picture']['tmp_name'],$target_file)) {
             $query = "UPDATE user SET Profile_pic = '$profile_pic' WHERE ID = '$id'";
-            // $query = "UPDATE user SET Username = '$username', Email = '$email', DOB = '$DOB', Tel = '$Tel', Gender = '$Gender' WHERE ID = '$id'";
+        //     // 
             if (mysqli_query($con, $query)) {
                 $response = "Success";
-                $message = "Profile had been saved";
-                $type = $profile_pic;
+                $message = "Profile picture changed successfully";
             }
             else {
                 $message = "Error: " . mysqli_error($con);
@@ -144,12 +92,12 @@
             $message = "Upload failed";
         }
     }
-    else {
-        $response = "Error";
-        $message = "File upload fail out";
-    }
+    // else {
+    //     $response = "Error";
+    //     $message = "File upload fail out";
+    // }
     
-    $response = array('response' => $response, 'type' => $type, 'message' => $message);
-    echo json_encode($response);
+    $res = array('response' => $response, 'type' => $type, 'message' => $message);
+    echo json_encode($res);
     mysqli_close($con);
 ?>

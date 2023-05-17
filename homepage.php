@@ -5,7 +5,9 @@
         $id = $_SESSION['id'];    
         $query = "SELECT * FROM user where ID = $id";
         $result = mysqli_query($con, $query);
-        $profile_pic = mysqli_fetch_assoc($result);
+        $row = mysqli_fetch_array($result);
+        $image_data = base64_encode($row['Profile_pic']);
+        $image_src = "data:image/jpeg;base64,{$image_data}";
     }
 ?>
 
@@ -35,7 +37,7 @@
                 <div class="card-body p-0" style="display: <?php if (isset($_SESSION['id'])) echo 'block'; else echo'none';?>">
                     <div class="row">
                         <div class="col-md-4 text-center py-2 profile">
-                            <img src="user/profile/<?php echo $profile_pic['Profile_pic']?>" class="img-thumbnail thumbnail" alt="..." onclick="redirectProfilePic()">
+                            <img src="<?php echo $image_src?>" class="img-thumbnail thumbnail" alt="...">
                         </div>
                         <div class="col-md-6 my-auto text-center mx-auto py-3">
                             <h4><?php if (isset($_SESSION['id'])) echo $_SESSION['username']; ?></h4>
