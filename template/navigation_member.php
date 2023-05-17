@@ -20,7 +20,7 @@
 
 <style>
     body{
-        padding-top: 10vh;
+        padding-top: 8vh;
     }
 
     .navbar{

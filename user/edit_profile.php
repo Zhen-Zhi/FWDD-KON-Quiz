@@ -36,12 +36,12 @@
                     <input id="username" class="form-control" type="text" name="username" value="<?php echo $row['Username']?>" oninput="validateName()">
                 </div>
                 <div class="col-6">
-                    <label for="" class="form-label">Email</label>
+                    <label class="form-label">Email</label>
                     <input id="email" class="form-control" type="text" name="email" required value="<?php echo $row['Email']?>" oninput="validateEmail()">
                 </div>
             </div>
             <div class="col">
-                <label for="" class="form-label">Old Password</label>
+                <label class="form-label">Old Password</label>
                 <div class="input-group">
                     <input id="pass" class="form-control" type="password" name="password" disabled>
                     <div class="invalid-feedback">
@@ -56,13 +56,13 @@
                 </div>
             </div>
             <div class="col">
-                <label for="" class="form-label">New Password</label>
+                <label class="form-label">New Password</label>
                 <input id="pass1" class="form-control" type="password" name="password_1" disabled oninput="validatePw();validateCPw()">
                 <div class="invalid-feedback">
                 </div>
             </div>
             <div class="col">
-                <label for="" class="form-label">Confirm New Password</label>
+                <label class="form-label">Confirm New Password</label>
                 <input id="pass2" class="form-control" type="password" name="password_2" disabled oninput="validateCPw()">
                 <div class="invalid-feedback">
                     Passwords are not the same.
@@ -70,7 +70,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <label for="" class="form-label">Gender</label>
+                    <label class="form-label">Gender</label>
                     <select class="form-select" name="gender" id="gender">
                         <option value="">Please select</option>
                         <option value="Male" <?php if($row['Gender'] == "Male") { ?> selected <?php } ?>>Male</option>
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <label for="" class="form-label">Date of Birth</label>
+                    <label class="form-label">Date of Birth</label>
                     <input class="form-control" name="DOB" type="date" value="<?php echo $row['DOB']?>">
                     <div class="invalid-feedback">
                         Please select a date.
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="col">
-                <label for="" class="form-label">Mobile Number</label>
+                <label class="form-label">Mobile Number</label>
                 <input class="form-control" name="mobile_number" type="tel" value="<?php echo $row['Tel']?>">
                 <div class="invalid-feedback">
                 </div>
@@ -102,9 +102,11 @@
                 </button>
             </div>
         </form>
-
+    </div>
+    
+    <div class="shadow p-5 pt-4 mt-3">
         <div class="col">
-            <label for="" class="form-label col-12">Your Current Profile Picture</label>
+            <label class="form-label col-12">Your Current Profile Picture</label>
             <?php 
                 if($row['Profile_pic'] != null){
                     $image_data = base64_encode($row['Profile_pic']);
@@ -118,10 +120,11 @@
         <div class="col">
             <input name="profilepic" class="form-control" type="file" oninput="submitFile(this)">
         </div>
+    </div>  
         <?php 
             }
         ?>
-    </div>
+    
 </div>
 
 <script>
