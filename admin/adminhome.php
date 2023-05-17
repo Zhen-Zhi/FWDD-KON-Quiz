@@ -9,6 +9,30 @@
     $result = mysqli_query($con, $query);
 
 
+    // ADD CATEGORY
+    if(isset($_POST['submitbtn'])){
+        $category = $_POST['category'];
+
+        $query = "INSERT INTO category (Category) VALUES ('$category')";
+        mysqli_query($con, $query);
+
+        if (!mysqli_query($con,$query)) {
+            // Close engineiva database connection  
+            mysqli_close($con);
+            // Echo delete failed and direct back to modify and remove page
+            echo '<script>alert("Add Category Failed!"); window.location.href="adminhome.php";</script>;';
+            }
+            // Else if the SQL code successfully excuted
+            else {
+            // Close engineiva database connection  
+            mysqli_close($con);
+            // Echo car deleted and direct back to modify and remove page
+            echo '<script>alert("Category Added");
+            window.location.href= "adminhome.php";
+            </script>';
+        }
+    }
+
     // DELETE CATEGORY
     if(isset($_POST['deleteCat'])){
         $catID = $_POST['deleteCat'];
@@ -97,13 +121,13 @@
                     <h2 class="fw-bold pb-4">Categories</h2>
 
                     <h5 class="fw-bold">Add Category</h5>
-                        <form action="quiz/quiz.php" method="GET">
+                        <form action="adminhome.php" method="POST">
                             <div class="d-flex pb-4">
                                 <div class="col-md-2 me-3">
-                                    <input type="text" class="form-control" name="room_id">
+                                    <input type="text" class="form-control" name="category">
                                 </div>
                                 <div class="col-md-3">
-                                    <button class="btn btn-dark" type="submit" name="enter">
+                                    <button class="btn btn-dark" type="submit" name="submitbtn" value="searchBtn">
                                         Enter
                                     </button>
                                 </div>
