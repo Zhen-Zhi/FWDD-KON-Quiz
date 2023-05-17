@@ -1,6 +1,6 @@
 <?php 
-    include("conn.php");
-    include("template/navigation_admin.php");
+    include("../conn.php");
+    include("../template/navigation_admin.php");
 ?>
 
 <?php  
@@ -94,7 +94,6 @@
                             <th>Tel</th>
                             <th>Gender</th>
                             <th></th>
-                            <th></th>
                         </tr>
                         
                         <?php 
@@ -107,9 +106,6 @@
                                 echo "<td>".$user['DOB']."</td>";
                                 echo "<td>".$user['Tel']."</td>";
                                 echo "<td>".$user['Gender']."</td>";
-                                echo '<td>
-                                        <button class="btn"><a href="ad-car-edit.php?ID='.$user['ID'].'">Edit</a></button>
-                                    </td>';
                                 echo '<td>
                                         <form action="adminuser.php" method="POST">
                                             <button class="btn" name="deleteUser" onclick="return confirm(\'Are you sure you want to do that?\')" value="'.$user['ID'].'">Delete</button>

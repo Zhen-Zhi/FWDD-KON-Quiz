@@ -1,6 +1,6 @@
 <?php 
-    include("conn.php");
-    include("template/navigation_admin.php");
+    include("../conn.php");
+    include("../template/navigation_admin.php");
 ?>
 
 <?php  
