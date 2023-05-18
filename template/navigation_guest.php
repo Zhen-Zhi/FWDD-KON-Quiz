@@ -177,7 +177,7 @@
                         document.getElementById('spinner').hidden = false;
 
                         setTimeout(function() {
-                            window.location.href = '/FWDD-KON-QUIZ/homepage.php';
+                            window.location.href = '/FWDD-KON-QUIZ/user/dashboard.php';
                         }, 2000);
                     } else {
                         $('#liveToast').addClass('text-bg-danger');
