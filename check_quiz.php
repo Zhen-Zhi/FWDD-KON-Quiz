@@ -9,7 +9,7 @@
     $query = "SELECT * FROM quiz WHERE Room_ID = '$room_id'";
     $result = mysqli_query($con, $query);
 
-    if (mysqli_num_rows($result) >= 1) {
+    if (mysqli_num_rows($result) >= 1 && $room_id != '') {
         $quiz = "Success";
     }
 
