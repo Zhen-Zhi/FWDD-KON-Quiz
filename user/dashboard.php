@@ -4,7 +4,7 @@
 
     $id = $_SESSION['id'];
 
-    $query = "SELECT * FROM quiz where User_ID = $id";
+    $query = "SELECT * FROM quiz LEFT JOIN category ON quiz.Category_ID = category.ID where User_ID = $id";
 
     $title = 'Dashboard';
 
@@ -40,9 +40,6 @@
     $query .= " LIMIT $records_per_page OFFSET $offset";
     
     $result = mysqli_query($con, $query);
-    
-    $category = "SELECT * FROM category ORDER BY ID DESC";
-    $res = mysqli_query($con, $category);
 ?>
 
 <head>
@@ -174,6 +171,22 @@
                                                 <label for="quiz-title" class="form-label">Quiz Title</label>
                                                 <input id="quiz-title" class="form-control" type="text" name="qz_title" value="<?php echo $row['Title'] ?>">
                                             </div>
+                                            <!-- put category -->
+                                            <div class="col mt-2">
+                                                <label for="quiz-category" class="form-label">Category</label>
+                                                <select class="form-select" aria-label="Default select example" name="qz_cat">
+                                                    <?php 
+                                                        $category = "SELECT * FROM category ORDER BY ID DESC";
+                                                        $res = mysqli_query($con, $category);
+                                                        while(($row2 = mysqli_fetch_assoc($res))){
+                                                        
+                                                    ?>
+                                                        <option value="<?php echo $row2['ID'] ?>" <?php if($row2['ID'] == $row['Category_ID']) {?> selected <?php } ?>><?php echo $row2['Category'] ?></option>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
                                             <div class="mx-auto">
                                                 <label for="quiz-desc" class="form-label">Quiz Description</label>
                                                 <textarea class="form-control" id="quiz-desc" rows="7" name="qz_desc"><?php echo $row['Description'] ?></textarea>
@@ -215,7 +228,10 @@
                     <div class="col mt-2">
                         <label for="quiz-category" class="form-label">Category</label>
                         <select class="form-select" aria-label="Default select example" name="qz_cat">
-                            <?php while(($row = mysqli_fetch_assoc($res))){
+                            <?php 
+                                $category = "SELECT * FROM category ORDER BY ID DESC";
+                                $res = mysqli_query($con, $category);
+                                while(($row = mysqli_fetch_assoc($res))){
                             ?>
                                 <option value="<?php echo $row['ID'] ?>"><?php echo $row['Category'] ?></option>
                             <?php
