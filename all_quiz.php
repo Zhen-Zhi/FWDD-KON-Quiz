@@ -80,6 +80,28 @@
             </div>
         </form>
 
+        <nav aria-label="Page navigation example">
+            <ul class="pagination px-2">
+                <li class="page-item">
+                    <a class="page-link" <?php if ($page > 1){ ?> onclick="navigateToPage(<?php echo $page - 1; ?>)" <?php } ?> aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
+                    <a class="page-link" onclick="navigateToPage(<?php echo $i; ?>)"><?php echo $i; ?></a>
+                </li>
+                <?php endfor; ?>
+
+                <li class="page-item">
+                    <a class="page-link" <?php if ($page < $total_pages){ ?> onclick="navigateToPage(<?php echo $page + 1; ?>)" <?php } ?> aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
         <div class="container">
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <?php 
@@ -146,6 +168,27 @@
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
+    function navigateToPage(page) {
+        if(window.location.search){
+            const urlParams = new URLSearchParams(window.location.search);
+            const sortByParam = urlParams.get('page');
+
+            if (sortByParam) {
+                // Replace the value of the sortBy parameter
+                urlParams.set('page', page);
+            } else {
+                // Add a new sortBy parameter
+                urlParams.append('page', page);
+            }
+
+            window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+
+            location.reload();
+        }else{
+            window.location.href = `?page=${page}`;
+        }
+    }
+
     function sortItem(e){
         let newValue = e.value;
 
@@ -173,3 +216,14 @@
         location.reload();
     }
 </script>
+
+<style>
+    .page-link:hover{
+        cursor: pointer;
+    }
+    
+    .quiz-card:hover{
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+</style>
