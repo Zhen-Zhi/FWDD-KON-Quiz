@@ -41,7 +41,7 @@
     
     $result = mysqli_query($con, $query);
     
-    $category = "SELECT * FROM category ORDER BY ID ASC";
+    $category = "SELECT * FROM category ORDER BY ID DESC";
     $res = mysqli_query($con, $category);
 ?>
 
@@ -221,7 +221,6 @@
                             <?php
                                     }
                             ?>
-                                <option value="0">Others</option>
                         </select>
                     </div>
                     <div class="col mt-2">

@@ -135,7 +135,7 @@
 
 <script>
     function showCategoryQuiz(id) {
-        const url = "dashboard.php" +
+        const url = "all_quiz.php" +
             "?cat_id=" + id;
 
         window.location.href = url;
