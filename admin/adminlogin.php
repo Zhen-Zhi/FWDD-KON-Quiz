@@ -5,42 +5,40 @@
     session_start();
 ?>
 
-<div class="container px-1 py-5">
-    <div class="shadow px-1 py-5 mt-3 mb-5">
-    <h2 class="fw-bold pb-4 text-center">Admin Login</h2>
-            <div class="modal-body">
-                <form class="needs-validation" action="" method="POST" novalidate id="login-form">
-                    <div class="col-md-6 mx-auto">
-                        <label for="" class="form-label">Username</label>
-                        <input id="credential" class="form-control" type="text" name="credential">
-                        <div class="invalid-feedback">
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6 mx-auto">
-                        <label for="" class="form-label">Password</label>
-                        <input id="password" class="form-control" type="password" name="password">
-                        <div class="invalid-feedback">
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6 mt-2 mx-auto text-center pt-1">
-                        <input type="hidden" name="loginadmin" value="1">
-                        <button class="btn btn-secondary w-50" type="submit" name="login">
-                            <div id="login-text">
-                                LOGIN
-                            </div>
-                            <div class="spinner-border spinner-border-sm text-light" id="spinner" role="status" hidden disabled>
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </button>
-                    </div>
-                </form>
-            </div>
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="container py-5">
+        <div class="col-md-4 mx-auto">
+            <h2 class="fw-bold pb-4 text-decoration-underline">Admin Login</h2>
         </div>
+        
+        <form class="needs-validation" action="" method="POST" novalidate id="login-form">
+            <div class="form-floating col-md-4 mx-auto mb-3">
+                <input type="text" class="form-control" id="credential" name="credential" placeholder="name@example.com">
+                <label for="credential"><i class="bi bi-person-circle me-1"></i>Username</label>
+                <div class="invalid-feedback">
+                </div>
+            </div>
+            <div class="form-floating col-md-4 mx-auto mb-3">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                <label for="password"><i class="bi bi-shield-lock-fill me-1"></i>Password</label>
+                <div class="invalid-feedback">
+                </div>
+            </div>
+            
+            <div class="col-md-4 mx-auto text-center">
+                <input type="hidden" name="loginadmin" value="1">
+                <button class="btn btn-secondary w-100" type="submit" name="login">
+                    <div id="login-text">
+                        LOGIN
+                    </div>
+                    <div class="spinner-border spinner-border-sm text-light" id="spinner" role="status" hidden disabled>
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
-
 
 <script>
     $(document).ready(function() {
@@ -64,7 +62,7 @@
                             window.location.href = '/FWDD-KON-QUIZ/admin/adminhome.php';
                         }, 2000);
                     } else {
-                        $('#liveToast').addClass('text-bg-danger');
+                        $('#liveToast').addClass('text-bg-danger mt-2');
                         $('#liveToast').find('.toast-body').html(data.message);
                         toastBootstrap.show();
                         $('#credential').removeClass('is-valid').addClass('is-invalid');
