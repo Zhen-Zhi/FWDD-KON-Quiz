@@ -109,22 +109,20 @@
                 ?>
                         <div class="col">
                             <div class="card quiz-card h-100">
-                                <!-- <a type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Click to view question" class="text-decoration-none text-dark-emphasis" href="question_page.php?qz_id=<?php echo $row['qz_ID'] ?>"> -->
-                                    <div class="card-body" onclick="window.location.href = 'quiz/quiz.php?room_id=<?php echo $row['Room_ID'] ?>">
-                                        <a class="text-decoration-none text-dark-emphasis" href="quiz/quiz.php?room_id=<?php echo $row['Room_ID'] ?>">
-                                            <h5 class="card-title"><?php echo $row['Title'] ?></h5>
-                                            <p class="card-text"><?php echo $row['Description'] ?></p>
-                                        </a>
+                                <a class="text-decoration-none text-dark-emphasis" onclick="startRedirect('<?php echo $row['Room_ID'] ?>')">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo $row['Title'] ?></h5>
+                                        <p class="card-text"><?php echo $row['Description'] ?></p>
                                     </div>
-                                <!-- </a> -->
 
-                                <?php if ($row['Room_ID'] != ""){ ?>
-                                <div class="card-footer">
-                                    <div class="input-group">
-                                        <p>Click to join quiz</p>
+                                    <?php if ($row['Room_ID'] != ""){ ?>
+                                    <div class="card-footer">
+                                        <div class="input-group">
+                                            <p>Click to join quiz</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <?php } ?>
+                                </a>
+                                    <?php } ?>
                             </div>
                         </div>
 
@@ -167,6 +165,13 @@
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    function startRedirect(roomId){
+        // $('#loading').modal('show');
+        // setTimeout(function () {
+            window.location.href = 'quiz/quiz.php?room_id=' + roomId;
+        // }, 3000);
+    }
 
     function navigateToPage(page) {
         if(window.location.search){
@@ -221,9 +226,10 @@
     .page-link:hover{
         cursor: pointer;
     }
-    
+
     .quiz-card:hover{
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
         transition: box-shadow 0.3s ease-in-out;
+        cursor: pointer;
     }
 </style>
