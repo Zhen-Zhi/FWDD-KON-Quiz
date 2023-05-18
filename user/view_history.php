@@ -74,7 +74,7 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination px-2">
                 <li class="page-item">
-                    <a class="page-link" onclick="navigateToPage(<?php echo $page - 1; ?>)" aria-label="Previous">
+                    <a class="page-link" <?php if ($page > 1){ ?> onclick="navigateToPage(<?php echo $page - 1; ?>)" <?php } ?> aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -86,7 +86,7 @@
                 <?php endfor; ?>
 
                 <li class="page-item">
-                    <a class="page-link" onclick="navigateToPage(<?php echo $page + 1; ?>)" aria-label="Next">
+                    <a class="page-link" <?php if ($page < $total_pages){ ?> onclick="navigateToPage(<?php echo $page + 1; ?>)" <?php } ?> aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -180,7 +180,6 @@
         }else{
             window.location.href = `?page=${page}`;
         }
-        
     }
 </script>
 

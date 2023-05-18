@@ -27,6 +27,11 @@
         </li>
     </ul>
     <div class="shadow p-5 pt-4">
+        <h2>Personalization
+            <button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="You can edit your information here">
+                <i class="bi bi-question-circle"></i>
+            </button>
+        </h2>
         <?php while($row = mysqli_fetch_array($result)) { ?>
         <form action="" method="" class="mt-2" id="edit-form">
             <div class="row">
@@ -104,6 +109,11 @@
     </div>
     
     <div class="shadow p-5 pt-4 mt-3">
+        <h2>Profile Picture
+            <button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Profile picture will be changed immediately after uploading an image">
+                <i class="bi bi-question-circle"></i>
+            </button>
+        </h2>
         <div class="col">
             <label class="form-label col-12">Your Current Profile Picture</label>
             <?php 
@@ -127,6 +137,9 @@
 </div>
 
 <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
     function submitFile(e){
         var file = e.files[0];
 
