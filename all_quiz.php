@@ -2,7 +2,13 @@
     include("session.php");
     include("conn.php");
     $cat_id = $_GET['cat_id'];
-    $query = "SELECT * FROM quiz WHERE Category_ID = $cat_id AND Room_ID <> ''";
+
+    if($cat_id){
+        $query = "SELECT * FROM quiz WHERE Category_ID = $cat_id AND Room_ID <> ''";
+    }else{
+        $query = "SELECT * FROM quiz WHERE Room_ID <> ''";
+    }
+    
 
     $search = null;
     $sort = null;
@@ -62,6 +68,7 @@
         
             <div class="col">
                 <select class="form-select" onchange="sortItem(this)" name="cat_id">
+                        <option value="0">All</option>
                     <?php 
                         $category = "SELECT * FROM category ORDER BY ID DESC";
                         $res = mysqli_query($con, $category);

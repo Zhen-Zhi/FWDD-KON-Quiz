@@ -30,7 +30,7 @@
                 <a class="nav-link" href="/FWDD-KON-QUIZ/user/dashboard.php?search=&sortBy=All">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/FWDD-KON-QUIZ/all_quiz.php?cat_id=">Available Quizzes</a>
+                <a class="nav-link" href="/FWDD-KON-QUIZ/all_quiz.php?cat_id=0">Available Quizzes</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/FWDD-KON-QUIZ/user/view_participant.php">View Participant</a>
