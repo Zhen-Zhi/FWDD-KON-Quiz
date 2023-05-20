@@ -86,7 +86,7 @@ fxPromise.then(
 
                 if (currentQuestion.correct_opt == ("opt" + optNo)) {
                     correctQues += 1;
-                    marks += 10;
+                    marks += (100 / question.length);
                     console.log("Answer correct: " + marks);
                     document.getElementById("score").textContent = marks;
                     document.getElementById("score").classList.add('changed');

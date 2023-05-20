@@ -565,7 +565,7 @@
                 document.getElementById("room-id").value = roomId;
                 console.log(123,ipAddress);
                 $('#display').modal('show');
-                var qrUrl = 'https://quickchart.io/qr?text=' + encodeURIComponent('http://'+ipAddress+'/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login=');
+                var qrUrl = 'https://quickchart.io/qr?text=' + encodeURIComponent('http://192.168.100.15/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login=');
                 $('#qr-code').on('load', function() {
                     $('#qr-spinner').hide();
                     $('#qr-code').show();
