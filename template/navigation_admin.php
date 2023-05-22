@@ -15,7 +15,7 @@
                 <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/admin/adminuser.php">MODIFY USERS</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/">VIEW REPORTS</a>
+                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/admin/admin_view_report">VIEW REPORTS</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/admin/logoutadmin.php">LOGOUT</a>

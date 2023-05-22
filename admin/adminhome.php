@@ -1,6 +1,7 @@
 <?php 
     include("../conn.php");
     include("../template/navigation_admin.php");
+    include("../template/template.html");
 ?>
 
 <?php  
@@ -14,9 +15,9 @@
         $category = $_POST['category'];
 
         $query = "INSERT INTO category (Category) VALUES ('$category')";
-        mysqli_query($con, $query);
+        $result = mysqli_query($con, $query);
 
-        if (!mysqli_query($con,$query)) {
+        if (!$result) {
             // Close engineiva database connection  
             mysqli_close($con);
             // Echo delete failed and direct back to modify and remove page
@@ -65,7 +66,7 @@
         // Retrieve the search key
         $search_key =$_POST['search_key'];
         // Create SQL code to search if the search key exits in multiple attribute
-        $query2 ="SELECT * FROM quiz WHERE CONCAT(qz_ID, Title, Description, User_ID, Room_ID)
+        $query2 ="SELECT * FROM quiz WHERE CONCAT(qz_ID, Title, Room_ID)
         LIKE '%$search_key%' GROUP BY qz_ID";
     }
     // Else create SQL code that displays every car record

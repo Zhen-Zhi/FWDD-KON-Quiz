@@ -10,7 +10,7 @@
         // Retrieve the search key
         $search_key =$_POST['search_key'];
         // Create SQL code to search if the search key exits in multiple attribute
-        $query ="SELECT * FROM user WHERE CONCAT(ID, Username, Email, Password, DOB, Tel, Gender, Profile_pic)
+        $query ="SELECT * FROM user WHERE CONCAT(ID, Username, Email)
         LIKE '%$search_key%' GROUP BY ID";
     }
     // Else create SQL code that displays every car record
