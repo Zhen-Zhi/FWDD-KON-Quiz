@@ -80,12 +80,15 @@
 <div class="container p-3 shadow">
   <div class="m-4"><h2>Report</h2><div>
     <div class="container m-2">
+      <h2>User<h2>
         <canvas id="user-bar-chart" style="width:70%"></canvas>
     </div>
     <div class="container m-2">
+      <h2>Total Attempt of Past 6 Months</h2>
         <canvas id="attempt-line-chart" style="width:70%"></canvas>
     </div>
     <div class="container m-2">
+      <h2>Category</h2>
         <canvas id="pie-chart" style="width:70%"></canvas>
     </div>
 </div>

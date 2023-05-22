@@ -98,21 +98,21 @@
                         
                         <?php 
                             // Fetch record and echo one by one
-                            while($user = mysqli_fetch_array($result)){
-                                echo "<tr>";
-                                echo "<td>".$user['ID']."</td>";
-                                echo "<td>".$user['Username']."</td>";
-                                echo "<td>".$user['Email']."</td>";
-                                echo "<td>".$user['DOB']."</td>";
-                                echo "<td>".$user['Tel']."</td>";
-                                echo "<td>".$user['Gender']."</td>";
-                                echo '<td>
-                                        <form action="adminuser.php" method="POST">
-                                            <button class="btn" name="deleteUser" onclick="return confirm(\'Are you sure you want to do that?\')" value="'.$user['ID'].'">Delete</button>
-                                        </form>
-                                    </td>';
-                                echo "</tr>";
-                            }
+                            while($user = mysqli_fetch_array($result)){ ?>
+                               <tr>
+                               <td><?php echo $user['ID']?></td>
+                               <td><?php echo $user['Username']?></td>
+                               <td><?php echo $user['Email']?></td>
+                               <td><?php echo $user['DOB']?></td>
+                               <td><?php echo $user['Tel']?></td>
+                               <td><?php echo $user['Gender']?></td>
+                                <td>
+                                    <form action="adminuser.php" method="POST">
+                                        <button class="btn btn-danger" name="deleteUser" onclick="return confirm('\Are you sure you want to do that?\')" value="$user['ID']">Delete</button>
+                                    </form>
+                                </td>
+                               </tr>
+                            <?php }
                         ?>
                     </table>
                     <!-- End of table -->

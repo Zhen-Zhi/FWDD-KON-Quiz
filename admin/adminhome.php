@@ -151,7 +151,7 @@
                                 echo "<td>".$cat['Category']."</td>";
                                 echo '<td>
                                         <form action="adminhome.php" method="POST">
-                                            <button class="btn" name="deleteCat" onclick="return confirm(\'Are you sure you want to do that?\')" value="'.$cat['ID'].'">Delete</button>
+                                            <button class="btn btn-danger" name="deleteCat" onclick="return confirm(\'Are you sure you want to do that?\')" value="'.$cat['ID'].'">Delete</button>
                                         </form>
                                     </td>';
                                 echo "</tr>";
@@ -214,7 +214,7 @@
                                     echo "<td>".$quiz['Room_ID']."</td>";
                                     echo '<td>
                                             <form action="adminhome.php" method="POST">
-                                                <button class="btn" name="deleteQuiz" onclick="return confirm(\'Are you sure you want to do that?\')" value="'.$quiz['qz_ID'].'">Delete</button>
+                                                <button class="btn btn-danger" name="deleteQuiz" onclick="return confirm(\'Are you sure you want to do that?\')" value="'.$quiz['qz_ID'].'">Delete</button>
                                             </form>
                                         </td>';
                                     echo "</tr>";
