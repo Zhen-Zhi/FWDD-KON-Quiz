@@ -3,7 +3,7 @@
 ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/FWDD-KON-QUIZ/admin/adminhome.php">
             KON-QUIZ
             <span class="fs-6">admin</span>
         </a>
