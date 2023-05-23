@@ -1,92 +1,40 @@
 <?php 
     include("template.html"); 
-    include("toast.php");
 ?>
-<nav class="navbar fixed-top" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/FWDD-KON-QUIZ/">
+        <a class="navbar-brand" href="#">
             KON-QUIZ
             <span class="fs-6">admin</span>
         </a>
-        <ul class="nav nav-pills">
-            <li class="nav-item nav-bar">
-                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/admin/adminhome.php">MODIFY QUIZ</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/admin/adminuser.php">MODIFY USERS</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/admin/admin_view_report">VIEW REPORTS</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" type="button" href="/FWDD-KON-QUIZ/admin/logoutadmin.php">LOGOUT</a>
-            </li>
-        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Edit
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/FWDD-KON-QUIZ/admin/adminhome.php">Quiz</a></li>
+                        <li><a class="dropdown-item" href="/FWDD-KON-QUIZ/admin/adminuser.php">Users</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" type="button" href="/FWDD-KON-QUIZ/admin/admin_view_report">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" type="button" href="/FWDD-KON-QUIZ/admin/logoutadmin.php">Logout</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    
 </nav>
 
 <style>
     body{
-        padding-top: 8vh;
+        /* padding-top: 8vh; */
+        /* background-color: #E6E8EC; */
     }
-
-    .navbar{
-        background-color: #1c0052 !important;
-    }
-
-    .modal-header{
-        font-weight: bold;
-        font-size: 20px;
-        background-color: #6E2BF2;
-        color: white;
-    }
-
-    .modal-img{
-        width: 25vh;
-    }
-
-    .nav-btn{
-        background-color: #6E2BF2 !important;
-        color: white !important;
-    }
-
-    .nav-bar .nav-link.active{
-        background-color: #6E2BF2 !important;
-        color: white !important;
-    }
-
-    /* .btn{
-        background-color: #6E2BF2 !important;
-        border-bottom: 5px solid #1c0052 !important;
-        color: white !important;
-    }
-
-    .btn:hover{
-        background-color: #7e42f5 !important;
-        border-bottom: 5px solid #1c0052;
-        color: white;
-    } */
-
-    .btn-close:focus{
-        box-shadow: none;  
-    }
-
-    .sign{
-        font-size: 13px;
-    }
-
-    .form-label{
-        font-weight: bold;
-    }
-
-    /* .form-control{
-        margin-bottom: 0.5rem;
-    } */
-    
-    .form-control, .form-select{
-        background-color: rgb(239, 237, 242) !important;
-
-    }
-
 </style>

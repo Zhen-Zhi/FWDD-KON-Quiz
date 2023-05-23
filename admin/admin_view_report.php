@@ -77,20 +77,41 @@
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 </script>
-<div class="container p-3 shadow">
-  <div class="m-4"><h2>Report</h2><div>
-    <div class="container m-2">
-      <h2>User<h2>
-        <canvas id="user-bar-chart" style="width:70%"></canvas>
-    </div>
-    <div class="container m-2">
-      <h2>Total Attempt of Past 6 Months</h2>
-        <canvas id="attempt-line-chart" style="width:70%"></canvas>
-    </div>
-    <div class="container m-2">
-      <h2>Category</h2>
-        <canvas id="pie-chart" style="width:70%"></canvas>
-    </div>
+
+<div class="container">
+  <h2 class="fw-bold text-decoration-underline">Report</h2>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+          <a class="nav-link <?php echo (isset($_GET['user'])) ? 'active' : ''; ?>" href="admin_view_report?user">User</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link <?php echo (isset($_GET['attempt'])) ? 'active' : ''; ?>" href="admin_view_report?attempt">Total Attempt</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link <?php echo (isset($_GET['category'])) ? 'active' : ''; ?>" href="admin_view_report?category">Category</a>
+      </li>
+    </ul>
+    
+    <?php if (isset($_GET['user'])){ ?>
+      <div class="container m-2">
+          <h2>User</h2>
+          <canvas id="user-bar-chart" style="width:70%"></canvas>
+      </div>
+    <?php } ?>
+
+    <?php if (isset($_GET['attempt'])){ ?>
+      <div class="container m-2">
+        <h2>Total Attempt of Past 6 Months</h2>
+          <canvas id="attempt-line-chart" style="width:70%"></canvas>
+      </div>
+    <?php } ?>
+
+    <?php if (isset($_GET['category'])){ ?>
+      <div class="container m-2">
+        <h2>Category</h2>
+          <canvas id="pie-chart" style="width:70%"></canvas>
+      </div>
+    <?php } ?>
 </div>
 
 <script>
@@ -106,6 +127,7 @@ var yValues = [<?php echo json_encode($data_user1['No_User'] + $data_user2['No_U
 console.log("after assign" + yValues[0]);
 var barColors = ['#1300bd', '#6bbfff', '#ee6bff'];
 
+<?php if (isset($_GET['user'])){ ?>
 new Chart("user-bar-chart", {
   type: "bar",
   data: {
@@ -126,6 +148,7 @@ new Chart("user-bar-chart", {
     }
   }
 });
+<?php } ?>
 
 console.log("above");
 
@@ -166,6 +189,8 @@ const xValuesMonth = arr_month;
 console.log(arr_month);
 console.log(arr_member);
 console.log(arr_guest);
+
+<?php if (isset($_GET['attempt'])){ ?>
 new Chart("attempt-line-chart", {
   type: "line",
   data: {
@@ -186,6 +211,7 @@ new Chart("attempt-line-chart", {
     legend: {display: true}
   }
 });
+<?php } ?>
 
 ////////////////////////////////////////
 //                                    //
@@ -216,6 +242,7 @@ var xValuesCategory = arr_category;
 var yValuesCategory = arr_category_no_question;
 var barColors = ["#6CE5E8", "#41B8D5", "#31356E", "#2F5F98", "#2D8BBA", "#9932CC", "#C71585", "#FF1493", "#FF69B4", "#FFB6C1"];
 
+<?php if (isset($_GET['category'])){ ?>
 new Chart("pie-chart", {
   type: "pie",
   data: {
@@ -232,6 +259,7 @@ new Chart("pie-chart", {
     }
   }
 });
+<?php } ?>
 </script>
 
 <style>
