@@ -101,8 +101,8 @@
             } else {
                 if($password == $data['Password']) {
                     $response = "Success";
-                    $_SESSION['id'] = $data['ID'];
-                    $_SESSION['username'] = $data['Username'];
+                    $_SESSION['admin_id'] = $data['ID'];
+                    $_SESSION['admin_username'] = $data['Username'];
                 }
                 else {
                     $response = "Error";

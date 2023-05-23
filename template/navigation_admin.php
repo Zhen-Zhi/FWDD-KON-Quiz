@@ -22,7 +22,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" type="button" href="/FWDD-KON-QUIZ/admin/admin_view_report">Reports</a>
+                    <a class="nav-link" type="button" href="/FWDD-KON-QUIZ/admin/admin_view_report?user">Reports</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" type="button" href="/FWDD-KON-QUIZ/admin/logoutadmin.php">Logout</a>

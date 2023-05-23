@@ -1,6 +1,6 @@
 <?php 
+    include("../session.php");
     include("../conn.php");
-    include("../template/navigation_admin.php");
 
     //get data to make chart
     //user by gender
