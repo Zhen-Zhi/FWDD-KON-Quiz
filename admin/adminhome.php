@@ -1,12 +1,11 @@
 <?php 
     include("../conn.php");
     include("../template/navigation_admin.php");
-    include("../template/template.html");
 ?>
 
 <?php  
     // CATEGORY SQL
-    $query ="SELECT * FROM category";   
+    $query ="SELECT * FROM category ORDER BY ID ASC";   
     $result = mysqli_query($con, $query);
 
 
@@ -112,8 +111,8 @@
     <title>KON Quiz - AdminHomepage</title>
 </head>
 
-<div class="container-fluid px-5">
-    <div class="shadow p-5 mt-3 mb-5">
+<div class="container">
+    <!-- <div class="shadow p-5"> -->
         <div class="row">
             <div class="col">
 
@@ -123,51 +122,58 @@
 
                     <h5 class="fw-bold">Add Category</h5>
                         <form action="adminhome.php" method="POST">
-                            <div class="d-flex pb-4">
+                            <div class="d-flex">
                                 <div class="col-md-2 me-3">
                                     <input type="text" class="form-control" name="category">
                                 </div>
                                 <div class="col-md-3">
                                     <button class="btn btn-dark" type="submit" name="submitbtn" value="searchBtn">
-                                        Enter
+                                        Create
                                     </button>
                                 </div>
                             </div>
                         </form>
 
                     <!-- Start of table -->
-                    <table class="table">
-                        <tr>
-                            <th>ID</th>
-                            <th>Category</th>
-                            <th></th>
-                        </tr>
-                        
-                        <?php 
-                            // Fetch record and echo one by one
-                            while($cat = mysqli_fetch_array($result)){
-                                echo "<tr>";
-                                echo "<td>".$cat['ID']."</td>";
-                                echo "<td>".$cat['Category']."</td>";
-                                echo '<td>
-                                        <form action="adminhome.php" method="POST">
-                                            <button class="btn btn-danger" name="deleteCat" onclick="return confirm(\'Are you sure you want to do that?\')" value="'.$cat['ID'].'">Delete</button>
-                                        </form>
-                                    </td>';
-                                echo "</tr>";
-                            }
-                        ?>
-                    </table>
+                    <div class="table-responsive mt-4">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Category</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php 
+                                // Fetch record and echo one by one
+                                while($cat = mysqli_fetch_array($result)){
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $cat['ID'] ?></td>
+                                        <td><?php echo $cat['Category'] ?></td>
+                                        <td>
+                                            <form action="adminhome.php" method="POST">
+                                                <button class="btn btn-danger" name="deleteCat" onclick="return confirm(\'Are you sure you want to do that?\')" value="<?php echo $cat['ID'] ?>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="bi bi-trash-fill"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <?php 
+                                }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
                     <!-- End of table -->
                 </div>
 
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </div>
 
-<div class="container-fluid px-5">
-    <div class="shadow p-5 mt-3 mb-5">
+<div class="container">
+    <!-- <div class="shadow p-5 mt-3 mb-5"> -->
         <div class="row">
             <div class="col">
 
@@ -177,32 +183,39 @@
                 <div class="seach-contain">
                     <h5 class="fw-bold">Total Quizzes found: <?php echo $row_count;?></h5>
                     <form action="adminhome.php" method="POST">
-                        <div class="d-flex pb-4">
-                            <div class="col-md-2 me-3">
+                        <div class="row">
+                            <div class="col-6">
                                 <input type="text" placeholder="Search..." class="form-control" name="search_key">
                             </div>
-                            <div class="me-3">
+                            <div class="col-auto">
                                 <button class="btn btn-dark" type="submit" name="searchBtn" value="searchBtn">
-                                    Enter
+                                    Search
                                 </button>
                             </div>
+                            <div class="col-auto">
                                 <button class="btn btn-dark" type="submit" name="searchBtn2" value="searchBtn">
                                     Reset
                                 </button>
+                            </div>
+                            
                         </div>
                     </form>
                 </div>
                     
-                <table class="table">
+                <div class="table-responsive mt-4">
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
                                 <th>qz_ID</th>
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>User_ID</th>
                                 <th>Room_ID</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
-                            
+                        </thead>
+
+                        <tbody>
                             <?php 
                                 // Fetch record and echo one by one
                                 while($quiz = mysqli_fetch_array($result2)){
@@ -214,14 +227,21 @@
                                     echo "<td>".$quiz['Room_ID']."</td>";
                                     echo '<td>
                                             <form action="adminhome.php" method="POST">
-                                                <button class="btn btn-danger" name="deleteQuiz" onclick="return confirm(\'Are you sure you want to do that?\')" value="'.$quiz['qz_ID'].'">Delete</button>
+                                                <button class="btn btn-danger" name="deleteQuiz" onclick="return confirm(\'Are you sure you want to do that?\')" value="'.$quiz['qz_ID'].'"><i class="bi bi-trash-fill"></i></button>
                                             </form>
                                         </td>';
                                     echo "</tr>";
                                 }
                             ?>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </div>
+
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>

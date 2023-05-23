@@ -11,14 +11,14 @@
         $search_key =$_POST['search_key'];
         // Create SQL code to search if the search key exits in multiple attribute
         $query ="SELECT * FROM user WHERE CONCAT(ID, Username, Email)
-        LIKE '%$search_key%' GROUP BY ID";
+        LIKE '%$search_key%' ORDER BY ID ASC";
     }
     // Else create SQL code that displays every car record
     elseif(isset($_POST['searchBtn2'])){
-        $query ="SELECT * FROM user GROUP BY ID"; 
+        $query ="SELECT * FROM user ORDER BY ID ASC "; 
     }
     else{
-        $query ="SELECT * FROM user GROUP BY ID";   
+        $query ="SELECT * FROM user ORDER BY ID ASC";   
     }
 
     $result = mysqli_query($con,$query);
@@ -55,13 +55,13 @@
     <title>KON Quiz - AdminEdituser</title>
 </head>
 
-<div class="container-fluid px-5">
-    <div class="shadow p-5 mt-3 mb-5">
+<div class="container">
+    <!-- <div class="shadow p-3"> -->
         <div class="row">
             <div class="col pb-5">
 
                 <!-- Start of main content -->
-                <div class="content-container">
+                
                     <h2 class="fw-bold pb-4">All Users</h2>
 
                     <div class="seach-contain">
@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="me-3">
                                     <button class="btn btn-dark" type="submit" name="searchBtn" value="searchBtn">
-                                        Enter
+                                        Search
                                     </button>
                                 </div>
                                     <button class="btn btn-dark" type="submit" name="searchBtn2" value="searchBtn">
@@ -83,42 +83,50 @@
                         </form>
                     </div>
                     
-
+                <div class="table-responsive">
                     <!-- Start of table -->
-                    <table class="table">
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>DOB</th>
-                            <th>Tel</th>
-                            <th>Gender</th>
-                            <th></th>
-                        </tr>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>DOB</th>
+                                <th>Tel</th>
+                                <th>Gender</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
                         
+                        <tbody>
                         <?php 
                             // Fetch record and echo one by one
                             while($user = mysqli_fetch_array($result)){ ?>
-                               <tr>
-                               <td><?php echo $user['ID']?></td>
-                               <td><?php echo $user['Username']?></td>
-                               <td><?php echo $user['Email']?></td>
-                               <td><?php echo $user['DOB']?></td>
-                               <td><?php echo $user['Tel']?></td>
-                               <td><?php echo $user['Gender']?></td>
+                               <tr class="table-hover">
+                                <td><?php echo $user['ID']?></td>
+                                <td><?php echo $user['Username']?></td>
+                                <td><?php echo $user['Email']?></td>
+                                <td><?php echo $user['DOB']?></td>
+                                <td><?php echo $user['Tel']?></td>
+                                <td><?php echo $user['Gender']?></td>
                                 <td>
                                     <form action="adminuser.php" method="POST">
-                                        <button class="btn btn-danger" name="deleteUser" onclick="return confirm('\Are you sure you want to do that?\')" value="$user['ID']">Delete</button>
+                                        <button class="btn btn-danger" name="deleteUser" onclick="return confirm('\Are you sure you want to do that?\')" value="<?php echo $user['ID'] ?>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="bi bi-trash-fill"></i></button>
                                     </form>
                                 </td>
                                </tr>
-                            <?php }
-                        ?>
+                            <?php } ?>
+                        </tbody>
                     </table>
                     <!-- End of table -->
                 </div>
 
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </div>
+
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
