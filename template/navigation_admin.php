@@ -6,6 +6,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="/FWDD-KON-QUIZ/">
             KON-QUIZ
+            <span class="fs-6">admin</span>
         </a>
         <ul class="nav nav-pills">
             <li class="nav-item nav-bar">

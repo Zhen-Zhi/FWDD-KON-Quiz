@@ -12,4 +12,3 @@
         <a class="nav-link <?php if ($title === 'History') echo 'active'; ?>" aria-current="page" href="/FWDD-KON-QUIZ/user/view_history.php">History</a>
     </li>
 </ul>
-</ul>
