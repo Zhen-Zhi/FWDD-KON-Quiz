@@ -124,12 +124,12 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>DOB</th>
-                                <th>Tel</th>
-                                <th>Gender</th>
+                                <th class="asc" data-sort="ID">ID</th>
+                                <th data-sort="Username">Username</th>
+                                <th data-sort="Email">Email</th>
+                                <th data-sort="DOB">DOB</th>
+                                <th data-sort="Tel">Tel</th>
+                                <th data-sort="Gender">Gender</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -187,4 +187,73 @@
             window.location.href = `?page=${page}`;
         }
     }
+
+    function sortTable(columnIndex) {
+        const table = document.querySelector('.table');
+        const headers = Array.from(table.querySelectorAll('th[data-sort]'));
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+
+        const clickedHeader = headers[columnIndex];
+        const isAscending = clickedHeader.classList.toggle('asc');
+        const isDescending = !isAscending;
+
+        headers.forEach((header, index) => {
+            if (index !== columnIndex) {
+                header.classList.remove('asc', 'desc');
+            }
+        });
+
+        if (isAscending) {
+            clickedHeader.classList.add('asc');
+            clickedHeader.classList.remove('desc');
+        } else {
+            clickedHeader.classList.add('desc');
+            clickedHeader.classList.remove('asc');
+        }
+
+        rows.sort((a, b) => {
+            const aValue = a.querySelector(`td:nth-child(${columnIndex + 1})`).textContent.trim();
+            const bValue = b.querySelector(`td:nth-child(${columnIndex + 1})`).textContent.trim();
+
+            if (!isNaN(Number(aValue))) { // ID column
+                return Number(aValue) - Number(bValue);
+            } else { // Category column
+                return aValue.localeCompare(bValue);
+            }
+        });
+
+        if (isDescending) {
+            rows.reverse();
+        }
+
+        rows.forEach(row => table.querySelector('tbody').appendChild(row));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const headers = Array.from(document.querySelectorAll('th[data-sort]'));
+
+        headers.forEach((header, index) => {
+            header.addEventListener('click', () => {
+                sortTable(index);
+            });
+        });
+    });
 </script>
+
+<style>
+    .asc::after {
+        content: '\25B2'; /* Upward-pointing triangle */
+        margin-left: 5px;
+        font-weight: bold;
+    }
+
+    .desc::after {
+        content: '\25BC'; /* Downward-pointing triangle */
+        margin-left: 5px;
+        font-weight: bold;
+    }
+
+    thead{
+        cursor:pointer;
+    }
+</style>
