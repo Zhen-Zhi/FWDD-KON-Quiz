@@ -53,13 +53,14 @@
                 success: function(response) {
                     var data = JSON.parse(response);
                     if (data.response == 'Success') {
+                        <?php $_SESSION['isAdmin'] = true; ?>
                         $('#credential').removeClass('is-invalid');
                         $('#password').removeClass('is-invalid');
                         document.getElementById('login-text').hidden = true;
                         document.getElementById('spinner').hidden = false;
 
                         setTimeout(function() {
-                            window.location.href = '/FWDD-KON-QUIZ/admin/adminhome.php';
+                            window.location.href = '/FWDD-KON-QUIZ/admin/adminhome.php?category';
                         }, 2000);
                     } else {
                         $('#liveToast').addClass('text-bg-danger mt-2');

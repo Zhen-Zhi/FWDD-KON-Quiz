@@ -150,6 +150,7 @@
     }
 
     function navigateToPage(page) {
+        history.replaceState(null, null, window.location.pathname + window.location.search.split('&message=')[0]);
         if(window.location.search){
             const urlParams = new URLSearchParams(window.location.search);
             const sortByParam = urlParams.get('page');

@@ -3,7 +3,7 @@
 ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/FWDD-KON-QUIZ/admin/adminhome.php">
+        <a class="navbar-brand" href="#">
             KON-QUIZ
             <span class="fs-6">admin</span>
         </a>
@@ -17,7 +17,7 @@
                         Edit
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/FWDD-KON-QUIZ/admin/adminhome.php">Quiz</a></li>
+                        <li><a class="dropdown-item" href="/FWDD-KON-QUIZ/admin/adminhome.php?category">Quiz</a></li>
                         <li><a class="dropdown-item" href="/FWDD-KON-QUIZ/admin/adminuser.php">Users</a></li>
                     </ul>
                 </li>
@@ -25,7 +25,7 @@
                     <a class="nav-link" type="button" href="/FWDD-KON-QUIZ/admin/admin_view_report?user">Reports</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" type="button" href="/FWDD-KON-QUIZ/admin/logoutadmin.php">Logout</a>
+                    <a class="nav-link" type="button" href="/FWDD-KON-QUIZ/admin/logoutadmin.php"><i class="bi bi-door-open me-2"></i>Logout</a>
                 </li>
             </ul>
         </div>
