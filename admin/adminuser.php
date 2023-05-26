@@ -1,5 +1,5 @@
 <?php 
-    include("../session.php");
+    include("../session_admin.php");
     include("../conn.php");
     include("../template/toast.php");
     
