@@ -72,7 +72,7 @@
         $search_key =$_POST['search_key'];
         // Create SQL code to search if the search key exits in multiple attribute
         $query2 ="SELECT * FROM quiz WHERE CONCAT(qz_ID, Title, Room_ID)
-        LIKE '%$search_key%' GROUP BY qz_ID ASC";
+        LIKE '%$search_key%' ORDER BY qz_ID ASC";
     }
     // Else create SQL code that displays every car record
     elseif(isset($_POST['searchBtn2'])){
@@ -81,10 +81,8 @@
     else{
         $query2 ="SELECT * FROM quiz ORDER BY qz_ID ASC";   
     }
-
     $result2 = mysqli_query($con,$query2);
     $row_count = mysqli_num_rows($result2);
-
 
     // DELETE QUIZ
     if(isset($_POST['deleteQuiz'])){
@@ -197,7 +195,7 @@
 
             <div class="seach-contain">
                 <h5>Total Quizzes found: <?php echo $row_count;?></h5>
-                <form action="adminhome.php" method="POST">
+                <form action="adminhome.php?quiz" method="POST">
                     <div class="row">
                         <div class="col-5">
                             <input type="text" placeholder="Search..." class="form-control" name="search_key">
