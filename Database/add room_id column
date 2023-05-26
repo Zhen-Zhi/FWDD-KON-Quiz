@@ -1,1 +1,0 @@
-ALTER TABLE `quiz` ADD `Room_ID` VARCHAR(5) NULL AFTER `User_ID`;
