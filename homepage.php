@@ -37,7 +37,7 @@
                 <div class="card-body p-0" style="display: <?php if (isset($_SESSION['id'])) echo 'block'; else echo'none';?>">
                     <div class="row">
                         <div class="col-md-4 text-center py-2 profile">
-                            <img src="<?php echo $image_src?>" class="img-thumbnail thumbnail" alt="...">
+                            <img src="<?php echo $image_src?>" onerror="this.src='img/nerd.png';" class="img-thumbnail thumbnail" alt="...">
                         </div>
                         <div class="col-md-6 my-auto text-center mx-auto py-3">
                             <h4><?php if (isset($_SESSION['id'])) echo $_SESSION['username']; ?></h4>
