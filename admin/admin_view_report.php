@@ -6,8 +6,18 @@
     //user by gender
     $query = "SELECT COUNT(ID) AS No_User FROM user GROUP BY Gender";
     $result = mysqli_query($con, $query);
-    $data_user1 = mysqli_fetch_assoc($result);
-    $data_user2 = mysqli_fetch_assoc($result);
+    $count = mysqli_num_rows($result);
+    if($count == 1) {
+      $data_user1 = mysqli_fetch_assoc($result);
+      $data_user2['No_User'] = 0;
+    }
+    else {
+      $data_user1 = mysqli_fetch_assoc($result);
+      $data_user2 = mysqli_fetch_assoc($result);
+    }
+    
+    
+    
 
     // attempt of each weeks
     // $query2 = "SELECT COUNT(All_session_ID) FROM all_session INNER JOIN "
