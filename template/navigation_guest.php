@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="modal-body">
-                <form action="" method="POST" novalidate id="signup-form">
+                <form action="" method="POST" novalidate id="signup-form" onsubmit="return validateForm()">
                     <div class="row">
                         <div class="col-md-5 mx-auto">
                             <label for="" class="form-label">Username</label>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="col-md-7 mx-auto">
                             <label for="" class="form-label">Email</label>
-                            <input id="email" class="form-control" type="text" name="email" required oninput="validateEmail()">
+                            <input id="email" class="form-control" type="text" name="email" oninput="validateEmail()">
                             <div class="invalid-feedback">
                             </div>
                         </div>
@@ -247,6 +247,14 @@
     toggleActiveClass('signup','signup-btn');
     toggleActiveClass('login','login-btn');
 
+    function validateForm() {
+        // Call your individual validation functions here
+        if (!validateName() || !validatePw() || !validateEmail() || !validateCPw()) {
+            return false; // Prevent form submission if any validation fails
+        }
+        return true; // Allow form submission if all validations pass
+    }
+
     function validateCPw(){
         var pw1 = document.getElementById('pass1');
         var pw2 = document.getElementById('pass2');
@@ -256,12 +264,14 @@
                 if(pw2.value != pw1.value){
                     $('#pass2').siblings('.invalid-feedback').text('Passwords do not match');
                     $('#pass2').removeClass('is-valid').addClass('is-invalid');
+                    return false;
                 }else{
                     $('#pass2').removeClass('is-invalid');
                 }
             }else{
                 $('#pass2').siblings('.invalid-feedback').text('This field is required');
                 $('#pass2').addClass('is-invalid');
+                return false;
             }
         }
     }
@@ -272,11 +282,13 @@
         if(username.value == "") {
             $('#username').siblings('.invalid-feedback').text('This field is required');
             $('#username').removeClass('is-valid').addClass('is-invalid');
+            return false;
         }else{
             var namePattern = /^[A-Za-z0-9]{1,25}$/;
             if (!namePattern.test(username.value)) {
                 $('#username').siblings('.invalid-feedback').html('*Only alphanumeric<br>*Less than 25 alphabet');
                 $('#username').removeClass('is-valid').addClass('is-invalid');
+                return false;
             }else{
                 $('#username').removeClass('is-invalid');
             }
@@ -289,11 +301,13 @@
         if(pw1.value == ""){
             $('#pass1').siblings('.invalid-feedback').text('This field is required');
             $('#pass1').removeClass('is-valid').addClass('is-invalid');
+            return false;
         }else{
             var pwPattern = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z0-9_@-]{6,}$/;
             if (!pwPattern.test(pw1.value)) {
                 $('#pass1').siblings('.invalid-feedback').html('*At least one number, one letter, underscore, "@" symbol, or hyphen<br>*At least 6 characters long');
                 $('#pass1').removeClass('is-valid').addClass('is-invalid');
+                return false;
             }else{
                 $('#pass1').removeClass('is-invalid');
             }
@@ -306,11 +320,13 @@
         if(email.value == ""){
             $('#email').siblings('.invalid-feedback').text('This field is required');
             $('#email').removeClass('is-valid').addClass('is-invalid');
+            return false;
         }else{
             var emailRegex = /^\S+@\S+\.\S+$/;
             if (!emailRegex.test(email.value)) {
                 $('#email').siblings('.invalid-feedback').text('Enter the correct email format');
                 $('#email').removeClass('is-valid').addClass('is-invalid');
+                return false;
             }else{
                 $('#email').removeClass('is-invalid');
             }
