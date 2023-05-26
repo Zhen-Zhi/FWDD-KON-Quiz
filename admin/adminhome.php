@@ -99,6 +99,8 @@
           }
           // Else if the SQL code successfully excuted
           else {
+            $deleteQuizQues = "DELETE FROM quiz_ques WHERE qz_ID=$quizID";
+            mysqli_query($con,$deleteQuizQues);
             // Close engineiva database connection  
             mysqli_close($con);
             // Echo deleted and direct back to modify and remove page
