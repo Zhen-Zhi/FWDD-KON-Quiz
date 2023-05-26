@@ -1,11 +1,10 @@
 <?php 
     include("../session.php");
     include("../conn.php");
-    include("../template/toast.php");
 
     $id = $_SESSION['id'];
 
-    $query = "SELECT * FROM quiz where User_ID = $id";
+    $query = "SELECT * FROM quiz LEFT JOIN category ON quiz.Category_ID = category.ID where User_ID = $id";
 
     $title = 'Dashboard';
 
@@ -36,16 +35,11 @@
         }else if($sort == 'Oldest'){
             $query .= " ORDER BY qz_ID ASC";
         }
-    }else{
-        $query .= " ORDER BY qz_ID DESC";
     }
 
     $query .= " LIMIT $records_per_page OFFSET $offset";
     
     $result = mysqli_query($con, $query);
-    
-    $category = "SELECT * FROM category ORDER BY ID ASC";
-    $res = mysqli_query($con, $category);
 ?>
 
 <head>
@@ -80,22 +74,22 @@
         </form>
 
         <div class="row">
-            <nav class="col" aria-label="Page navigation example">
-                <ul class="pagination justify-content-start px-2">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination px-2">
                     <li class="page-item">
-                        <a class="page-link" href="<?php if ($page > 1){ ?>?page=<?php echo $page - 1;} ?>" aria-label="Previous">
+                        <a class="page-link" <?php if ($page > 1){ ?> onclick="navigateToPage(<?php echo $page - 1; ?>)" <?php } ?> aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
 
                     <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                     <li class="page-item <?php echo $page === $i ? 'active' : ''; ?>">
-                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                        <a class="page-link" onclick="navigateToPage(<?php echo $i; ?>)"><?php echo $i; ?></a>
                     </li>
                     <?php endfor; ?>
 
                     <li class="page-item">
-                        <a class="page-link" href="<?php if ($page < $total_pages){ ?>?page=<?php echo $page + 1;} ?>" aria-label="Next">
+                        <a class="page-link" <?php if ($page < $total_pages){ ?> onclick="navigateToPage(<?php echo $page + 1; ?>)" <?php } ?> aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -177,6 +171,22 @@
                                                 <label for="quiz-title" class="form-label">Quiz Title</label>
                                                 <input id="quiz-title" class="form-control" type="text" name="qz_title" value="<?php echo $row['Title'] ?>">
                                             </div>
+                                            <!-- put category -->
+                                            <div class="col mt-2">
+                                                <label for="quiz-category" class="form-label">Category</label>
+                                                <select class="form-select" aria-label="Default select example" name="qz_cat">
+                                                    <?php 
+                                                        $category = "SELECT * FROM category ORDER BY ID DESC";
+                                                        $res = mysqli_query($con, $category);
+                                                        while(($row2 = mysqli_fetch_assoc($res))){
+                                                        
+                                                    ?>
+                                                        <option value="<?php echo $row2['ID'] ?>" <?php if($row2['ID'] == $row['Category_ID']) {?> selected <?php } ?>><?php echo $row2['Category'] ?></option>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
                                             <div class="mx-auto">
                                                 <label for="quiz-desc" class="form-label">Quiz Description</label>
                                                 <textarea class="form-control" id="quiz-desc" rows="7" name="qz_desc"><?php echo $row['Description'] ?></textarea>
@@ -218,13 +228,15 @@
                     <div class="col mt-2">
                         <label for="quiz-category" class="form-label">Category</label>
                         <select class="form-select" aria-label="Default select example" name="qz_cat">
-                            <?php while(($row = mysqli_fetch_assoc($res))){
+                            <?php 
+                                $category = "SELECT * FROM category ORDER BY ID DESC";
+                                $res = mysqli_query($con, $category);
+                                while(($row = mysqli_fetch_assoc($res))){
                             ?>
                                 <option value="<?php echo $row['ID'] ?>"><?php echo $row['Category'] ?></option>
                             <?php
                                     }
                             ?>
-                                <option value="0">Others</option>
                         </select>
                     </div>
                     <div class="col mt-2">
@@ -310,6 +322,28 @@
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
+    function navigateToPage(page) {
+        history.replaceState(null, null, window.location.pathname + window.location.search.split('&message=')[0]);
+        if(window.location.search){
+            const urlParams = new URLSearchParams(window.location.search);
+            const sortByParam = urlParams.get('page');
+
+            if (sortByParam) {
+                // Replace the value of the sortBy parameter
+                urlParams.set('page', page);
+            } else {
+                // Add a new sortBy parameter
+                urlParams.append('page', page);
+            }
+
+            window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+
+            location.reload();
+        }else{
+            window.location.href = `?page=${page}`;
+        }
+    }
+
     function sortItem(e){
         let newValue = e.value;
 
@@ -326,6 +360,11 @@
             }
 
             // Update the URL with the new query string
+            window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+        }else{
+            const urlParams = new URLSearchParams('?search=&sortBy=');
+            urlParams.set('sortBy', newValue);
+
             window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
         }
 
@@ -527,7 +566,7 @@
                 document.getElementById("room-id").value = roomId;
                 console.log(123,ipAddress);
                 $('#display').modal('show');
-                var qrUrl = 'https://quickchart.io/qr?text=' + encodeURIComponent('http://'+ipAddress+'/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login=');
+                var qrUrl = 'https://quickchart.io/qr?text=' + encodeURIComponent('http://192.168.100.15/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + roomId + '&login=');
                 $('#qr-code').on('load', function() {
                     $('#qr-spinner').hide();
                     $('#qr-code').show();
@@ -579,5 +618,9 @@
     .quiz-card:hover{
         box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
         transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .page-link:hover{
+        cursor: pointer;
     }
 </style>

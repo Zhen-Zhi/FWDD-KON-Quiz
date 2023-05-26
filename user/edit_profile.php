@@ -1,6 +1,7 @@
 <?php
     include('../session.php');
     include("../conn.php");
+
     $id = $_SESSION['id'];
     $sql = "SELECT * FROM user WHERE ID = $id";
     $result = mysqli_query($con, $sql);
@@ -8,7 +9,7 @@
 <head>
     <title>KON Quiz - Edit profile</title>
 </head>
-<div class="toast align-items-center mx-auto border-0" id="alert1" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="toast align-items-center position-fixed top-30 start-50 translate-middle-x border-0" id="alert1" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
         </div>
@@ -16,7 +17,7 @@
     </div>
 </div>
 
-<div class="container mx-auto">
+<div class="container">
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link" href="../homepage.php">Home</a>
@@ -26,29 +27,25 @@
         </li>
     </ul>
     <div class="shadow p-5 pt-4">
+        <h2>Personalization
+            <button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="You can edit your information here">
+                <i class="bi bi-question-circle"></i>
+            </button>
+        </h2>
         <?php while($row = mysqli_fetch_array($result)) { ?>
-        <form action="" method="POST" class="mt-2" id="edit-form" name="edit-profile" enctype="multipart/form-data">
+        <form action="" method="" class="mt-2" id="edit-form">
             <div class="row">
-                <input type="hidden" name="id" value='<?php echo $_SESSION['id'] ?>'>
-                <div class="mx-auto">
-                    <label for="" class="form-label">Profile Picture</label>
-                        <input id="profile-pic" class="form-control" type="file" name="profile-pic">
-                </div>
-                <div class="col-md-5 mx-auto">
+                <div class="col-6">
                     <label for="username" class="form-label">Username</label>
                     <input id="username" class="form-control" type="text" name="username" value="<?php echo $row['Username']?>" oninput="validateName()">
-                    <div class="invalid-feedback">
-                    </div>
                 </div>
-                <div class="col-md-7 mx-auto">
-                    <label for="" class="form-label">Email</label>
+                <div class="col-6">
+                    <label class="form-label">Email</label>
                     <input id="email" class="form-control" type="text" name="email" required value="<?php echo $row['Email']?>" oninput="validateEmail()">
-                    <div class="invalid-feedback">
-                    </div>
                 </div>
             </div>
-            <div class="col-md mx-auto">
-                <label for="" class="form-label">Old Password</label>
+            <div class="col">
+                <label class="form-label">Old Password</label>
                 <div class="input-group">
                     <input id="pass" class="form-control" type="password" name="password" disabled>
                     <div class="invalid-feedback">
@@ -62,22 +59,22 @@
                 <div class="invalid-feedback">
                 </div>
             </div>
-            <div class="col-md mx-auto">
-                <label for="" class="form-label">New Password</label>
-                    <input id="pass1" class="form-control" type="password" name="password_1" disabled oninput="validatePw();validateCPw()">
+            <div class="col">
+                <label class="form-label">New Password</label>
+                <input id="pass1" class="form-control" type="password" name="password_1" disabled oninput="validatePw();validateCPw()">
                 <div class="invalid-feedback">
                 </div>
             </div>
-            <div class="col-md mx-auto">
-                <label for="" class="form-label">Confirm New Password</label>
-                    <input id="pass2" class="form-control" type="password" name="password_2" disabled oninput="validateCPw()">
+            <div class="col">
+                <label class="form-label">Confirm New Password</label>
+                <input id="pass2" class="form-control" type="password" name="password_2" disabled oninput="validateCPw()">
                 <div class="invalid-feedback">
                     Passwords are not the same.
                 </div>
             </div>
             <div class="row">
-                <div class="col-md mx-auto">
-                    <label for="" class="form-label">Gender</label>
+                <div class="col">
+                    <label class="form-label">Gender</label>
                     <select class="form-select" name="gender" id="gender">
                         <option value="">Please select</option>
                         <option value="Male" <?php if($row['Gender'] == "Male") { ?> selected <?php } ?>>Male</option>
@@ -87,56 +84,115 @@
                         Please select a gender.
                     </div>
                 </div>
-                <div class="col-md mx-auto">
-                    <label for="" class="form-label">Date of Birth</label>
+                <div class="col">
+                    <label class="form-label">Date of Birth</label>
                     <input class="form-control" name="DOB" type="date" value="<?php echo $row['DOB']?>">
                     <div class="invalid-feedback">
                         Please select a date.
                     </div>
                 </div>
             </div>
-            <div class="col-md mx-auto">
-                <label for="" class="form-label">Mobile Number</label>
+            <div class="col">
+                <label class="form-label">Mobile Number</label>
                 <input class="form-control" name="mobile_number" type="tel" value="<?php echo $row['Tel']?>">
                 <div class="invalid-feedback">
                 </div>
             </div>
-            <div class="col-md-6 mt-2 mx-auto text-center pt-3">
-                <input type="hidden" name="edit-profile" value="1">
-                <button class="btn btn-primary" name="edit" style="width: 10vh;">
+
+            <input type="hidden" name="id" value="<?php echo $row['ID'] ?>">
+            <div class="col mt-2 text-center pt-3">
+                <button type="submit" class="btn btn-primary" id="updateProfile" name="edit" style="width: 10vh;">
                     SAVE
                 </button>
             </div>
         </form>
-        <?php 
-            };
-            mysqli_close($con);
-        ?>
     </div>
+    
+    <div class="shadow p-5 pt-4 mt-3">
+        <h2>Profile Picture
+            <button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Profile picture will be changed immediately after uploading an image">
+                <i class="bi bi-question-circle"></i>
+            </button>
+        </h2>
+        <div class="col">
+            <label class="form-label col-12">Your Current Profile Picture</label>
+            <?php 
+                if($row['Profile_pic'] != null){
+                    $image_data = base64_encode($row['Profile_pic']);
+                    $image_src = "data:image/jpeg;base64,{$image_data}";
+                }else{
+                    $image_src = "../img/nerd.png";
+                }
+            ?>
+                <img src="<?php echo $image_src; ?>" class="img-thumbnail thumbnail" alt="...">
+        </div>
+        <div class="col">
+            <input name="profilepic" class="form-control" type="file" oninput="submitFile(this)">
+        </div>
+    </div>  
+        <?php 
+            }
+        ?>
+    
 </div>
 
 <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    function submitFile(e){
+        var file = e.files[0];
+
+        var formData = new FormData();
+        formData.append("profile_picture", file);
+
+        // console.log(123123,formData)
+        
+        $.ajax({
+            type: 'POST',
+            url: 'update_profile.php',
+            data:  formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                var data = response;
+                if (data.response == 'Success') {
+                    window.location.href = 'edit_profile.php?message=' + encodeURIComponent(data.message);
+                }else{
+                    $('#liveToast').addClass('text-bg-danger');
+                    $('#liveToast').find('.toast-body').html(data.message);
+                    toastBootstrap.show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("AJAX error: " + status + " - " + error);
+            }
+        });
+        // console.log(123,file)
+    }
+
     $(document).ready(function() {
         $('#edit-form').submit(function(e) {
             e.preventDefault();
+            var formData = $(this).serializeArray();
             // var form_data = $(this).serializeArray();
-            var form_data = new FormData($(this)[0]);
-            var file = document.forms['edit-profile']['profile-pic'].files[0]
-            const file_name = file.name;
-            //form_data.push({name: "profile-pic", value: file_name})
-            form_data.append('profile-pic', file_name);
-            console.log(form_data);
+            // var form_data = new FormData($(this)[0]);
+            // const fileUpload = document.getElementById('profile-pic');
+            // if (fileUpload.value) {
+            //     var file = document.forms['edit-profile']['profile-pic'].files[0];
+            //     const file_name = file.name;
+            //     //form_data.push({name: "profile-pic", value: file_name})
+            //     form_data.append('profile-pic', file_name);
+            // }
             $.ajax({
                 type: 'POST',
                 url: 'update_profile.php',
-                processData: false,
-                contentType: false,
-                data:  form_data,
+                data:  formData,
+                dataType: 'json',
                 success: function(response) {
-                    console.log("Test");
-                    console.log("<?php echo $_SESSION['id']?>");
-                    console.log('Response:', response);
-                    var data = JSON.parse(response);
+                    console.log(222,response);
+                    var data = response;
+                    // console.log(123,data)
                     if (data.response == 'Success') {
                         $('#alert1').removeClass('text-bg-danger').addClass('text-bg-success');
                     } else {
@@ -154,20 +210,12 @@
                             default:
                                 break;
                         }
-                        
-                        // if(data.type == 0){
-                        //     $('#username').removeClass('is-valid').addClass('is-invalid');
-                        // }else if(data.type == 1){
-                        //     $('#email').removeClass('is-valid').addClass('is-invalid');
-                        // }else if(data.type == 2){
-                        //     $('#pass').removeClass('is-valid').addClass('is-invalid');
-                        // }
-                        // else if(data.type == 3){
-                        //     $('#pass').removeClass('is-valid').addClass('is-invalid');
-                        // }
                     }
                     $('#alert1').find('.toast-body').html(data.message);
                     bootstrap.Toast.getOrCreateInstance(document.getElementById('alert1')).show();
+                },
+                error: function(xhr, status, error) {
+                    console.log("AJAX error: " + status + " - " + error);
                 }
             });
         });

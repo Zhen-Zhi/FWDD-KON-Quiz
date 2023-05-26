@@ -4,7 +4,6 @@
 
     if(isset($_SESSION['id'])){
         $id = $_SESSION['id'];
-        include("../template/toast.php");
     }
     else {
         $id = 0;

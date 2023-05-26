@@ -59,8 +59,9 @@
         $qz_id = mysqli_real_escape_string($con,$_POST['qz_id']);
         $title = mysqli_real_escape_string($con,$_POST['qz_title']);
         $desc = mysqli_real_escape_string($con,$_POST['qz_desc']);
+        $qz_cat = mysqli_real_escape_string($con,$_POST['qz_cat']);
         
-        $query = "UPDATE quiz SET Title = '$title', Description = '$desc' WHERE qz_ID = '$qz_id'";
+        $query = "UPDATE quiz SET Title = '$title', Description = '$desc', Category_ID = '$qz_cat' WHERE qz_ID = '$qz_id'";
 
         if (mysqli_query($con, $query)) {
             $response = "Success";

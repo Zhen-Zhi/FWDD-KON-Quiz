@@ -1,7 +1,6 @@
 <?php
     include("../session.php");
     include("../conn.php");
-    include("../template/toast.php");
 
     $title = 'Dashboard';
 ?>

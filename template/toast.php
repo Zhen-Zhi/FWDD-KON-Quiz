@@ -13,8 +13,17 @@
   
   $(document).ready(function() {
         var message = decodeURIComponent(getUrlParameter('message'));
+        var error = decodeURIComponent(getUrlParameter('error'));
         if (message) {
             $('#liveToast').addClass('text-bg-success');
+            $('#liveToast').find('.toast-body').html(message);
+            toastBootstrap.show();
+
+            const newUrl = window.location.href.replace(`&message=${message}`, '');
+            history.replaceState(null, null, newUrl);
+        }
+        if(error){
+            $('#liveToast').addClass('text-bg-danger');
             $('#liveToast').find('.toast-body').html(message);
             toastBootstrap.show();
 

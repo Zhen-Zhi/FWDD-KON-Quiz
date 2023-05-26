@@ -1,6 +1,7 @@
 <?php 
     include("template.html"); 
     include("sidebar.php");
+    include("toast.php");
 ?>
 
 <nav class="navbar fixed-top" data-bs-theme="dark">
@@ -8,8 +9,8 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="d-flex m-0" role="search" action="/FWDD-KON-QUIZ/quiz/quiz.php" method="GET">
-            <input class="me-2" type="text" placeholder="Enter a room ID..." aria-label="Search" id="search-bar" name="room_id">
+        <form class="d-flex m-0" role="search" action="" method="GET" id="join-quiz-top">
+            <input class="me-2" type="text" placeholder="Enter a room ID..." aria-label="Search" id="search-bar" name="room">
             <button class="btn btn-outline-light" type="submit" id="search-btn">Join</button>
         </form>
         <a class="navbar-brand" href="/FWDD-KON-QUIZ/homepage.php">
@@ -87,3 +88,28 @@
         font-weight: bold;
     }
 </style>
+
+<script>
+    $(document).ready(function() {
+        $('#join-quiz-top').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/FWDD-KON-QUIZ/check_quiz.php',
+                data: $(this).serialize(),
+                success: function(response) {
+                    console.log(response);
+                    var data = JSON.parse(response);
+                    if (data.quiz == "Success") {
+                        window.location.href = '/FWDD-KON-QUIZ/quiz/quiz.php?room_id=' + data.room_id;
+                    }
+                    else {
+                        $('#liveToast').addClass('text-bg-danger');
+                        $('#liveToast').find('.toast-body').html(data.message);
+                        toastBootstrap.show();
+                    }
+                }
+            })
+        })
+    });
+</script>

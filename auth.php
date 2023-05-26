@@ -86,6 +86,39 @@
         $json_response = json_encode($response);
         echo $json_response;
     }
+    elseif (isset($_POST['loginadmin'])) {
+        $credential = mysqli_real_escape_string($con,$_POST['credential']);
+        $password = mysqli_real_escape_string($con,$_POST['password']);
+
+        if($credential != "" && $password != ""){
+            $query = "SELECT ID, Username, Password FROM admin where Username = '$credential'";
+            $result = mysqli_query($con, $query);
+            $data = $result->fetch_assoc();
+
+            if (mysqli_num_rows($result) == 0) {
+                $response = "Error";
+                $message = "Account error";
+            } else {
+                if($password == $data['Password']) {
+                    $response = "Success";
+                    $_SESSION['id'] = $data['ID'];
+                    $_SESSION['admin_username'] = $data['Username'];
+                }
+                else {
+                    $response = "Error";
+                    $message = "Account error";
+                }
+            }
+        }
+        else {
+            $response = "Error";
+            $message = "Field is empty";
+        }
+
+        $response = array('response' => $response,'message' => $message);
+        $json_response = json_encode($response);
+        echo $json_response;
+    }
 
     mysqli_close($con);
 ?>
