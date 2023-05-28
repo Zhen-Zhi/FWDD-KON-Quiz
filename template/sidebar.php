@@ -13,9 +13,7 @@
         <button type="button" class="btn-close position-absolute top-0 start-0 m-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         <div class="offcanvas-title mx-auto">
             <?php if ($image_src){ ?>
-                <img src="<?php echo $image_src; ?>" onerror="this.src='img/nerd.png';" class="img-thumbnail thumbnail" alt="...">
-            <?php }else{ ?>
-                <img src="../img/nerd.png" class="img-thumbnail form-control thumbnail" alt="...">
+                <img src="<?php echo $image_src; ?>" onerror="this.src='/FWDD-KON-QUIZ/img/nerd.png';" class="img-thumbnail thumbnail" alt="...">
             <?php } ?>
             <h4 class="text-center p-3"><?php if (isset($_SESSION['id'])) echo $_SESSION['username']; ?></h4>
         </div>
