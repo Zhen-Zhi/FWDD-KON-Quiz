@@ -13,7 +13,7 @@
         <button type="button" class="btn-close position-absolute top-0 start-0 m-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         <div class="offcanvas-title mx-auto">
             <?php if ($image_src){ ?>
-                <img src="<?php echo $image_src; ?>" class="img-thumbnail thumbnail" alt="...">
+                <img src="<?php echo $image_src; ?>" onerror="this.src='img/nerd.png';" class="img-thumbnail thumbnail" alt="...">
             <?php }else{ ?>
                 <img src="../img/nerd.png" class="img-thumbnail form-control thumbnail" alt="...">
             <?php } ?>
