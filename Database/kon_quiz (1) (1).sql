@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 12, 2023 at 04:01 AM
+-- Generation Time: May 22, 2023 at 08:11 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -24,6 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `Username` text NOT NULL,
+  `Password` text NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`ID`, `Username`, `Password`) VALUES
+(1, 'admin', '123');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `all_session`
 --
 
@@ -37,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `all_session` (
   `All_session_ID` int NOT NULL AUTO_INCREMENT,
   `Date` varchar(50) NOT NULL,
   PRIMARY KEY (`All_session_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `all_session`
@@ -49,7 +70,8 @@ INSERT INTO `all_session` (`User_ID`, `qz_ID`, `Total_question`, `Correct_questi
 (0, 5, 5, 2, '0:01', 33, '07-05-2023'),
 (1, 15, 5, 2, '0:01', 28, '01-05-2023'),
 (1, 15, 5, 3, '0:01', 34, '07-05-2023'),
-(1, 15, 5, 1, '0:01', 35, '07-05-2023');
+(1, 15, 5, 1, '0:01', 35, '07-05-2023'),
+(1, 15, 5, 1, '0:03', 36, '2023-05-18');
 
 -- --------------------------------------------------------
 
@@ -62,17 +84,18 @@ CREATE TABLE IF NOT EXISTS `category` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `Category` text NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`ID`, `Category`) VALUES
-(1, 'Bahasa Melayu'),
-(2, 'English'),
-(3, 'Maths'),
-(4, 'Physics');
+(2, 'Bahasa Melayu'),
+(3, 'English'),
+(4, 'Maths'),
+(5, 'Physics'),
+(1, 'Others');
 
 -- --------------------------------------------------------
 
@@ -87,19 +110,22 @@ CREATE TABLE IF NOT EXISTS `quiz` (
   `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `User_ID` int NOT NULL,
   `Room_ID` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Category_ID` int NOT NULL,
   PRIMARY KEY (`qz_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `quiz`
 --
 
-INSERT INTO `quiz` (`qz_ID`, `Title`, `Description`, `User_ID`, `Room_ID`) VALUES
-(15, 'Common Knowledge', 'This test is to show how well is your common sense is', 1, '726376'),
-(11, 'Session id 2', 'session id echo test 2', 1, ''),
-(10, 'Session id', 'session id echo test', 1, NULL),
-(12, '123', '123123', 1, ''),
-(17, 'aaa', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, '215086');
+INSERT INTO `quiz` (`qz_ID`, `Title`, `Description`, `User_ID`, `Room_ID`, `Category_ID`) VALUES
+(15, 'Common Knowledge', 'This test is to show how well is your common sense is', 1, '762360', 3),
+(11, 'Session id 2', 'session id echo test 2', 1, '', 2),
+(10, 'Session id', 'session id echo test', 1, '', 0),
+(12, '123', '123123', 1, '', 2),
+(17, 'aaa', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 1, '', 0),
+(19, '123123', '123123', 1, '', 1),
+(21, 'test', 'test', 1, NULL, 0);
 
 -- --------------------------------------------------------
 

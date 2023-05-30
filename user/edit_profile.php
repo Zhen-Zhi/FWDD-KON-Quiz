@@ -120,11 +120,9 @@
                 if($row['Profile_pic'] != null){
                     $image_data = base64_encode($row['Profile_pic']);
                     $image_src = "data:image/jpeg;base64,{$image_data}";
-                }else{
-                    $image_src = "../img/nerd.png";
                 }
             ?>
-                <img src="<?php echo $image_src; ?>" class="img-thumbnail thumbnail" alt="...">
+                <img src="<?php echo $image_src; ?>" onerror="this.src='../img/nerd.png';" class="img-thumbnail thumbnail" alt="..." >
         </div>
         <div class="col">
             <input name="profilepic" class="form-control" type="file" oninput="submitFile(this)">
