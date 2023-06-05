@@ -133,7 +133,8 @@
 ///////////////////////////////
 
 var xValues = ["TotalMembers", "Male Members", "Female Members"];
-var yValues = [<?php echo json_encode($data_user1['No_User'] + $data_user2['No_User'])?>, <?php echo json_encode($data_user1['No_User'])?>, <?php echo json_encode($data_user2['No_User'])?>];
+var yValues = [<?php echo json_encode($data_user1['No_User'] + $data_user2['No_User'])?>, <?php echo json_encode($data_user1['No_User'])?>, 
+  <?php echo json_encode($data_user2['No_User'])?>];
 console.log("after assign" + yValues[0]);
 var barColors = ['#1300bd', '#6bbfff', '#ee6bff'];
 
