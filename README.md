@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-QuizMaster is an advanced online quiz platform designed to enable educators, trainers, and enthusiasts to create, modify, and administer quizzes with ease. Built using PHP and Bootstrap, the platform offers a responsive design that works across various devices and screen sizes. Users can join quizzes via QR codes, and registered users can view detailed histories of their quizzes and the results. An administrative dashboard is also available for comprehensive user management and data visualization using Chart.js.
+FWDD-KON-Quiz is an advanced online quiz platform designed to enable educators, trainers, and enthusiasts to create, modify, and administer quizzes with ease. Built using PHP and Bootstrap, the platform offers a responsive design that works across various devices and screen sizes. Users can join quizzes via QR codes, and registered users can view detailed histories of their quizzes and the results. An administrative dashboard is also available for comprehensive user management and data visualization using Chart.js.
 
 ## Key Features
 
